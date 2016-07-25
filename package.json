@@ -5,6 +5,8 @@
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
   "main": "server.js",
   "scripts": {
+    "flow": "flow check",
+    "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
