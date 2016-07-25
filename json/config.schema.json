@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Configuration",
+  "description": "Describes the current versions and locations of configuration files for the application",
+  "type": "array",
+  "items": {
+    "title": "ConfigFile",
+    "type": "object",
+    "required": ["name", "versions"],
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "versions": {
+        "type": "array",
+        "description": "List of most recent versions of the file corresponding to versions of the application",
+        "items": {
+          "title": "Version",
+          "type": "object",
+          "required": ["app_version", "config_version", "location"],
+          "properties": {
+            "app_version": {
+              "type": "string",
+              "description": "For which version of the app this version of the file should be used"
+            },
+            "config_version": {
+              "type": "number",
+              "description": "The current version of the file available at the specified location"
+            },
+            "location": {
+              "type": "object",
+              "description": "Location of the file, either locally or from a remote URL",
+              "required": ["url"],
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "is_relative": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

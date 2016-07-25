@@ -1,0 +1,119 @@
+[
+  {
+    "name": "configuration",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/configuration.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "disciplines",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/disciplines.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "faculties",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/faculties.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "room_types",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/room_types.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "settings",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/settings.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "shuttle",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/shuttle.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "teaching_formats",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/teaching_formats.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "transit_stops",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/transit_stops.json",
+          "is_relative": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "transit_times",
+    "versions": [
+      {
+        "app_version": "0.1.0",
+        "config_version": 1,
+        "location": {
+          "url": "assets/json/transit_times.json",
+          "is_relative": true
+        }
+      }
+    ]
+  }
+]
