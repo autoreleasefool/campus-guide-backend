@@ -31,7 +31,6 @@ export type Validation = {
 
 // Imports
 const fs = require('fs');
-const path = require('path');
 const Validator = require('jsonschema').Validator;
 
 // Instance of Validator
@@ -48,9 +47,13 @@ validations.push({
 });
 
 // Add the assets to validate, if they are present
-if (fs.accessSync('./assets/index.js')) {
-  const assets = require('../assets');
-  validations = validations.concat(assets);
+try {
+  if (fs.accessSync('./assets/index.js', fs.F_OK)) {
+    const assets = require('../assets');
+    validations = validations.concat(assets);
+  }
+} catch (e) {
+  console.log('Assets not found. Continuing without them.');
 }
 
 /**
@@ -66,12 +69,14 @@ function validate(): boolean {
     const validationResults = validator.validate(validation.require, validation.schema);
 
     // Report any errors and continue validating
-    if (validationResults.errors.length >= 0) {
+    if (validationResults.errors.length > 0) {
       console.error(validation.name + ' has not passed validation. Results below.');
       console.error(validationResults.errors);
       valid = false;
     }
   }
+
+
 
   return valid;
 }

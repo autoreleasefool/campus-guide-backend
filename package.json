@@ -3,16 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "build": "npm run build-src && npm run build-assets && npm run build-tests",
-    "build-assets": "babel ./assets --out-dir ./build/assets --copy-files",
-    "build-src": "babel ./src --out-dir ./build/src --copy-files",
-    "build-tests": "babel ./tests/ --out-dir ./build/tests --copy-files",
+    "build": "babel ./src --out-dir ./build --copy-files",
     "flow": "flow check",
     "lint": "eslint .",
-    "start": "npm run build && node ./build/src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build && node ./build/server.js",
+    "start-no-build": "node ./build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "babel --watch=./src --out-dir ./build --copy-files"
   },
   "repository": {
     "type": "git",

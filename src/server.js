@@ -25,13 +25,17 @@
 
 // Imports
 const Logging = require('./utils/Logging.js');
-const validate = require('../tests/validate.js');
+const validate = require('./tests/validate.js');
 
 // Ensures validation passes, or exits
+Logging.printDefaultStatusMessage('Starting validation.');
 if (!validate()) {
   console.error('Some files failed to pass validation. Exiting.');
+  Logging.printDefaultStatusMessage('Validation unsuccessul. Check error logs.');
   process.exit(1);
 }
+Logging.printDefaultStatusMessage('Validation successful.');
+
 
 // Print out startup time to default logs
 Logging.printDefaultStatusMessage('Starting new instance of server.');
