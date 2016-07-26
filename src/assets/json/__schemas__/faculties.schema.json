@@ -6,12 +6,29 @@
   "items": {
     "type": "object",
     "description": "Details about a faculty and how its color theme",
-    "required": ["color", "text_color"],
+    "required": ["color", "text_color", "shorthand"],
     "properties": {
-
-    }
+      "color": {
+        "type": "string",
+        "description": "Main color that represents the faculty",
+        "pattern": "^#[0-9a-f]{6}$"
+      },
+      "text_color": {
+        "type": "string",
+        "description": "Primary text color for text which appears over the faculty background color",
+        "pattern": "^#[0-9a-f]{6}$"
+      },
+      "shorthand": {
+        "type": "string",
+        "description": "A shortened identifier for the faculty",
+        "pattern": "^[a-z]+$"
+      }
+    },
     "patternProperties": {
-
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the faculty. Add the locale modifier for names in different languages"
+      }
     }
   }
 }

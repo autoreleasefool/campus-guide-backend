@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Room Types",
+  "description": "Describes types of rooms at the school",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "Provides details on graphically or textually describing a room",
+    "required": ["icon"],
+    "additionalProperties": false,
+    "properties": {
+      "icon": {
+        "type": "object",
+        "description": "Icon representing the function of the room",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the icon in the icon class"
+          },
+          "class": {
+            "type": "string",
+            "description": "Class which the icon belongs to (i.e. material, ionicon)"
+          },
+          "ios": {
+            "type": "object",
+            "description": "Describes an icon for the ios platform",
+            "required": ["name", "class"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the icon in the icon class"
+              },
+              "class": {
+                "type": "string",
+                "description": "Class which the icon belongs to (i.e. material, ionicon)"
+              }
+            }
+          },
+          "android": {
+            "type": "object",
+            "description": "Describes an icon for the android platform",
+            "required": ["name", "class"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the icon in the icon class"
+              },
+              "class": {
+                "type": "string",
+                "description": "Class which the icon belongs to (i.e. material, ionicon)"
+              }
+            }
+          }
+        }
+      }
+    },
+    "patternProperties": {
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the room. Add the locale modifier for names in different languages"
+      }
+    }
+  }
+}

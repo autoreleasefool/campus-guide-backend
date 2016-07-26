@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Shuttle Schedule",
+  "description": "Schedule for the university shuttle",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "A stop which the shuttle makes",
+    "required": ["id", "lat", "long", "is_accurate", "schedules"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the stop"
+      },
+      "lat": {
+        "type": "number",
+        "description": "Latitude of the location of the stop"
+      },
+      "long": {
+        "type": "number",
+        "description": "Longitude of the location of the stop"
+      },
+      "is_accurate": {
+        "type": "boolean",
+        "description": "Indicates if the departure times for this stop are generally accurate"
+      },
+      "schedules": {
+        "type": "array",
+        "description": "Schedules which the shuttle follows at different times of the year",
+        "items": {
+          "type": "object",
+          "description": "Details about the schedule, such as date range, and shuttle departure times",
+          "required": ["start_date", "end_date", "times"],
+          "additionalProperties": false,
+          "properties": {
+            "start_date": {
+              "type": "string",
+              "description": "Date on which the schedule takes effect",
+              "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$"
+            },
+            "end_date": {
+              "type": "string",
+              "description": "Date on which the schedule stops being used",
+              "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$"
+            },
+            "excluded_dates": {
+              "type": "array",
+              "description": "List of dates that the schedule does not apply",
+              "items": {
+                "type": "string",
+                "description": "Date to exclude",
+                "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$"
+              }
+            },
+            "times": {
+              "type": "array",
+              "description": "Times that the shuttle departs from the stop at, with the days those times apply",
+              "items": {
+                "type": "object",
+                "required": ["days", "times"],
+                "additionalProperties": false,
+                "properties": {
+                  "days": {
+                    "type": "string",
+                    "description": "Days of the week for which the times are applicable, where 0 is Monday",
+                    "pattern": "^[0-6]+$"
+                  },
+                  "times": {
+                    "type": "array",
+                    "description": "List of times that the shuttle departs",
+                    "items": {
+                      "type": "string",
+                      "description": "24 hour time. Times past 24 hours represent times after midnight",
+                      "pattern": "^([012][0-9]):([0-5][0-9])$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the schedule. Add the locale modifier for names in different languages"
+            },
+            "^destination(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Destination of the shuttle. Add the locale modifier for destinations in different languages"
+            }
+          }
+        }
+      }
+    },
+    "patternProperties": {
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the stop. Add the locale modifier for names in different languages"
+      }
+    }
+  }
+}

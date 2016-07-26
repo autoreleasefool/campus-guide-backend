@@ -1,10 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "ServerConfiguration",
+  "title": "Server Configuration",
   "description": "Describes the current versions and locations of configuration files for the application",
   "type": "array",
   "items": {
-    "title": "ConfigFile",
     "type": "object",
     "required": ["name", "versions"],
     "additionalProperties": false,

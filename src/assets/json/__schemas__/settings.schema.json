@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Settings",
+  "description": "Settings that the user can control",
+  "type": "object",
+  "patternProperties": {
+    ".+": {
+      "type": "array",
+      "description": "Groups which settings belong to",
+      "items": {
+        "type": "object",
+        "description": "A setting for the user to manipulate",
+        "required": ["key", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Unique identifier for the setting",
+            "pattern": "^pref_[a-z_]+$"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of setting",
+            "pattern": "^boolean|multi$"
+          }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the setting. Add the locale modifier for names in different languages"
+          }
+        }
+      }
+    }
+  }
+}

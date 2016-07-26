@@ -15,7 +15,8 @@
       },
       "faculties": {
         "type": "string",
-        "description": "Faculties to which the discipline belongs, separated by a '|' character"
+        "description": "Faculties to which the discipline belongs, separated by a '|' character",
+        "pattern": "^([a-z]+\\|?)+$"
       }
     },
     "patternProperties": {
