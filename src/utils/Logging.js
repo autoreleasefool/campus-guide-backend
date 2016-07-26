@@ -36,10 +36,24 @@ module.exports = {
    */
   printStatusMessage(message: string, log: () => any): void {
     log(STATUS_MESSAGE_SEPARATOR);
+    const MAX_LINE_LENGTH = STATUS_MESSAGE_SEPARATOR.length;
 
-    const pieces = Math.ceil(message.length / STATUS_MESSAGE_SEPARATOR.length);
-    for (let i = 0; i < pieces; i++) {
-      log(message.substr(i * STATUS_MESSAGE_SEPARATOR.length, STATUS_MESSAGE_SEPARATOR.length));
+    let currentLineLength: number = 0;
+    let currentLine: string = '';
+    const pieces: Array< string > = message.split(' ');
+    for (let i = 0; i < pieces.length; i++) {
+      if (currentLineLength + pieces[i].length < MAX_LINE_LENGTH) {
+        currentLineLength += pieces[i].length + 1;
+        currentLine += pieces[i] + ' ';
+      } else {
+        log(currentLine);
+        currentLineLength = 0;
+        currentLine = '';
+      }
+    }
+
+    if (currentLineLength > 0) {
+      log(currentLine);
     }
 
     log(new Date());

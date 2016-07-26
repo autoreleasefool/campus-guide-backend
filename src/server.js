@@ -31,7 +31,7 @@ const validate = require('./tests/validate.js');
 Logging.printDefaultStatusMessage('Starting validation.');
 if (!validate()) {
   console.error('Some files failed to pass validation. Exiting.');
-  Logging.printDefaultStatusMessage('Validation unsuccessul. Check error logs.');
+  Logging.printDefaultStatusMessage('Validation was unsuccessful. Check error logs.');
   process.exit(1);
 }
 Logging.printDefaultStatusMessage('Validation successful.');
