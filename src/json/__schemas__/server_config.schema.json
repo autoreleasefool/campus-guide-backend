@@ -7,6 +7,7 @@
     "title": "ConfigFile",
     "type": "object",
     "required": ["name", "versions"],
+    "additionalProperties": false,
     "properties": {
       "name": {
         "type": "string"
@@ -18,6 +19,7 @@
           "title": "Version",
           "type": "object",
           "required": ["app_version", "config_version", "location"],
+          "additionalProperties": false,
           "properties": {
             "app_version": {
               "type": "string",
@@ -27,10 +29,15 @@
               "type": "number",
               "description": "The current version of the file available at the specified location"
             },
+            "disabled": {
+              "type": "boolean",
+              "description": "Indicates a certain file should not be downloaded by the application"
+            },
             "location": {
               "type": "object",
               "description": "Location of the file, either locally or from a remote URL",
               "required": ["url"],
+              "additionalProperties": false,
               "properties": {
                 "url": {
                   "type": "string"
