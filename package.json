@@ -5,8 +5,13 @@
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
   "main": "server.js",
   "scripts": {
+    "build": "npm run build-src && npm run build-assets && npm run build-tests",
+    "build-assets": "babel ./assets --out-dir ./build/assets --copy-files",
+    "build-src": "babel ./src --out-dir ./build/src --copy-files",
+    "build-tests": "babel ./tests/ --out-dir ./build/tests --copy-files",
     "flow": "flow check",
     "lint": "eslint .",
+    "start": "npm run build && node ./build/src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +25,9 @@
   },
   "homepage": "https://github.com/joseph-roque/campus-guide-server#readme",
   "devDependencies": {
+    "babel-cli": "^6.11.4",
     "babel-eslint": "^6.1.2",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "eslint": "^3.1.1",
     "flow-bin": "^0.29.0"
   },

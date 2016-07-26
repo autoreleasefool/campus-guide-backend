@@ -24,7 +24,13 @@
 'use strict';
 
 // Imports
-const Validator = require('jsonschema').Validator;
+const validate = require('../tests/validate.js');
+
+// Ensures validation passes, or exits
+if (validate()) {
+  console.error('Some files failed to pass validation. Exiting.');
+  process.exit(1);
+}
 
 // Print out startup time to default logs
 console.log('--------------------------------');
@@ -41,16 +47,5 @@ console.error('--------------------------------');
 // Port that server will run on
 const PORT = 8080;
 // List of available file configurations
-const CONFIG = require('./json/config.json');
-
-// Ensure the configuration file follows the defined schema
-const configValidator = new Validator();
-const configurationSchema = require('./json/config.schema.json');
-const validatorResults = configValidator.validate(CONFIG, configurationSchema);
-
-if (validatorResults.errors.length > 0) {
-  console.error('./json/config.json failed to pass validation. Results below.');
-  console.error(validatorResults);
-  process.exit(1);
-}
+const SERVER_CONFIG = require('./json/server_config.json');
 
