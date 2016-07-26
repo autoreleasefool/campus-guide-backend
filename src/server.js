@@ -24,25 +24,18 @@
 'use strict';
 
 // Imports
+const Logging = require('./utils/Logging.js');
 const validate = require('../tests/validate.js');
 
 // Ensures validation passes, or exits
-if (validate()) {
+if (!validate()) {
   console.error('Some files failed to pass validation. Exiting.');
   process.exit(1);
 }
 
 // Print out startup time to default logs
-console.log('--------------------------------');
-console.log('Starting new instance of server.');
-console.log(new Date());
-console.log('--------------------------------');
-
-// Print out startup time to error
-console.error('--------------------------------');
-console.error('Starting new instance of server.');
-console.error(new Date());
-console.error('--------------------------------');
+Logging.printDefaultStatusMessage('Starting new instance of server.');
+Logging.printErrorStatusMessage('Starting new instance of server.');
 
 // Port that server will run on
 const PORT = 8080;
