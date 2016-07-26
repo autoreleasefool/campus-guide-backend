@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Disciplines",
+  "description": "Describes the available course disciplines",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "Name, faculty and shorthand of a discipline",
+    "required": ["code", "faculties"],
+    "additionalProperties": false,
+    "properties": {
+      "code": {
+        "type": "string",
+        "description": "Shorthand representing the discipline"
+      },
+      "faculties": {
+        "type": "string",
+        "description": "Faculties to which the discipline belongs, separated by a '|' character"
+      }
+    },
+    "patternProperties": {
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the discipline. Add the locale modifier for names in different languages"
+      }
+    }
+  }
+}
