@@ -26,10 +26,7 @@
 // Imports
 const env = require('./env.js');
 const express = require('express');
-const fs = require('fs');
-const HttpStatus = require('http-status-codes');
 const logging = require('./utils/logging.js');
-const path = require('path');
 const validate = require('./tests/validate.js');
 
 // Ensures validation passes, or exits
@@ -51,65 +48,12 @@ const PORT: number = 8080;
 // Create server
 const app = express();
 
-// Contents of the serverConfig file
-let serverConfig: Object = {};
-// Time that the serverConfig file was last updated
-let serverConfigLastModified: number = 0;
+// Enable config checks
+require('./getConfig.js')(app, env);
 
-app.get('/config/:version', (req, res) => {
-
-  // Replies to client with current versions and locations of configuration files
-  const sendConfigVersions = () => {
-    // Get client version of the application
-    const appVersion = req.params.version.trim();
-
-    // Load JSON data, prepare data to send back to user
-    const appConfig: Object = {};
-
-    for (let i = 0; i < serverConfig.length; i++) {
-      const configFile: Object = serverConfig[i];
-
-      // If the file is available for the app version, send the file's most recent version
-      if (appVersion in configFile.versions) {
-        appConfig[configFile.name] = configFile.versions[appVersion];
-      }
-    }
-
-    res.json(appConfig);
-  };
-
-  // Replies to client with error message
-  const error = err => {
-    console.error('Error occured while reading server_config.json.', err);
-    res.status(HttpStatus.INTERNAL_SERVER_ERROR).end();
-  };
-
-  fs.stat(path.join(__dirname, 'json', 'server_config.json'), (statErr, stats) => {
-    if (statErr) {
-      // Check for error
-      error(statErr);
-      return;
-    }
-
-    // Check if the file has been updated since it was last sent and if so, update it then send
-    if (stats.mtime.getTime() === serverConfigLastModified) {
-      sendConfigVersions();
-    } else {
-      fs.readFile(path.join(__dirname, 'json', 'server_config.json'), 'utf8', (readErr, data) => {
-        if (readErr) {
-          // Check for error
-          error(readErr);
-          return;
-        }
-
-        // Update config file and modified time
-        serverConfig = env.replaceConfigUrls(JSON.parse(data), false);
-        serverConfigLastModified = stats.mtime.getTime();
-        sendConfigVersions();
-      });
-    }
-  });
-});
+if (env.enableFileServer) {
+  require('./fileServer.js')(app, env);
+}
 
 const server = app.listen(PORT, () => {
 
