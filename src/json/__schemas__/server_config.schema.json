@@ -12,37 +12,32 @@
         "type": "string"
       },
       "versions": {
-        "type": "array",
-        "description": "List of most recent versions of the file corresponding to versions of the application",
-        "items": {
-          "title": "Version",
-          "type": "object",
-          "required": ["app_version", "config_version", "location"],
-          "additionalProperties": false,
-          "properties": {
-            "app_version": {
-              "type": "string",
-              "description": "For which version of the app this version of the file should be used"
-            },
-            "config_version": {
-              "type": "number",
-              "description": "The current version of the file available at the specified location"
-            },
-            "disabled": {
-              "type": "boolean",
-              "description": "Indicates a certain file should not be downloaded by the application"
-            },
-            "location": {
-              "type": "object",
-              "description": "Location of the file, either locally or from a remote URL",
-              "required": ["url"],
-              "additionalProperties": false,
-              "properties": {
-                "url": {
-                  "type": "string"
-                },
-                "is_relative": {
-                  "type": "boolean"
+        "type": "object",
+        "description": "Dictionary of versions of the application corresponding to most recent versions of the file",
+        "additionProperties": false,
+        "patternProperties": {
+          "^([0-9]+\\.?)+$": {
+            "type": "object",
+            "required": ["version", "location"],
+            "additionalProperties": false,
+            "properties": {
+              "version": {
+                "type": "number",
+                "description": "The current version of the file available at the specified location"
+              },
+              "disabled": {
+                "type": "boolean",
+                "description": "Indicates a certain file should not be downloaded by the application"
+              },
+              "location": {
+                "type": "object",
+                "description": "Location of the file, either locally or from a remote URL",
+                "required": ["url"],
+                "additionalProperties": false,
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
                 }
               }
             }
