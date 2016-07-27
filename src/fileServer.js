@@ -24,6 +24,12 @@
  */
 'use strict';
 
-module.exports = (app, env) => {
-  console.log('file server enabled');
+const express = require('express');
+const path = require('path');
+
+module.exports = app => {
+
+  // Serve assets
+  app.use('/assets', express.static(path.join(__dirname, '/assets')));
+
 };
