@@ -24,22 +24,22 @@
 'use strict';
 
 // Imports
-const Logging = require('./utils/Logging.js');
+const logging = require('./utils/logging.js');
 const validate = require('./tests/validate.js');
 
 // Ensures validation passes, or exits
-Logging.printDefaultStatusMessage('Starting validation.');
+logging.printDefaultStatusMessage('Starting validation.');
 if (!validate()) {
   console.error('Some files failed to pass validation. Exiting.');
-  Logging.printDefaultStatusMessage('Validation was unsuccessful. Check error logs.');
+  logging.printDefaultStatusMessage('Validation was unsuccessful. Check error logs.');
   process.exit(1);
 }
-Logging.printDefaultStatusMessage('Validation successful.');
+logging.printDefaultStatusMessage('Validation successful.');
 
 
 // Print out startup time to default logs
-Logging.printDefaultStatusMessage('Starting new instance of server.');
-Logging.printErrorStatusMessage('Starting new instance of server.');
+logging.printDefaultStatusMessage('Starting new instance of server.');
+logging.printErrorStatusMessage('Starting new instance of server.');
 
 // Port that server will run on
 const PORT = 8080;
