@@ -52,7 +52,7 @@ const PORT: number = 8080;
 const app = express();
 
 // Contents of the serverConfig file
-let serverConfig: Object = null;
+let serverConfig: Object = {};
 // Time that the serverConfig file was last updated
 let serverConfigLastModified: number = 0;
 
@@ -64,7 +64,7 @@ app.get('/config/:version', (req, res) => {
     const appVersion = req.params.version.trim();
 
     // Load JSON data, prepare data to send back to user
-    const appConfig: Array < Object > = {};
+    const appConfig: Object = {};
 
     for (let i = 0; i < serverConfig.length; i++) {
       const configFile: Object = serverConfig[i];

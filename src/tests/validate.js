@@ -46,7 +46,7 @@ function validate(): boolean {
   const validator = new Validator();
 
   // List of files to validate and their schemas
-  let validations: Array< Validation > = [];
+  let validations: Array < Validation > = [];
 
   // Compile the list of files to validate
   validations.push({
@@ -58,14 +58,14 @@ function validate(): boolean {
   // Add the assets to validate, if they are present
   try {
     fs.accessSync(path.join('./build/assets/index.js'), fs.F_OK);
-    const assets = require('../assets');
+    const assets: Array < Validation > = require('../assets');
     validations = validations.concat(assets);
   } catch (e) {
     console.log('Assets not found. Continuing without them.');
   }
 
   for (let i = 0; i < validations.length; i++) {
-    const validation = validations[i];
+    const validation: Validation = validations[i];
     const validationResults = validator.validate(validation.require, validation.schema);
 
     // Report any errors and continue validating
