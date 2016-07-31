@@ -48,12 +48,13 @@ const PORT: number = 8080;
 // Create server
 const app = express();
 
-// Enable config checks
-require('./getConfig.js')(app, env);
-
+// Enable file server (for development)
 if (env.enableFileServer) {
   require('./fileServer.js')(app, env);
 }
+
+// Enable config checks
+require('./getConfig.js')(app, env);
 
 const server = app.listen(PORT, () => {
 
