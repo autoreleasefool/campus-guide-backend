@@ -25,69 +25,140 @@
 'use strict';
 
 // Imports
+const cron = require('cron');
 const fs = require('fs');
-const HttpStatus = require('http-status-codes');
+const http = require('http');
 const path = require('path');
+const Promise = require('promise');
+const url = require('url');
 
-module.exports = (app, env) => {
+// Environment variables
+let serverEnv: Object = null;
+// Contents of the serverConfig file
+let serverConfig: Object = {};
+// Time that the serverConfig file was last updated
+let serverConfigLastModified: number = 0;
 
-  // Contents of the serverConfig file
-  let serverConfig: Object = {};
-  // Time that the serverConfig file was last updated
-  let serverConfigLastModified: number = 0;
+/**
+ * Iterates over config files and gets the file size of each
+ *
+ * @returns {Promise<void>} promise that resolves when the size of config files are all updated
+ */
+function refreshConfigSizes(): Promise < void > {
+  return new Promise(resolve => {
+    let versionSizesReceived: number = 0;
 
-  app.get('/config/:version', (req, res) => {
+    const requestSizeReceived = () => {
+      versionSizesReceived += 1;
+      if (versionSizesReceived === totalVersions) {
+        resolve();
+      }
+    };
 
-    // Replies to client with current versions and locations of configuration files
-    const sendConfigVersions = () => {
-      // Get client version of the application
-      const appVersion = req.params.version.trim();
-
-      // Load JSON data, prepare data to send back to user
-      const appConfig: Object = {};
-
-      for (let i = 0; i < serverConfig.length; i++) {
-        const configFile: Object = serverConfig[i];
-
-        // If the file is available for the app version, send the file's most recent version
-        if (appVersion in configFile.versions) {
-          appConfig[configFile.name] = configFile.versions[appVersion];
+    // Get the total number of files for which sizes must be retrieved.
+    let totalVersions: number = 0;
+    for (let i = 0; i < serverConfig.length; i++) {
+      for (const version in serverConfig[i].versions) {
+        if (serverConfig[i].hasOwnProperty(version)) {
+          totalVersions++;
         }
       }
+    }
 
-      res.json(appConfig);
-    };
+    // Get the new size from headers of each version file
+    for (let i = 0; i < serverConfig.length; i++) {
+      for (const version in serverConfig[i].versions) {
+        if (serverConfig[i].hasOwnProperty(version)) {
+          const fileVersion = serverConfig[i].versions[version];
+          const fileURL = url.parse(fileVersion.location.url);
+          const options = {
+            method: 'HEAD',
+            hostname: fileURL.hostname,
+            port: fileURL.port,
+            path: fileURL.path,
+          };
 
-    // Replies to client with error message
-    const error = err => {
-      console.error('Error occured while reading server_config.json.', err);
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).end();
-    };
+          const req = http.request(options, res => {
+            fileVersion.size = parseInt(res.headers['content-length']);
+            requestSizeReceived();
+          });
+
+          req.end();
+        }
+      }
+    }
+  });
+}
+
+// Run a cron job once an hour to ensure configuration in memory is the most recent available.
+const updateConfigCronJob = new cron.CronJob({
+  cronTime: '0 0 * * * *',
+  onTick: () => {
+    console.log('Running updateConfigCronJob on ' + (new Date()));
 
     fs.stat(path.join(__dirname, 'json', 'server_config.json'), (statErr, stats) => {
       if (statErr) {
         // Check for error
-        error(statErr);
+        console.error('Error opening server_config.json', statErr);
         return;
       }
 
-      // Check if the file has been updated since it was last sent and if so, update it then send
-      if (stats.mtime.getTime() === serverConfigLastModified) {
-        sendConfigVersions();
-      } else {
+      // Check if the file has been updated since it was last checked and if so, update it
+      if (stats.mtime.getTime() !== serverConfigLastModified) {
         fs.readFile(path.join(__dirname, 'json', 'server_config.json'), 'utf8', (readErr, data) => {
           if (readErr) {
             // Check for error
-            error(readErr);
+            console.error('Error opening server_config.json', readErr);
             return;
           }
 
+          // Get a copy of the config just in case an error occurs
+          const savedConfig = JSON.parse(JSON.stringify(serverConfig));
+
           // Update config file and modified time
-          serverConfig = env.replaceConfigUrls(JSON.parse(data), false);
-          serverConfigLastModified = stats.mtime.getTime();
-          sendConfigVersions();
+          serverConfig = serverEnv.replaceConfigUrls(JSON.parse(data), false);
+          refreshConfigSizes()
+              .then(() => {
+                console.log('Server configuration updated on ' + (new Date()));
+                serverConfigLastModified = stats.mtime.getTime();
+              })
+              .catch(err => {
+                console.error('Error encountered while updating config. Reverting configuration.', err);
+                serverConfig = savedConfig;
+              });
         });
       }
     });
+  },
+  start: false,
+  timeZone: 'America/Los_Angeles',
+});
+updateConfigCronJob._callbacks[0]();
+updateConfigCronJob.start();
+
+module.exports = (app, env) => {
+
+  // Save the environment variables
+  serverEnv = env;
+
+  // Endpoint for retrieving config for a version of the app
+  app.get('/config/:version', (req, res) => {
+
+    // Get client version of the application
+    const appVersion = req.params.version.trim();
+
+    // Load JSON data, prepare data to send back to user
+    const appConfig: Object = {};
+
+    for (let i = 0; i < serverConfig.length; i++) {
+      const configFile: Object = serverConfig[i];
+
+      // If the file is available for the app version, send the file's most recent version
+      if (appVersion in configFile.versions) {
+        appConfig[configFile.name] = configFile.versions[appVersion];
+      }
+    }
+
+    res.json(appConfig);
   });
 };
