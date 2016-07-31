@@ -59,7 +59,7 @@ function refreshConfigSizes(): Promise < void > {
     let totalVersions: number = 0;
     for (let i = 0; i < serverConfig.length; i++) {
       for (const version in serverConfig[i].versions) {
-        if (serverConfig[i].hasOwnProperty(version)) {
+        if (serverConfig[i].versions.hasOwnProperty(version)) {
           totalVersions++;
         }
       }
@@ -68,7 +68,7 @@ function refreshConfigSizes(): Promise < void > {
     // Get the new size from headers of each version file
     for (let i = 0; i < serverConfig.length; i++) {
       for (const version in serverConfig[i].versions) {
-        if (serverConfig[i].hasOwnProperty(version)) {
+        if (serverConfig[i].versions.hasOwnProperty(version)) {
           const fileVersion = serverConfig[i].versions[version];
           const fileURL = url.parse(fileVersion.location.url);
           const options = {
