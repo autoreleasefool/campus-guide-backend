@@ -1,6 +1,6 @@
 [
   {
-    "name": "app_config",
+    "name": "/app_config.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -11,7 +11,7 @@
     }
   },
   {
-    "name": "course_formats",
+    "name": "/course_formats.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -22,7 +22,7 @@
     }
   },
   {
-    "name": "disciplines",
+    "name": "/disciplines.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -33,7 +33,7 @@
     }
   },
   {
-    "name": "faculties",
+    "name": "/faculties.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -44,7 +44,7 @@
     }
   },
   {
-    "name": "room_types",
+    "name": "/room_types.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -55,7 +55,7 @@
     }
   },
   {
-    "name": "settings",
+    "name": "/settings.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -66,7 +66,7 @@
     }
   },
   {
-    "name": "shuttle",
+    "name": "/shuttle.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -77,7 +77,7 @@
     }
   },
   {
-    "name": "transit_stops",
+    "name": "/transit_stops.json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -88,7 +88,7 @@
     }
   },
   {
-    "name": "transit_times",
+    "name": "/transit_times.json",
     "versions": {
       "0.1.0": {
         "version": 1,
