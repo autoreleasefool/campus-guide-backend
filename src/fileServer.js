@@ -25,11 +25,22 @@
 'use strict';
 
 const express = require('express');
+const minify = require('express-minify');
 const path = require('path');
 
 module.exports = app => {
 
+  // Minify JSON
+  app.use(minify());
+
+  // Add charset=utf-8 to headers
+  const options = {
+    setHeaders: res => {
+      res.set({'content-type': 'application/json; charset=utf-8'});
+    },
+  };
+
   // Serve assets
-  app.use('/assets', express.static(path.join(__dirname, '/assets')));
+  app.use('/assets', express.static(path.join(__dirname, 'assets'), options));
 
 };
