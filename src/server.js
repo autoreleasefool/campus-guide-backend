@@ -56,7 +56,7 @@ if (env.enableFileServer) {
 // Enable config checks
 require('./getConfig.js')(app, env);
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '127.0.0.1', () => {
 
   const host = server.address().address;
   const port = server.address().port;
