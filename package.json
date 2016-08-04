@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "nodemon": "nodemon ./build/server.js",
     "node": "node ./build/server.js",
-    "start": "npm run build && node ./build/server.js",
+    "start": "npm run build && npm run node",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "babel --watch=./src --out-dir ./build --copy-files"
   },
