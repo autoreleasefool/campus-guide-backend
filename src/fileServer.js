@@ -25,13 +25,9 @@
 'use strict';
 
 const express = require('express');
-const minify = require('express-minify');
 const path = require('path');
 
 module.exports = app => {
-
-  // Minify JSON
-  app.use(minify());
 
   // Add charset=utf-8 to headers
   const options = {
