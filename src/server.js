@@ -48,6 +48,12 @@ const PORT: number = 8080;
 // Create server
 const app = express();
 
+// Log each request made to the server
+app.use((req, res, next) => {
+  console.log('(' + new Date() + ' -- ' + req.ip + ') ' + req.method + ': ' + req.originalUrl);
+  next();
+});
+
 // Enable file server (for development)
 if (env.enableFileServer) {
   require('./fileServer.js')(app, env);
