@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Translations",
+  "description": "Translations in English or French for all strings in the application",
+  "type": "object",
+  "patternProperties": {
+    ".+": {
+      "type": "string",
+      "description": "French or English translations of a phrase"
+    }
+  }
+}
