@@ -178,6 +178,7 @@ module.exports = (app, env) => {
       // If the file is available for the app version, send the file's most recent version
       if (appVersion in configFile.versions) {
         appConfig[configFile.name] = configFile.versions[appVersion];
+        appConfig[configFile.name].type = configFile.type;
       }
     }
 
