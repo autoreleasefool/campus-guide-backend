@@ -142,5 +142,65 @@
         }
       }
     }
+  },
+  {
+    "name": "/outer_placeholder.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_2.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_2.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_3.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_3.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_4.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_4.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_5.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_5.jpg"
+        }
+      }
+    }
   }
 ]
