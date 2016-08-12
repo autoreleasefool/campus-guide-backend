@@ -96,6 +96,18 @@
     }
   },
   {
+    "name": "/shuttle_details.json",
+    "type": "json",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/json/shuttle_details.json"
+        }
+      }
+    }
+  },
+  {
     "name": "/transit_stops.json",
     "type": "json",
     "versions": {
@@ -271,6 +283,30 @@
         "version": 1,
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_10.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_11.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_11.jpg"
+        }
+      }
+    }
+  },
+  {
+    "name": "/outer_placeholder_12.jpg",
+    "type": "image",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/images/outer_placeholder_12.jpg"
         }
       }
     }
