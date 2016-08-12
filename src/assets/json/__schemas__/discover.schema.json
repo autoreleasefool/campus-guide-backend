@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Discovery",
+  "description": "Sections within the app describing various services and locations around Ottawa",
+  "type": "object",
+  "properties": {
+    ".+": {
+      "type": "object",
+      "required": ["image", "icon"],
+      "additionalProperties": false,
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "An image which reflects the contents of the section."
+        },
+        "icon": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string",
+              "description": "The type of icon to display",
+              "enum": ["ionicon", "material"]
+            }
+          },
+          "patternProperties": {
+            "android|ios": {
+              "type": "object",
+              "description": "Describes the icon to display on Android/iOS devices",
+              "required": ["name", "class"],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "description": "The type of icon to display",
+                  "enum": ["ionicon", "material"]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
