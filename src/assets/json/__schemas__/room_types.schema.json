@@ -11,46 +11,31 @@
     "properties": {
       "icon": {
         "type": "object",
-        "description": "Icon representing the function of the room",
         "additionalProperties": false,
         "properties": {
           "name": {
-            "type": "string",
-            "description": "Name of the icon in the icon class"
+            "type": "string"
           },
           "class": {
             "type": "string",
-            "description": "Class which the icon belongs to (i.e. material, ionicon)"
-          },
-          "ios": {
+            "description": "The type of icon to display",
+            "enum": ["ionicon", "material"]
+          }
+        },
+        "patternProperties": {
+          "android|ios": {
             "type": "object",
-            "description": "Describes an icon for the ios platform",
+            "description": "Describes the icon to display on Android/iOS devices",
             "required": ["name", "class"],
             "additionalProperties": false,
             "properties": {
               "name": {
-                "type": "string",
-                "description": "Name of the icon in the icon class"
+                "type": "string"
               },
               "class": {
                 "type": "string",
-                "description": "Class which the icon belongs to (i.e. material, ionicon)"
-              }
-            }
-          },
-          "android": {
-            "type": "object",
-            "description": "Describes an icon for the android platform",
-            "required": ["name", "class"],
-            "additionalProperties": false,
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the icon in the icon class"
-              },
-              "class": {
-                "type": "string",
-                "description": "Class which the icon belongs to (i.e. material, ionicon)"
+                "description": "The type of icon to display",
+                "enum": ["ionicon", "material"]
               }
             }
           }
