@@ -31,8 +31,10 @@ module.exports = app => {
 
   // Add charset=utf-8 to headers
   const options = {
-    setHeaders: res => {
-      res.set({'content-type': 'application/json; charset=utf-8'});
+    setHeaders: (res, file) => {
+      if (file.endsWith('.json')) {
+        res.set('Content-Type', 'application/json; charset=utf-8');
+      }
     },
   };
 
