@@ -40,6 +40,27 @@ let serverConfig: Object = {};
 let serverConfigLastModified: number = 0;
 
 /**
+ * Iterates over each file in the configuration and ensures their filenames are unique.
+ *
+ * @returns {Promise<void>} promise that resolves if all configuration names are unique, or rejects otherwise
+ */
+function validateConfigNames(): Promise < void > {
+  return new Promise((resolve, reject) => {
+    const configNames: Object = {};
+    for (let i = 0; i < serverConfig.length; i++) {
+      if (serverConfig[i].name in configNames) {
+        reject('Duplicate configuration filenames: ' + serverConfig[i].name);
+        return;
+      } else {
+        configNames[serverConfig[i].name] = true;
+      }
+    }
+
+    resolve();
+  });
+}
+
+/**
  * Iterates over config files and gets the file size of each
  *
  * @returns {Promise<void>} promise that resolves when the size of config files are all updated
@@ -117,7 +138,8 @@ const updateConfigCronJob = new cron.CronJob({
 
           // Update config file and modified time
           serverConfig = serverEnv.replaceConfigUrls(JSON.parse(data), false);
-          refreshConfigSizes()
+          validateConfigNames()
+              .then(refreshConfigSizes)
               .then(() => {
                 console.log('Server configuration updated on ' + (new Date()));
                 serverConfigLastModified = stats.mtime.getTime();
