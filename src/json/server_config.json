@@ -1,6 +1,7 @@
 [
   {
     "name": "/app_config.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -12,6 +13,7 @@
   },
   {
     "name": "/course_formats.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -23,6 +25,7 @@
   },
   {
     "name": "/disciplines.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -33,7 +36,20 @@
     }
   },
   {
+    "name": "/discover.json",
+    "type": "json",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/json/discover.json"
+        }
+      }
+    }
+  },
+  {
     "name": "/faculties.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -45,6 +61,7 @@
   },
   {
     "name": "/room_types.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -56,6 +73,7 @@
   },
   {
     "name": "/settings.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -67,6 +85,7 @@
   },
   {
     "name": "/shuttle.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -78,6 +97,7 @@
   },
   {
     "name": "/transit_stops.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -89,6 +109,7 @@
   },
   {
     "name": "/transit_times.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -100,6 +121,7 @@
   },
   {
     "name": "/translations.en.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
@@ -111,6 +133,7 @@
   },
   {
     "name": "/translations.fr.json",
+    "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,

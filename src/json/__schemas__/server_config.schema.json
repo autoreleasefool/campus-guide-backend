@@ -5,11 +5,15 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["name", "versions"],
+    "required": ["name", "versions", "type"],
     "additionalProperties": false,
     "properties": {
       "name": {
         "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "description": "The filetype for the downloadable file."
       },
       "versions": {
         "type": "object",
