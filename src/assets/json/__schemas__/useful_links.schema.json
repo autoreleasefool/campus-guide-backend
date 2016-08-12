@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Useful Links",
+  "description": "Links that users may find useful and relevant to their studies in Ottawa",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "image"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the category of links"
+      },
+      "image": {
+        "type": "string",
+        "description": "Path for the image which represents the category and its subcategories"
+      },
+      "links": {
+        "type": "array",
+        "description": "A list of links in the category",
+        "items": {
+          "type": "object",
+          "description": "A link display name and URL",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the link. Add the locale modifier for names in different languages"
+            },
+            "^link(_[a-z]+)?$": {
+              "type": "string",
+              "description": "URL of the link. Add the locale modifier for URLs in different languages"
+            }
+          }
+        }
+      },
+      "social": {
+        "type": "array",
+        "description": "A list of social media links",
+        "items": {
+          "type": "object",
+          "description": "A social media platform and link",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the social media platform. Add the locale modifier for names in different languages"
+            },
+            "^link(_[a-z]+)?$": {
+              "type": "string",
+              "description": "URL of the link. Add the locale modifier for URLs in different languages"
+            }
+          }
+        }
+      },
+      "categories": {
+        "type": "array",
+        "description": "A list of subcategories of links",
+        "items": {
+          "type": "object",
+          "required": ["id"],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier for the subcategory of links"
+            },
+            "links": {
+              "type": "array",
+              "description": "A list of links in the category",
+              "items": {
+                "type": "object",
+                "description": "A link display name and URL",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^name(_[a-z]+)?$": {
+                    "type": "string",
+                    "description": "Name of the link. Add the locale modifier for names in different languages"
+                  },
+                  "^link(_[a-z]+)?$": {
+                    "type": "string",
+                    "description": "URL of the link. Add the locale modifier for URLs in different languages"
+                  }
+                }
+              }
+            },
+            "social": {
+              "type": "array",
+              "description": "A list of social media links",
+              "items": {
+                "type": "object",
+                "description": "A social media platform and link",
+                "additionalProperties": false,
+                "patternProperties": {
+                  "^name(_[a-z]+)?$": {
+                    "type": "string",
+                    "description": "Name of the social media platform. Add the locale modifier for names in different languages"
+                  },
+                  "^link(_[a-z]+)?$": {
+                    "type": "string",
+                    "description": "URL of the link. Add the locale modifier for URLs in different languages"
+                  }
+                }
+              }
+            }
+          },
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the subcategory. Add the locale modifier for names in different languages"
+            }
+          }
+        }
+      }
+    },
+    "patternProperties": {
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the category. Add the locale modifier for names in different languages"
+      }
+    }
+  }
+}
