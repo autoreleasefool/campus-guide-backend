@@ -26,6 +26,7 @@
 
 // Imports
 const cron = require('cron');
+const extend = (require('util'):any)._extend;
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
@@ -58,6 +59,31 @@ function validateConfigNames(): Promise < void > {
 
     resolve();
   });
+}
+
+/**
+ * Replaces configuration substrings recursively in the object.
+ *
+ * @param {Object} env    private environment variables
+ * @param {Object} config the object to recursively update
+ * @param {boolean} clone false to alter the original object, true to clone
+ * @returns {Object} the updated object
+ */
+function replaceConfigUrls(env: Object, config: Object, clone: boolean): Object {
+  const replacedConfig = clone ? extend({}, config) : config;
+
+  for (const key in replacedConfig) {
+    if (replacedConfig.hasOwnProperty(key)) {
+      const value: any = replacedConfig[key];
+      if (typeof (value) === 'string') {
+        replacedConfig[key] = value.replace('${file_server}', env.fileServer);
+      } else if (typeof (value) === 'object') {
+        replacedConfig[key] = replaceConfigUrls(env, replacedConfig[key], false);
+      }
+    }
+  }
+
+  return replacedConfig;
 }
 
 /**
@@ -137,7 +163,7 @@ const updateConfigCronJob = new cron.CronJob({
           const savedConfig = JSON.parse(JSON.stringify(serverConfig));
 
           // Update config file and modified time
-          serverConfig = serverEnv.replaceConfigUrls(JSON.parse(data), false);
+          serverConfig = replaceConfigUrls(serverEnv, JSON.parse(data), false);
           validateConfigNames()
               .then(refreshConfigSizes)
               .then(() => {
