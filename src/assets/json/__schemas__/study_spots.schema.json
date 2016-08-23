@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Study Spots",
+  "description": "A list of spots where individuals and groups can go to study",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "Details of a single study location on campus at the university",
+    "required": ["building", "room", "occupancy", "sound_volume"],
+    "additionalProperties": false,
+    "properties": {
+      "building": {
+        "type": "string",
+        "description": "Building code for the building the room is located in"
+      },
+      "room": {
+        "type": "string",
+        "description": "Code for the room"
+      },
+      "occupancy": {
+        "type": "string",
+        "description": "Approximate maximum number of people that can study at this location"
+      },
+      "sound": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Volume level that the location can be expected to reach"
+      },
+      "pay_to_stay": {
+        "type": "boolean",
+        "description": "If true, then a visitor must pay to either enter or remain at this study spot"
+      },
+      "reserveable": {
+        "type": "string",
+        "description": "If present, then a visitor can reserve a room or booth here. The string should be a set of instructions to reserve a room, or a link to where the user can reserve a room."
+      },
+      "groups": {
+        "type": "boolean",
+        "description": "If true, this location is optimal for groups. Otherwise, this location is better for individuals"
+      },
+      "computers": {
+        "type": "boolean",
+        "description": "If true, then computers are available at this location for students to use"
+      },
+      "outlets": {
+        "type": "string",
+        "descriptions": "Indicates the number of outlets generally available to visitors",
+        "enum": ["none", "some", "many", "all"]
+      }
+    }
+  }
+}
