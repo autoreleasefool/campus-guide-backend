@@ -60,18 +60,6 @@
     }
   },
   {
-    "name": "/hot_spots.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/hot_spots.json"
-        }
-      }
-    }
-  },
-  {
     "name": "/room_types.json",
     "type": "json",
     "versions": {
