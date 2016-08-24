@@ -23,6 +23,12 @@
           "type": "object",
           "description": "A link display name and URL",
           "additionalProperties": false,
+          "properties": {
+            "invalid": {
+              "type": "boolean",
+              "description": "Indicates a link which is no longer valid and should be updated before being displayed"
+            }
+          },
           "patternProperties": {
             "^name(_[a-z]+)?$": {
               "type": "string",
@@ -42,6 +48,12 @@
           "type": "object",
           "description": "A social media platform and link",
           "additionalProperties": false,
+          "properties": {
+            "invalid": {
+              "type": "boolean",
+              "description": "Indicates a link which is no longer valid and should be updated before being displayed"
+            }
+          },
           "patternProperties": {
             "^name(_[a-z]+)?$": {
               "type": "string",
@@ -73,6 +85,12 @@
                 "type": "object",
                 "description": "A link display name and URL",
                 "additionalProperties": false,
+                "properties": {
+                  "invalid": {
+                    "type": "boolean",
+                    "description": "Indicates a link which is no longer valid and should be updated before being displayed"
+                  }
+                },
                 "patternProperties": {
                   "^name(_[a-z]+)?$": {
                     "type": "string",
@@ -92,6 +110,12 @@
                 "type": "object",
                 "description": "A social media platform and link",
                 "additionalProperties": false,
+                "properties": {
+                  "invalid": {
+                    "type": "boolean",
+                    "description": "Indicates a link which is no longer valid and should be updated before being displayed"
+                  }
+                },
                 "patternProperties": {
                   "^name(_[a-z]+)?$": {
                     "type": "string",
