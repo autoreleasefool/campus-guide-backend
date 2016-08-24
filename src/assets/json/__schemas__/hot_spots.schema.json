@@ -1,124 +1,26 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Hot Spots",
-  "description": "A list of popular destinations within the city to visit",
+  "description": "A list of Yelp IDs for businesses",
   "type": "array",
   "items": {
     "type": "object",
-    "description": "Details of a single location that users can visit to eat, explore, or entertain",
-    "required": ["on_campus", "location", "image", "hours", "rating", "cost", "description", "last_updated", "category"],
+    "description": "Details of a single Yelp business",
+    "required": ["on_campus", "category", "business_id"],
     "additionalProperties": false,
     "properties": {
       "on_campus": {
         "type": "boolean",
         "description": "If true, then the destination is on the university's campus. Otherwise, the destination is near or within the city, generally close to the university"
       },
-      "location": {
-        "type": "object",
-        "description": "Location of the destination",
-        "required": ["lat", "long", "address"],
-        "additionalProperties": false,
-        "properties": {
-          "lat": {
-            "type": "number",
-            "description": "Latitude of the destination"
-          },
-          "long": {
-            "type": "number",
-            "description": "Longitude of the destination"
-          },
-          "address": {
-            "type": "string",
-            "description": "Address of the destination"
-          }
-        }
-      },
-      "image": {
-        "type": "string",
-        "description": "Image of the destination"
-      },
-      "hours": {
-        "type": "array",
-        "description": "Daily hours of operation for the destination, where the 0th element is monday, and the 6th is sunday",
-        "items": {
-          "type": "object",
-          "description": "Opening and closing hours for a particular day",
-          "required": ["is_open"],
-          "additionalProperties": false,
-          "properties": {
-            "is_open": {
-              "type": "boolean",
-              "description": "If true, then the destination is open this day, or closed otherwise"
-            },
-            "opens": {
-              "type": "string",
-              "description": "Time that the destination opens on this day",
-              "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
-            },
-            "closes": {
-              "type": "string",
-              "description": "Time that the destination closes on this day",
-              "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$"
-            }
-          }
-        }
-      },
-      "rating": {
-        "type": "number",
-        "description": "Rating from 1-5 stars, from a trusted rating aggregation source",
-        "minimum": 1,
-        "maximum": 5
-      },
-      "cost": {
-        "type": "number",
-        "description": "Cost rating from 0-5, where 0 is free, 5 is expensive, from a trusted rating aggregation source",
-        "minimum": 0,
-        "maximum": 5
-      },
-      "description": {
-        "type": "string",
-        "description": "Description of the destination and the goods/services it provides"
-      },
-      "last_updated": {
-        "type": "number",
-        "description": "Milliseconds since the epoch of the time the data was last updated"
-      },
       "category": {
         "type": "string",
         "description": "Category of good or service that the destination provides",
         "enum": ["food", "group", "tour"]
       },
-      "external_links": {
-        "type": "object",
-        "description": "A set of external web links the user may find useful regarding the desstination",
-        "additionalProperties": false,
-        "properties": {
-          "source": {
-            "type": "object",
-            "description": "Source of the information about the destination. Not included if the data was not retrieved from another source",
-            "required": ["name", "url"],
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Identifier for the source of the information"
-              },
-              "url": {
-                "type": "string",
-                "description": "URL that can be visited from which the information was retrieved"
-              }
-            }
-          }
-        }
-      }
-    },
-    "patternProperties": {
-      "^name(_[a-z]+)?$": {
+      "business_id": {
         "type": "string",
-        "description": "Name of the destination. Add the locale modifier for names in different languages"
-      },
-      "^link(_[a-z]+)?$": {
-        "type": "string",
-        "description": "Name of the destination. Add the locale modifier for names in different languages"
+        "description": "ID from Yelp for the business"
       }
     }
   }
