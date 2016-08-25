@@ -8,11 +8,9 @@
     "build": "babel ./src --out-dir ./build --copy-files && ./scripts/uglify.sh",
     "flow": "flow check",
     "lint": "eslint .",
-    "nodemon": "nodemon ./build/server.js",
     "node": "node ./build/server.js",
     "start": "npm run build && npm run node",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel --watch=./src --out-dir ./build --copy-files"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -30,7 +28,6 @@
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "eslint": "^3.1.1",
     "flow-bin": "^0.29.0",
-    "nodemon": "^1.10.0",
     "uglify-js": "^2.7.3"
   },
   "dependencies": {
