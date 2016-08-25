@@ -35,7 +35,6 @@
     "express": "^4.14.0",
     "http-status-codes": "^1.0.6",
     "jsonschema": "^1.1.0",
-    "nodemon": "^1.9.2",
     "promise": "^7.1.1",
     "uglify-js": "^2.7.0"
   }
