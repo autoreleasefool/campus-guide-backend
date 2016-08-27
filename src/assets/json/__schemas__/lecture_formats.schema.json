@@ -1,17 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Teaching Formats",
+  "title": "Lecture Formats",
   "description": "Describes types of course sessions at the school",
   "type": "array",
   "items": {
     "type": "object",
-    "description": "Name and code representing the course type",
+    "description": "Name and code representing the lecture type",
     "required": ["code"],
     "additionalProperties": false,
     "properties": {
       "code": {
         "type": "string",
-        "description": "Shorthand for the course type"
+        "description": "Shorthand for the lecture type"
       }
     },
     "patternProperties": {
