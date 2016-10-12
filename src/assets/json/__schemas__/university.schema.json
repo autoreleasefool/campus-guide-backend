@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "University",
+  "description": "Describes the university",
+  "type": "object",
+  "required": ["lat", "long", "semesters"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name of the university. Add the locale modifier for names in different languages"
+    }
+  },
+  "properties": {
+    "lat": {
+      "type": "number",
+      "description": "Latitude of the school"
+    },
+    "long": {
+      "type": "number",
+      "description": "Longitude of the school"
+    },
+    "semesters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "List of semesters for which data and configurations are available",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "is_current": {
+            "type": "boolean",
+            "description": "Indicates if this is the current semester (true) or not (false/non-existant)"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the semester"
+          }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the semester. Add the locale modifier for names in different languages"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "City bus information",
+  "description": "Details about bus stops near the University campus",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name of the bus company. Add the locale modifier for names in different languages"
+    },
+    "^link(_[a-z]+)?$": {
+      "type": "string",
+      "description": "URL of the link to the company's website. Add the locale modifier for URLs in different languages"
+    }
+  },
+  "properties": {
+    "campuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Details about the bus stops near a campus",
+        "required": ["id", "lat", "long", "stops"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the campus"
+          },
+          "lat": {
+            "type": "number",
+            "description": "Latitude of the location of the campus"
+          },
+          "long": {
+            "type": "number",
+            "description": "Longitude of the location of the campus"
+          },
+          "stops": {
+            "type": "array",
+            "description": "List of bus stops near the campus",
+            "items": {
+              "type": "object",
+              "description": "Details about a bus stop, including location and routes which service it",
+              "required": ["code", "id", "lat", "long", "routes"],
+              "additionalProperties": false,
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "User-facing id for the stop",
+                  "pattern": "^[0-9]+$"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique id for each stop"
+                },
+                "lat": {
+                  "type": "number",
+                  "description": "Latitude of the location of the stop"
+                },
+                "long": {
+                  "type": "number",
+                  "description": "Longitude of the location of the stop"
+                },
+                "routes": {
+                  "type": "array",
+                  "description": "Routes that service the stop and times they depart",
+                  "items": {
+                    "type": "object",
+                    "description": "Details about a route that services the stop",
+                    "required": ["days", "number", "sign"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "days": {
+                        "type": "object",
+                        "description": "Keys represent days that the bus services the list of times it points to, where 0 is Monday",
+                        "additionalProperties": false,
+                        "patternProperties": {
+                          "^[0-6]+$": {
+                            "type": "array",
+                            "description": "Times that a route services the stop on the days represented in the key",
+                            "items": {
+                              "type": "string",
+                              "description": "24 hour time. Times past 24 hours represent times after midnight",
+                              "pattern": "^([012][0-9]):([0-5][0-9])$"
+                            }
+                          }
+                        }
+                      },
+                      "number": {
+                        "type": "number",
+                        "description": "Number of the route",
+                        "minimum": 1
+                      },
+                      "sign": {
+                        "type": "string",
+                        "description": "Sign that the bus displays"
+                      }
+                    }
+                  }
+                }
+              },
+              "patternProperties": {
+                "^name(_[a-z]+)?$": {
+                  "type": "string",
+                  "description": "Name of the stop. Add the locale modifier for names in different languages"
+                }
+              }
+            }
+          }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the campus. Add the locale modifier for names in different languages"
+          }
+        }
+      }
+    }
+  }
+}

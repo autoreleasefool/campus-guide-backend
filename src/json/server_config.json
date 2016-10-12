@@ -1,12 +1,12 @@
 [
   {
-    "name": "/app_config.json",
+    "name": "/bus.json",
     "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
         "location": {
-          "url": "${file_server}/assets/json/app_config.json"
+          "url": "${file_server}/assets/json/bus.json"
         }
       }
     }
@@ -108,18 +108,6 @@
     }
   },
   {
-    "name": "/transit_times.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/transit_times.json"
-        }
-      }
-    }
-  },
-  {
     "name": "/translations.en.json",
     "type": "json",
     "versions": {
@@ -139,6 +127,18 @@
         "version": 1,
         "location": {
           "url": "${file_server}/assets/json/translations.fr.json"
+        }
+      }
+    }
+  },
+  {
+    "name": "/university.json",
+    "type": "json",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/json/university.json"
         }
       }
     }
