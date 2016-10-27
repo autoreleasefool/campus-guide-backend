@@ -2,49 +2,58 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Discovery",
   "description": "Sections within the app describing various services and locations around Ottawa",
-  "type": "object",
-  "properties": {
-    ".+": {
-      "type": "object",
-      "required": ["image", "icon"],
-      "additionalProperties": false,
-      "properties": {
-        "image": {
-          "type": "string",
-          "description": "An image which reflects the contents of the section."
-        },
-        "icon": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "class": {
-              "type": "string",
-              "description": "The type of icon to display",
-              "enum": ["ionicon", "material"]
-            }
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "A section of info",
+    "required": ["icon", "id", "image"],
+    "additionalProperties": false,
+    "properties": {
+      "icon": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "patternProperties": {
-            "android|ios": {
-              "type": "object",
-              "description": "Describes the icon to display on Android/iOS devices",
-              "required": ["name", "class"],
-              "additionalProperties": false,
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "class": {
-                  "type": "string",
-                  "description": "The type of icon to display",
-                  "enum": ["ionicon", "material"]
-                }
+          "class": {
+            "type": "string",
+            "description": "The type of icon to display",
+            "enum": ["ionicon", "material"]
+          }
+        },
+        "patternProperties": {
+          "android|ios": {
+            "type": "object",
+            "description": "Describes the icon to display on Android/iOS devices",
+            "required": ["name", "class"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string",
+                "description": "The type of icon to display",
+                "enum": ["ionicon", "material"]
               }
             }
           }
         }
+      },
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the section."
+      },
+      "image": {
+        "type": "string",
+        "description": "An image which reflects the contents of the section."
+      }
+    },
+    "patternProperties": {
+      "^name(_[a-z]+)?$": {
+        "type": "string",
+        "description": "Name of the section. Add the locale modifier for names in different languages"
       }
     }
   }
