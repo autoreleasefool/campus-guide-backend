@@ -5,9 +5,41 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["id", "image"],
+    "required": ["icon", "id", "image"],
     "additionalProperties": false,
     "properties": {
+      "icon": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "class": {
+            "type": "string",
+            "description": "The type of icon to display",
+            "enum": ["ionicon", "material"]
+          }
+        },
+        "patternProperties": {
+          "android|ios": {
+            "type": "object",
+            "description": "Describes the icon to display on Android/iOS devices",
+            "required": ["name", "class"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string",
+                "description": "The type of icon to display",
+                "enum": ["ionicon", "material"]
+              }
+            }
+          }
+        }
+      },
       "id": {
         "type": "string",
         "description": "Unique identifier for the category of links"
@@ -71,9 +103,41 @@
         "description": "A list of subcategories of links",
         "items": {
           "type": "object",
-          "required": ["id"],
+          "required": ["icon", "id"],
           "additionalProperties": false,
           "properties": {
+            "icon": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "description": "The type of icon to display",
+                  "enum": ["ionicon", "material"]
+                }
+              },
+              "patternProperties": {
+                "android|ios": {
+                  "type": "object",
+                  "description": "Describes the icon to display on Android/iOS devices",
+                  "required": ["name", "class"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "class": {
+                      "type": "string",
+                      "description": "The type of icon to display",
+                      "enum": ["ionicon", "material"]
+                    }
+                  }
+                }
+              }
+            },
             "id": {
               "type": "string",
               "description": "Unique identifier for the subcategory of links"
