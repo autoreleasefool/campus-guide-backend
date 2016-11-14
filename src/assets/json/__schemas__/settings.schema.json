@@ -16,18 +16,22 @@
           "key": {
             "type": "string",
             "description": "Unique identifier for the setting",
-            "pattern": "^pref_[a-z_]+$"
+            "pattern": "^(pref|app)_[a-z_]+$"
           },
           "type": {
             "type": "string",
             "description": "The type of setting",
-            "pattern": "^boolean|multi$"
+            "pattern": "^boolean|multi|text|link$"
           }
         },
         "patternProperties": {
           "^name(_[a-z]+)?$": {
             "type": "string",
             "description": "Name of the setting. Add the locale modifier for names in different languages"
+          },
+          "^link(_[a-z]+)?$": {
+            "type": "string",
+            "description": "URL of the setting. Add the locale modifier for URLs in different languages"
           }
         }
       }
