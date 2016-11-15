@@ -5,41 +5,10 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["icon", "id", "image"],
+    "required": ["icon", "id"],
     "additionalProperties": false,
     "properties": {
-      "icon": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "class": {
-            "type": "string",
-            "description": "The type of icon to display",
-            "enum": ["ionicon", "material"]
-          }
-        },
-        "patternProperties": {
-          "android|ios": {
-            "type": "object",
-            "description": "Describes the icon to display on Android/iOS devices",
-            "required": ["name", "class"],
-            "additionalProperties": false,
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "class": {
-                "type": "string",
-                "description": "The type of icon to display",
-                "enum": ["ionicon", "material"]
-              }
-            }
-          }
-        }
-      },
+      "icon": { "$ref": "/icon" },
       "id": {
         "type": "string",
         "description": "Unique identifier for the category of links"
@@ -98,109 +67,7 @@
           }
         }
       },
-      "categories": {
-        "type": "array",
-        "description": "A list of subcategories of links",
-        "items": {
-          "type": "object",
-          "required": ["icon", "id"],
-          "additionalProperties": false,
-          "properties": {
-            "icon": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "class": {
-                  "type": "string",
-                  "description": "The type of icon to display",
-                  "enum": ["ionicon", "material"]
-                }
-              },
-              "patternProperties": {
-                "android|ios": {
-                  "type": "object",
-                  "description": "Describes the icon to display on Android/iOS devices",
-                  "required": ["name", "class"],
-                  "additionalProperties": false,
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "class": {
-                      "type": "string",
-                      "description": "The type of icon to display",
-                      "enum": ["ionicon", "material"]
-                    }
-                  }
-                }
-              }
-            },
-            "id": {
-              "type": "string",
-              "description": "Unique identifier for the subcategory of links"
-            },
-            "links": {
-              "type": "array",
-              "description": "A list of links in the category",
-              "items": {
-                "type": "object",
-                "description": "A link display name and URL",
-                "additionalProperties": false,
-                "properties": {
-                  "invalid": {
-                    "type": "boolean",
-                    "description": "Indicates a link which is no longer valid and should be updated before being displayed"
-                  }
-                },
-                "patternProperties": {
-                  "^name(_[a-z]+)?$": {
-                    "type": "string",
-                    "description": "Name of the link. Add the locale modifier for names in different languages"
-                  },
-                  "^link(_[a-z]+)?$": {
-                    "type": "string",
-                    "description": "URL of the link. Add the locale modifier for URLs in different languages"
-                  }
-                }
-              }
-            },
-            "social": {
-              "type": "array",
-              "description": "A list of social media links",
-              "items": {
-                "type": "object",
-                "description": "A social media platform and link",
-                "additionalProperties": false,
-                "properties": {
-                  "invalid": {
-                    "type": "boolean",
-                    "description": "Indicates a link which is no longer valid and should be updated before being displayed"
-                  }
-                },
-                "patternProperties": {
-                  "^name(_[a-z]+)?$": {
-                    "type": "string",
-                    "description": "Name of the social media platform. Add the locale modifier for names in different languages"
-                  },
-                  "^link(_[a-z]+)?$": {
-                    "type": "string",
-                    "description": "URL of the link. Add the locale modifier for URLs in different languages"
-                  }
-                }
-              }
-            }
-          },
-          "patternProperties": {
-            "^name(_[a-z]+)?$": {
-              "type": "string",
-              "description": "Name of the subcategory. Add the locale modifier for names in different languages"
-            }
-          }
-        }
-      }
+      "categories": { "$ref": "#" }
     },
     "patternProperties": {
       "^name(_[a-z]+)?$": {

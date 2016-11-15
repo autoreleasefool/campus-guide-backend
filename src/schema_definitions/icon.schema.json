@@ -1,0 +1,33 @@
+{
+  "id": "/icon",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string",
+      "description": "The type of icon to display",
+      "enum": ["ionicon", "material"]
+    }
+  },
+  "patternProperties": {
+    "android|ios": {
+      "type": "object",
+      "description": "Describes the icon to display on Android/iOS devices",
+      "required": ["name", "class"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string",
+          "description": "The type of icon to display",
+          "enum": ["ionicon", "material"]
+        }
+      }
+    }
+  }
+}

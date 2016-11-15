@@ -29,6 +29,11 @@ export type Validation = {
   schema: Object,
 };
 
+export type BaseSchema = {
+  name: string,
+  schema: Object,
+};
+
 // Imports
 const fs = require('fs');
 const path = require('path');
@@ -44,6 +49,17 @@ function validate(): boolean {
 
   // Instance of Validator
   const validator = new Validator();
+
+  // Import all basic definitions
+  try {
+    fs.accessSync(path.join('./build/schema_definitions/index.js'), fs.F_OK);
+    const schemas: Array < BaseSchema > = require('../schema_definitions');
+    for (let i = 0; i < schemas.length; i++) {
+      validator.addSchema(schemas[i].schema, schemas[i].name);
+    }
+  } catch (e) {
+    console.log('Base schemas not found. Continuing without them.');
+  }
 
   // List of files to validate and their schemas
   let validations: Array < Validation > = [];
