@@ -50,7 +50,8 @@ const app = express();
 
 // Log each request made to the server
 app.use((req, res, next) => {
-  console.log('(' + new Date() + ' -- ' + req.ip + ') ' + req.method + ': ' + req.originalUrl);
+  const date = new Date();
+  console.log(`(${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl}`);
   next();
 });
 

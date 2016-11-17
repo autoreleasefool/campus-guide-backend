@@ -34,7 +34,7 @@ const Promise = require('promise');
 const url = require('url');
 
 // Environment variables
-let serverEnv: Object = null;
+let serverEnv: ?Object = null;
 // Contents of the serverConfig file
 let serverConfig: Object = {};
 // Time that the serverConfig file was last updated
@@ -141,7 +141,8 @@ function refreshConfigSizes(): Promise < void > {
 const updateConfigCronJob = new cron.CronJob({
   cronTime: '0 0 * * * *',
   onTick: () => {
-    console.log('Running updateConfigCronJob on ' + (new Date()));
+    const runDate = new Date();
+    console.log(`Running updateConfigCronJob on ${runDate.toString()}`);
 
     fs.stat(path.join(__dirname, 'json', 'server_config.json'), (statErr, stats) => {
       if (statErr) {
@@ -163,11 +164,12 @@ const updateConfigCronJob = new cron.CronJob({
           const savedConfig = JSON.parse(JSON.stringify(serverConfig));
 
           // Update config file and modified time
-          serverConfig = replaceConfigUrls(serverEnv, JSON.parse(data), false);
+          serverConfig = replaceConfigUrls(serverEnv || {}, JSON.parse(data), false);
           validateConfigNames()
               .then(refreshConfigSizes)
               .then(() => {
-                console.log('Server configuration updated on ' + (new Date()));
+                const serverUpdated = new Date();
+                console.log(`Server configuration updated on ${serverUpdated.toString()}`);
                 serverConfigLastModified = stats.mtime.getTime();
               })
               .catch(err => {
@@ -184,7 +186,7 @@ const updateConfigCronJob = new cron.CronJob({
 updateConfigCronJob._callbacks[0]();
 updateConfigCronJob.start();
 
-module.exports = (app, env) => {
+module.exports = (app: any, env: Object) => {
 
   // Save the environment variables
   serverEnv = env;

@@ -27,7 +27,7 @@
 const express = require('express');
 const path = require('path');
 
-module.exports = app => {
+module.exports = (app: any) => {
 
   // Add charset=utf-8 to headers
   const options = {
