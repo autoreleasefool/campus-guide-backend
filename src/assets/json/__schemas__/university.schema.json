@@ -3,7 +3,7 @@
   "title": "University",
   "description": "Describes the university",
   "type": "object",
-  "required": ["lat", "long", "semesters"],
+  "required": ["busInfo", "lat", "long", "semesters"],
   "additionalProperties": false,
   "patternProperties": {
     "^name(_[a-z]+)?$": {
@@ -12,6 +12,21 @@
     }
   },
   "properties": {
+    "busInfo": {
+      "type": "object",
+      "description": "Basic information about the city buses that serve the university",
+      "additionProperties": false,
+      "patternProperties": {
+        "^name(_[a-z]+)?$": {
+          "type": "string",
+          "description": "Name of the bus system. Add the locale modifier for names in different languages"
+        },
+        "^link(_[a-z]+)?$": {
+          "type": "string",
+          "description": "Link to the bus system website. Add the locale modifier for links in different languages"
+        }
+      }
+    },
     "lat": {
       "type": "number",
       "description": "Latitude of the school"
