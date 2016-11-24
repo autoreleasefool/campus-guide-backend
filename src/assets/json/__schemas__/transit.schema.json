@@ -15,7 +15,7 @@
     }
   },
   "properties": {
-    "stop_details": {
+    "stopDetails": {
       "description": "Set of stop IDs and various details about them",
       "type": "object",
       "additionalProperties": false,
