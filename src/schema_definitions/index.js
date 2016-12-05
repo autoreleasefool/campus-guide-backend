@@ -25,6 +25,10 @@
 
 module.exports = [
   {
+    name: '/details',
+    schema: require('./details.schema.json'),
+  },
+  {
     name: '/icon',
     schema: require('./icon.schema.json'),
   },

@@ -1,0 +1,27 @@
+{
+  "id": "/details",
+  "type": "object",
+  "description": "Details about a particular subject and how to present it",
+  "properties": {
+    "image": {
+      "type": "string",
+      "description": "An image representing the details being provided."
+    },
+    "icon": { "$ref": "/icon" }
+  },
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name describing the details. Add the locale modifier for names in different languages"
+    },
+    "^details(_[a-z]+)?$": {
+      "type": "array",
+      "description": "List of details. Add the locale modifier for details in different languages",
+      "items": {
+        "type": "string",
+        "description": "A paragraph in the details.",
+        "pattern": "^((\\[((bold|italic)\\|?)*\\]|).+|\\[linebreak\\])$"
+      }
+    }
+  }
+}

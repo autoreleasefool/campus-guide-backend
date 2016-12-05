@@ -1,17 +1,5 @@
 [
   {
-    "name": "/transit.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/transit.json"
-        }
-      }
-    }
-  },
-  {
     "name": "/disciplines.json",
     "type": "json",
     "versions": {
@@ -96,13 +84,13 @@
     }
   },
   {
-    "name": "/shuttle_details.json",
+    "name": "/transit.json",
     "type": "json",
     "versions": {
       "0.1.0": {
         "version": 1,
         "location": {
-          "url": "${file_server}/assets/json/shuttle_details.json"
+          "url": "${file_server}/assets/json/transit.json"
         }
       }
     }
