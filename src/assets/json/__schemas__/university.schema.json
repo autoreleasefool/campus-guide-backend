@@ -43,10 +43,6 @@
         "required": ["id"],
         "additionalProperties": false,
         "properties": {
-          "is_current": {
-            "type": "boolean",
-            "description": "Indicates if this is the current semester (true) or not (false/non-existant)"
-          },
           "id": {
             "type": "string",
             "description": "Unique identifier for the semester"
