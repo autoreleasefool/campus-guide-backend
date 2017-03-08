@@ -26,15 +26,15 @@
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
-    "eslint": "^3.9.1",
-    "flow-bin": "^0.36.0"
+    "eslint": "^3.17.1",
+    "flow-bin": "^0.41.0"
   },
   "dependencies": {
     "cron": "^1.1.1",
-    "express": "^4.14.0",
+    "express": "^4.15.2",
     "http-status-codes": "^1.0.6",
     "jsonschema": "^1.1.0",
     "promise": "^7.1.1",
-    "uglify-js": "^2.7.4"
+    "uglify-js": "^2.8.9"
   }
 }
