@@ -1,52 +1,101 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Study Spots",
-  "description": "A list of spots where individuals and groups can go to study",
-  "type": "array",
-  "items": {
-    "type": "object",
-    "description": "Details of a single study location on campus at the university",
-    "required": ["building", "room", "occupancy", "sound_volume"],
-    "additionalProperties": false,
-    "properties": {
-      "building": {
-        "type": "string",
-        "description": "Building code for the building the room is located in"
-      },
-      "room": {
-        "type": "string",
-        "description": "Code for the room"
-      },
-      "occupancy": {
-        "type": "string",
-        "description": "Approximate maximum number of people that can study at this location"
-      },
-      "sound": {
-        "type": "number",
-        "minimum": 1,
-        "maximum": 5,
-        "description": "Volume level that the location can be expected to reach"
-      },
-      "pay_to_stay": {
-        "type": "boolean",
-        "description": "If true, then a visitor must pay to either enter or remain at this study spot"
-      },
-      "reserveable": {
-        "type": "string",
-        "description": "If present, then a visitor can reserve a room or booth here. The string should be a set of instructions to reserve a room, or a link to where the user can reserve a room."
-      },
-      "groups": {
-        "type": "boolean",
-        "description": "If true, this location is optimal for groups. Otherwise, this location is better for individuals"
-      },
-      "computers": {
-        "type": "boolean",
-        "description": "If true, then computers are available at this location for students to use"
-      },
-      "outlets": {
-        "type": "string",
-        "descriptions": "Indicates the number of outlets generally available to visitors",
-        "enum": ["none", "some", "many", "all"]
+  "description": "Information on study spots on campus",
+  "type": "object",
+  "required": ["filters", "spots", "reservations"],
+  "additionalProperties": false,
+  "properties": {
+    "filters": {
+      "type": "array",
+      "description": "A list of available filters for study spots",
+      "items": {
+        "type": "object",
+        "description": "A property by which study spots can be filtered",
+        "required": ["icon"],
+        "additionalProperties": false,
+        "properties": {
+          "icon": { "$ref": "/icon" }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the filter. Add the locale modifier for names in different languages"
+          },
+          "^description(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Description of the filter. Add the locale modifier for descriptions in different languages"
+          }
+        }
+      }
+    },
+    "spots": {
+      "type": "array",
+      "description": "A list of spots where individuals and groups can go to study",
+      "items": {
+        "type": "object",
+        "description": "Details of a single study location on campus at the university",
+        "required": ["building", "room", "filters", "opens", "closes"],
+        "properties":  {
+          "building": {
+            "type": "string",
+            "description": "Code of the building which the study spot can be found in"
+          },
+          "room": {
+            "type": "string",
+            "description": "Room number in the building"
+          },
+          "opens": {
+            "type": "string",
+            "description": "24 hour time. Times past 24 hours represent times after midnight",
+            "pattern": "^([012][0-9]):([0-5][0-9])$"
+          },
+          "closes": {
+            "type": "string",
+            "description": "24 hour time. Times past 24 hours represent times after midnight",
+            "pattern": "^([012][0-9]):([0-5][0-9])$"
+          },
+          "filters": {
+            "type": "array",
+            "description": "A list of properties of the study spot, to filter by",
+            "items": {
+              "type": "number",
+              "description": "Index of the filter, from the `filters` array"
+            }
+          }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the spot. Add the locale modifier for names in different languages"
+          },
+          "^description(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Description of the spot. Add the locale modifier for descriptions in different languages"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "type": "array",
+      "description": "A list of links for reserving study spots at the university",
+      "items": {
+        "type": "object",
+        "description": "A link and description for reserving a study spot",
+        "patternProperties": {
+          "^description(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Description of the reservation page. Add the locale modifier for descriptions in different languages"
+          },
+          "^link(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Link to the reservation page. Add the locale modifier for links in different languages"
+          },
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the page. Add the locale modifier for names in different languages"
+          }
+        }
       }
     }
   }

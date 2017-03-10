@@ -84,6 +84,18 @@
     }
   },
   {
+    "name": "/study_spots.json",
+    "type": "json",
+    "versions": {
+      "0.1.0": {
+        "version": 1,
+        "location": {
+          "url": "${file_server}/assets/json/study_spots.json"
+        }
+      }
+    }
+  },
+  {
     "name": "/transit.json",
     "type": "json",
     "versions": {
