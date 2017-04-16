@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/joseph-roque/campus-guide-server#readme",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-eslint": "^7.1.0",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
     "babel-plugin-transform-flow-strip-types": "^6.18.0",
-    "eslint": "^3.17.1",
+    "eslint": "^3.19.0",
     "flow-bin": "^0.41.0"
   },
   "dependencies": {
@@ -35,6 +35,6 @@
     "http-status-codes": "^1.0.6",
     "jsonschema": "^1.1.0",
     "promise": "^7.1.1",
-    "uglify-js": "^2.8.9"
+    "uglify-js": "^2.8.22"
   }
 }
