@@ -2,37 +2,47 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Settings",
   "description": "Settings that the user can control",
-  "type": "object",
-  "patternProperties": {
-    ".+": {
-      "type": "array",
-      "description": "Groups which settings belong to",
-      "items": {
-        "type": "object",
-        "description": "A setting for the user to manipulate",
-        "required": ["key", "type"],
-        "additionalProperties": false,
-        "properties": {
-          "key": {
-            "type": "string",
-            "description": "Unique identifier for the setting",
-            "pattern": "^(pref|app)_[a-z_]+$"
+  "type": "array",
+  "items": {
+    "type": "object",
+    "description": "A set of related settings",
+    "required": ["key", "data"],
+    "additionalProperties": false,
+    "properties": {
+      "key": {
+        "type": "string",
+        "description": "Unique identifier for the setting section"
+      },
+      "data": {
+        "type": "array",
+        "description": "List of settings in the section",
+        "items": {
+          "type": "object",
+          "description": "A single setting",
+          "required": ["key", "type"],
+          "additionalProperties": false,
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Unique identifier for the setting",
+              "pattern": "^(pref|app)_[a-z_]+$"
+            },
+            "type": {
+              "type": "string",
+              "description": "The type of setting",
+              "pattern": "^boolean|multi|text|link$"
+            },
+            "icon": { "$ref": "/icon" }
           },
-          "type": {
-            "type": "string",
-            "description": "The type of setting",
-            "pattern": "^boolean|multi|text|link$"
-          },
-          "icon": { "$ref": "/icon" }
-        },
-        "patternProperties": {
-          "^name(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Name of the setting. Add the locale modifier for names in different languages"
-          },
-          "^link(_[a-z]+)?$": {
-            "type": "string",
-            "description": "URL of the setting. Add the locale modifier for URLs in different languages"
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the setting. Add the locale modifier for names in different languages"
+            },
+            "^link(_[a-z]+)?$": {
+              "type": "string",
+              "description": "URL of the setting. Add the locale modifier for URLs in different languages"
+            }
           }
         }
       }
