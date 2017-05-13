@@ -1,0 +1,24 @@
+{
+  "id": "/section",
+  "type": "object",
+  "description": "A menu section",
+  "required": ["id", "image"],
+  "additionalProperties": false,
+  "properties": {
+    "icon": { "$ref": "/icon" },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the section."
+    },
+    "image": {
+      "type": "string",
+      "description": "An image which reflects the contents of the section."
+    }
+  },
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name of the section. Add the locale modifier for names in different languages"
+    }
+  }
+}

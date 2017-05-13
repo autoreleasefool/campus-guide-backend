@@ -3,27 +3,5 @@
   "title": "Discovery",
   "description": "Sections within the app describing various services and locations around Ottawa",
   "type": "array",
-  "items": {
-    "type": "object",
-    "description": "A section of info",
-    "required": ["icon", "id", "image"],
-    "additionalProperties": false,
-    "properties": {
-      "icon": { "$ref": "/icon" },
-      "id": {
-        "type": "string",
-        "description": "Unique identifier for the section."
-      },
-      "image": {
-        "type": "string",
-        "description": "An image which reflects the contents of the section."
-      }
-    },
-    "patternProperties": {
-      "^name(_[a-z]+)?$": {
-        "type": "string",
-        "description": "Name of the section. Add the locale modifier for names in different languages"
-      }
-    }
-  }
+  "items": { "$ref": "/section" }
 }

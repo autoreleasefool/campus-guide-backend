@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Housing",
+  "description": "Sections within the app describing living in Ottawa and at the university",
+  "type": "array",
+  "items": { "$ref": "/section" }
+}

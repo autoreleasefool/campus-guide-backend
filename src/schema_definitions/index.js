@@ -32,4 +32,8 @@ module.exports = [
     name: '/icon',
     schema: require('./icon.schema.json'),
   },
+  {
+    name: '/section',
+    schema: require('./section.schema.json'),
+  },
 ];
