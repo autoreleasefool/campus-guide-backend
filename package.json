@@ -5,7 +5,7 @@
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
   "main": "src/server.js",
   "scripts": {
-    "build": "babel ./src --out-dir ./build --copy-files && ./scripts/uglify.sh",
+    "build": "babel ./src --out-dir ./build --copy-files && ./scripts/uglify",
     "flow": "flow check",
     "lint": "eslint .",
     "node": "node ./build/server.js",
