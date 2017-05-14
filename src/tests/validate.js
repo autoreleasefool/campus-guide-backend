@@ -52,8 +52,8 @@ function validate(): boolean {
 
   // Import all basic definitions
   try {
-    fs.accessSync(path.join('./build/schema_definitions/index.js'), fs.F_OK);
-    const schemas: Array < BaseSchema > = require('../schema_definitions');
+    fs.accessSync(path.join('./build/__schemas__/index.js'), fs.F_OK);
+    const schemas: Array < BaseSchema > = require('../__schemas__');
     for (let i = 0; i < schemas.length; i++) {
       validator.addSchema(schemas[i].schema, schemas[i].name);
     }
@@ -66,9 +66,9 @@ function validate(): boolean {
 
   // Compile the list of files to validate
   validations.push({
-    name: './src/json/config.json',
-    require: require('../json/server_config.json'),
-    schema: require('../json/__schemas__/server_config.schema.json'),
+    name: './src/config.json',
+    require: require('../config.json'),
+    schema: require('../__schemas__/config.schema.json'),
   });
 
   // Add the assets to validate, if they are present

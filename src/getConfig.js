@@ -144,19 +144,19 @@ const updateConfigCronJob = new cron.CronJob({
     const runDate = new Date();
     console.log(`Running updateConfigCronJob on ${runDate.toString()}`);
 
-    fs.stat(path.join(__dirname, 'json', 'server_config.json'), (statErr, stats) => {
+    fs.stat(path.join(__dirname, '__schemas__', 'config.json'), (statErr, stats) => {
       if (statErr) {
         // Check for error
-        console.error('Error opening server_config.json', statErr);
+        console.error('Error opening config.json', statErr);
         return;
       }
 
       // Check if the file has been updated since it was last checked and if so, update it
       if (stats.mtime.getTime() !== serverConfigLastModified) {
-        fs.readFile(path.join(__dirname, 'json', 'server_config.json'), 'utf8', (readErr, data) => {
+        fs.readFile(path.join(__dirname, '__schemas__', 'config.json'), 'utf8', (readErr, data) => {
           if (readErr) {
             // Check for error
-            console.error('Error opening server_config.json', readErr);
+            console.error('Error opening config.json', readErr);
             return;
           }
 
