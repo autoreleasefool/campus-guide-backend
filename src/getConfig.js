@@ -207,6 +207,9 @@ module.exports = (app: any, env: Object) => {
       if (appVersion in configFile.versions) {
         appConfig[configFile.name] = configFile.versions[appVersion];
         appConfig[configFile.name].type = configFile.type;
+      } else if ('*' in configFile.versions) {
+        appConfig[configFile.name] = configFile.versions['*'];
+        appConfig[configFile.name].type = configFile.type;
       }
     }
 

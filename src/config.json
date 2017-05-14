@@ -1,181 +1,13 @@
 [
   {
-    "name": "/disciplines.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/disciplines.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/discover.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/discover.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/faculties.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/faculties.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/housing.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/housing.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/lecture_formats.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/lecture_formats.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/room_types.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/room_types.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/settings.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/settings.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/shuttle.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/shuttle.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/study_spots.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/study_spots.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/transit.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/transit.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/translations.en.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/translations.en.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/translations.fr.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/translations.fr.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/university.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/university.json"
-        }
-      }
-    }
-  },
-  {
-    "name": "/useful_links.json",
-    "type": "json",
-    "versions": {
-      "0.1.0": {
-        "version": 1,
-        "location": {
-          "url": "${file_server}/assets/json/useful_links.json"
-        }
-      }
-    }
-  },
-  {
     "name": "/outer_placeholder.jpg",
     "type": "image",
     "versions": {
-      "0.1.0": {
-        "version": 1,
+      "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder.jpg"
-        }
+        },
+        "version": 1
       }
     }
   },
@@ -183,11 +15,11 @@
     "name": "/outer_placeholder_2.jpg",
     "type": "image",
     "versions": {
-      "0.1.0": {
-        "version": 1,
+      "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_2.jpg"
-        }
+        },
+        "version": 1
       }
     }
   },
@@ -195,11 +27,11 @@
     "name": "/outer_placeholder_3.jpg",
     "type": "image",
     "versions": {
-      "0.1.0": {
-        "version": 1,
+      "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_3.jpg"
-        }
+        },
+        "version": 1
       }
     }
   },
@@ -207,11 +39,11 @@
     "name": "/outer_placeholder_4.jpg",
     "type": "image",
     "versions": {
-      "0.1.0": {
-        "version": 1,
+      "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_4.jpg"
-        }
+        },
+        "version": 1
       }
     }
   },
@@ -219,11 +51,179 @@
     "name": "/outer_placeholder_5.jpg",
     "type": "image",
     "versions": {
-      "0.1.0": {
-        "version": 1,
+      "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_5.jpg"
-        }
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/disciplines.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/disciplines.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/discover.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/discover.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/faculties.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/faculties.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/housing.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/housing.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/lecture_formats.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/lecture_formats.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/room_types.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/room_types.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/settings.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/settings.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/shuttle.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/shuttle.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/study_spots.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/study_spots.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/transit.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/jsons/transit.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/translations.en.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/translations.en.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/translations.fr.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/translations.fr.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/university.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/university.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/useful_links.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/useful_links.json"
+        },
+        "version": 1
       }
     }
   }
