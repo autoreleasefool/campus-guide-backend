@@ -22,7 +22,7 @@ asset_types = {
 }
 
 def pluralize_type(asset_type):
-  if asset_type is json:
+  if asset_type == 'json':
     return 'json'
   else:
     return '{}s'.format(asset_type)

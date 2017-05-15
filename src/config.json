@@ -173,7 +173,7 @@
     "versions": {
       "*": {
         "location": {
-          "url": "${file_server}/assets/jsons/transit.json"
+          "url": "${file_server}/assets/json/transit.json"
         },
         "version": 1
       }
