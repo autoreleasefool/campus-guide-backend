@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Transit Campuses",
+  "description": "Sections within the app describing various transit campuses around the university",
+  "type": "array",
+  "items": { "$ref": "/section" }
+}

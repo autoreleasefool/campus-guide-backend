@@ -180,6 +180,18 @@
     }
   },
   {
+    "name": "/transit_campuses.json",
+    "type": "json",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/json/transit_campuses.json"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/translations.en.json",
     "type": "json",
     "versions": {
