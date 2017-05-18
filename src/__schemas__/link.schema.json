@@ -10,6 +10,10 @@
     }
   },
   "patternProperties": {
+    "^description(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Description of the link. Add the locale modifier for descriptions in different languages"
+    },
     "^name(_[a-z]+)?$": {
       "type": "string",
       "description": "Name of the link. Add the locale modifier for names in different languages"

@@ -79,24 +79,7 @@
     "reservations": {
       "type": "array",
       "description": "A list of links for reserving study spots at the university",
-      "items": {
-        "type": "object",
-        "description": "A link and description for reserving a study spot",
-        "patternProperties": {
-          "^description(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Description of the reservation page. Add the locale modifier for descriptions in different languages"
-          },
-          "^link(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Link to the reservation page. Add the locale modifier for links in different languages"
-          },
-          "^name(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Name of the page. Add the locale modifier for names in different languages"
-          }
-        }
-      }
+      "items": { "$ref": "/link" }
     }
   }
 }
