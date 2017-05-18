@@ -23,7 +23,7 @@
         ".+": {
           "type": "object",
           "description": "Details about a bus stop, including location and routes which service it, referenced by an ID",
-          "required": ["code", "lat", "long", "name"],
+          "required": [ "code", "lat", "long", "name" ],
           "additionalProperties": false,
           "properties": {
             "code": {
@@ -41,7 +41,7 @@
             },
             "name": {
               "type": "string",
-              "description": "Name of the stop."
+              "description": "Name of the stop"
             }
           }
         }
@@ -52,7 +52,7 @@
       "items": {
         "type": "object",
         "description": "Details about the bus stops near a campus",
-        "required": ["id", "lat", "long", "stops"],
+        "required": [ "id", "lat", "long", "stops" ],
         "additionalProperties": false,
         "properties": {
           "id": {
@@ -69,7 +69,7 @@
           },
           "stops": {
             "type": "object",
-            "description": "Set of stop ids and the routes which service them.",
+            "description": "Set of stop ids and the routes which service them",
             "additionalProperties": false,
             "patternProperties": {
               ".+": {
@@ -78,7 +78,7 @@
                 "items": {
                   "type": "object",
                   "description": "Details about a route that services the stop",
-                  "required": ["days", "number", "sign"],
+                  "required": [ "days", "number", "sign" ],
                   "additionalProperties": false,
                   "properties": {
                     "days": {

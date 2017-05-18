@@ -6,7 +6,7 @@
   "items": {
     "type": "object",
     "description": "Provides details on graphically or textually describing a room",
-    "required": ["icon"],
+    "required": [ "icon" ],
     "additionalProperties": false,
     "properties": {
       "icon": { "$ref": "/icon" }

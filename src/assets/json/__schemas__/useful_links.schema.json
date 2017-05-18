@@ -5,7 +5,7 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["icon", "id"],
+    "required": [ "icon", "id" ],
     "additionalProperties": false,
     "properties": {
       "icon": { "$ref": "/icon" },

@@ -3,7 +3,7 @@
   "title": "University",
   "description": "Describes the university",
   "type": "object",
-  "required": ["busInfo", "lat", "long", "semesters"],
+  "required": [ "busInfo", "lat", "long", "semesters" ],
   "additionalProperties": false,
   "patternProperties": {
     "^name(_[a-z]+)?$": {
@@ -40,7 +40,7 @@
       "items": {
         "type": "object",
         "description": "List of semesters for which data and configurations are available",
-        "required": ["id"],
+        "required": [ "id" ],
         "additionalProperties": false,
         "properties": {
           "id": {

@@ -6,7 +6,7 @@
   "items": {
     "type": "object",
     "description": "Name and code representing the lecture type",
-    "required": ["code"],
+    "required": [ "code" ],
     "additionalProperties": false,
     "properties": {
       "code": {

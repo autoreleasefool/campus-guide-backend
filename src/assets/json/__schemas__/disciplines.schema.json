@@ -6,7 +6,7 @@
   "items": {
     "type": "object",
     "description": "Name, faculty and shorthand of a discipline",
-    "required": ["code", "faculties"],
+    "required": [ "code", "faculties" ],
     "additionalProperties": false,
     "properties": {
       "code": {

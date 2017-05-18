@@ -3,7 +3,7 @@
   "title": "Study Spots",
   "description": "Information on study spots on campus",
   "type": "object",
-  "required": ["filters", "spots", "reservations"],
+  "required": [ "filters", "spots", "reservations" ],
   "additionalProperties": false,
   "properties": {
     "filters": {
@@ -12,7 +12,7 @@
       "items": {
         "type": "object",
         "description": "A property by which study spots can be filtered",
-        "required": ["icon"],
+        "required": [ "icon" ],
         "additionalProperties": false,
         "properties": {
           "icon": { "$ref": "/icon" }
@@ -35,7 +35,7 @@
       "items": {
         "type": "object",
         "description": "Details of a single study location on campus at the university",
-        "required": ["building", "room", "filters", "opens", "closes"],
+        "required": [ "building", "room", "filters", "opens", "closes" ],
         "properties":  {
           "building": {
             "type": "string",

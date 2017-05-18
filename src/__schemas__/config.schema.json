@@ -5,7 +5,7 @@
   "type": "array",
   "items": {
     "type": "object",
-    "required": ["name", "versions", "type"],
+    "required": [ "name", "versions", "type" ],
     "additionalProperties": false,
     "properties": {
       "name": {
@@ -13,7 +13,7 @@
       },
       "type": {
         "type": "string",
-        "description": "The filetype for the downloadable file."
+        "description": "The filetype for the downloadable file"
       },
       "versions": {
         "type": "object",
@@ -22,7 +22,7 @@
         "patternProperties": {
           "^([0-9]+\\.?)+$": {
             "type": "object",
-            "required": ["version", "location"],
+            "required": [ "version", "location" ],
             "additionalProperties": false,
             "properties": {
               "version": {
@@ -36,7 +36,7 @@
               "location": {
                 "type": "object",
                 "description": "Location of the file, either locally or from a remote URL",
-                "required": ["url"],
+                "required": [ "url" ],
                 "additionalProperties": false,
                 "properties": {
                   "url": {

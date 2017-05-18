@@ -6,7 +6,7 @@
   "items": {
     "type": "object",
     "description": "Details about a faculty and how its color theme",
-    "required": ["color", "text_color", "shorthand"],
+    "required": [ "color", "text_color", "shorthand" ],
     "properties": {
       "color": {
         "type": "string",

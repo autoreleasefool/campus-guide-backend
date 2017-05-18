@@ -2,17 +2,17 @@
   "id": "/section",
   "type": "object",
   "description": "A menu section",
-  "required": ["id", "image"],
+  "required": [ "id", "image" ],
   "additionalProperties": false,
   "properties": {
     "icon": { "$ref": "/icon" },
     "id": {
       "type": "string",
-      "description": "Unique identifier for the section."
+      "description": "Unique identifier for the section"
     },
     "image": {
       "type": "string",
-      "description": "An image which reflects the contents of the section."
+      "description": "An image which reflects the contents of the section"
     }
   },
   "patternProperties": {

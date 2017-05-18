@@ -10,7 +10,7 @@
       "description": "A list of stops",
       "items": {
         "description": "A stop which the shuttle makes",
-        "required": ["id", "lat", "long"],
+        "required": [ "id", "lat", "long" ],
         "additionalProperties": false,
         "properties": {
           "id": {
@@ -40,7 +40,7 @@
       "items": {
         "type": "object",
         "description": "Details about the schedule, such as date range, and shuttle departure times",
-        "required": ["start_date", "end_date", "excluded_dates", "directions"],
+        "required": [ "start_date", "end_date", "excluded_dates", "directions" ],
         "additionalProperties": false,
         "properties": {
           "start_date": {
@@ -68,7 +68,7 @@
             "maxItems": 2,
             "items": {
               "type": "object",
-              "required": ["day_times"],
+              "required": [ "day_times" ],
               "additionalProperties": false,
               "properties": {
                 "day_times": {

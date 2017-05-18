@@ -6,7 +6,7 @@
   "items": {
     "type": "object",
     "description": "A set of related settings",
-    "required": ["key", "data"],
+    "required": [ "key", "data" ],
     "additionalProperties": false,
     "properties": {
       "key": {
@@ -19,7 +19,7 @@
         "items": {
           "type": "object",
           "description": "A single setting",
-          "required": ["key", "type"],
+          "required": [ "key", "type" ],
           "additionalProperties": false,
           "properties": {
             "key": {
