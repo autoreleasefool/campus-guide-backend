@@ -33,6 +33,10 @@ module.exports = [
     schema: require('./icon.schema.json'),
   },
   {
+    name: '/link',
+    schema: require('./link.schema.json'),
+  },
+  {
     name: '/section',
     schema: require('./section.schema.json'),
   },

@@ -1,0 +1,22 @@
+{
+  "id": "/link",
+  "type": "object",
+  "description": "A link display name and URL",
+  "additionalProperties": false,
+  "properties": {
+    "invalid": {
+      "type": "boolean",
+      "description": "Indicates a link which is no longer valid and should be updated before being displayed"
+    }
+  },
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name of the link. Add the locale modifier for names in different languages"
+    },
+    "^link(_[a-z]+)?$": {
+      "type": "string",
+      "description": "URL of the link. Add the locale modifier for URLs in different languages"
+    }
+  }
+}
