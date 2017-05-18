@@ -4,7 +4,7 @@
   "description": "Sections within the app describing living in Ottawa and at the university",
   "type": "object",
   "additionalProperties": false,
-  "required": [ "categories", "props", "residences", "resources", "sections" ],
+  "required": [ "categories", "residences", "resources", "sections" ],
   "properties": {
     "categories": {
       "type": "array",
