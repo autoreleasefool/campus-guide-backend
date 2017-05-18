@@ -4,20 +4,63 @@
   "description": "Sections within the app describing living in Ottawa and at the university",
   "type": "object",
   "additionalProperties": false,
-  "required": [ "residences", "sections" ],
+  "required": [ "categories", "props", "residences", "resources", "sections" ],
   "properties": {
+    "categories": {
+      "type": "array",
+      "description": "List of categories which residences can be described by",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [ "key", "props" ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "ID of the category"
+          },
+          "props": {
+            "type": "array",
+            "description": "List of properties which residences can be described by",
+            "items": {
+              "type": "object",
+              "description": "Description of a single property in a category",
+              "additionalProperties": false,
+              "required": [ "key" ],
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "ID of the property"
+                }
+              },
+              "patternProperties": {
+                "^name(_[a-z]+)?$": {
+                  "type": "string",
+                  "description": "Name of the property. Add the locale modifier for names in different languages"
+                }
+              }
+            }
+          }
+        },
+        "patternProperties": {
+          "^name(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Name of the category. Add the locale modifier for names in different languages"
+          },
+          "^description(_[a-z]+)?$": {
+            "type": "string",
+            "description": "Description of the category. Add the locale modifier for descriptions in different languages"
+          }
+        }
+      }
+    },
     "residences": {
       "type": "array",
       "description": "List of residences at the university",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [ "shorthand", "image", "location", "properties" ],
+        "required": [ "image", "location" , "props" ],
         "properties": {
-          "shorthand": {
-            "type": "string",
-            "description": "A shorthand code for the residence name"
-          },
           "image": {
             "type": "string",
             "description": "An image of the residence"
@@ -38,11 +81,12 @@
               }
             }
           },
-          "properties": {
+          "props": {
             "type": "object",
-            "patternProperties": {
+            "description": "Mapping of properties of the residence to values",
+            "properties": {
               ".+": {
-                "description": "A property of the residence"
+                "description": "Property and its value"
               }
             }
           }
@@ -63,15 +107,15 @@
         }
       }
     },
-    "sections": {
-      "type": "array",
-      "description": "Sections of housing information describing living at the university",
-      "items": { "$ref": "/section" }
-    },
     "resources": {
       "type": "array",
       "description": "List of other resources for finding housing at the university",
       "items": { "$ref": "/link" }
+    },
+    "sections": {
+      "type": "array",
+      "description": "Sections of housing information describing living at the university",
+      "items": { "$ref": "/section" }
     }
   }
 }
