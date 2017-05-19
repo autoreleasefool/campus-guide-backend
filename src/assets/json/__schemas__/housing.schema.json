@@ -53,6 +53,7 @@
         }
       }
     },
+    "offCampusHousing": { "$ref": "/link" },
     "residences": {
       "type": "array",
       "description": "List of residences at the university",
