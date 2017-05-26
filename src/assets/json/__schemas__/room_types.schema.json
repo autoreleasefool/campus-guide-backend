@@ -2,19 +2,35 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Room Types",
   "description": "Describes types of rooms at the school",
-  "type": "array",
-  "items": {
-    "type": "object",
-    "description": "Provides details on graphically or textually describing a room",
-    "required": [ "icon" ],
-    "additionalProperties": false,
-    "properties": {
-      "icon": { "$ref": "/icon" }
+  "type": "object",
+  "additionalProperties": false,
+  "required": [ "ids", "types" ],
+  "properties": {
+    "ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Available IDs for room types",
+      "items": { "type": "string" }
     },
-    "patternProperties": {
-      "^name(_[a-z]+)?$": {
-        "type": "string",
-        "description": "Name of the room. Add the locale modifier for names in different languages"
+    "types": {
+      "type": "object",
+      "description": "Room type IDs mapped to their descriptions",
+      "patternProperties": {
+        ".+": {
+          "type": "object",
+          "description": "Description of a single room type",
+          "additionalProperties": false,
+          "required": [ "icon" ],
+          "properties": {
+            "icon": { "$ref": "/icon" }
+          },
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the room. Add the locale modifier for names in different languages"
+            }
+          }
+        }
       }
     }
   }
