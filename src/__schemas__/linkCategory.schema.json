@@ -1,0 +1,38 @@
+{
+  "description": "A set of links and data to present them",
+  "type": "object",
+  "required": [ "icon", "id" ],
+  "additionalProperties": false,
+  "properties": {
+    "icon": { "$ref": "/icon" },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the category of links"
+    },
+    "image": {
+      "type": "string",
+      "description": "Path for the image which represents the category and its subcategories"
+    },
+    "links": {
+      "type": "array",
+      "description": "A list of links in the category",
+      "items": { "$ref": "/link" }
+    },
+    "social": {
+      "type": "array",
+      "description": "A list of social media links",
+      "items": { "$ref": "/link" }
+    },
+    "categories": {
+      "type": "array",
+      "description": "A set of subcategories of links",
+      "items": { "$ref": "/linkCategory" }
+    }
+  },
+  "patternProperties": {
+    "^name(_[a-z]+)?$": {
+      "type": "string",
+      "description": "Name of the category. Add the locale modifier for names in different languages"
+    }
+  }
+}

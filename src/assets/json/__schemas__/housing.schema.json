@@ -12,13 +12,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [ "key", "props" ],
+        "required": [ "key", "data" ],
         "properties": {
           "key": {
             "type": "string",
             "description": "ID of the category"
           },
-          "props": {
+          "data": {
             "type": "array",
             "description": "List of properties which residences can be described by",
             "items": {
@@ -87,6 +87,7 @@
             "description": "Mapping of properties of the residence to values",
             "properties": {
               ".+": {
+                "type": "boolean",
                 "description": "Property and its value"
               }
             }
@@ -108,11 +109,7 @@
         }
       }
     },
-    "resources": {
-      "type": "array",
-      "description": "List of other resources for finding housing at the university",
-      "items": { "$ref": "/link" }
-    },
+    "resources": { "$ref": "/linkCategory" },
     "sections": {
       "type": "array",
       "description": "Sections of housing information describing living at the university",
