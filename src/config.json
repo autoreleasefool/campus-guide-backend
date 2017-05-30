@@ -48,6 +48,30 @@
     }
   },
   {
+    "name": "/emergency.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/emergency.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/faculties.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/faculties.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/fss_lower.jpg",
     "type": "image",
     "versions": {
@@ -84,6 +108,18 @@
     }
   },
   {
+    "name": "/housing.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/housing.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/lee_foyer.jpg",
     "type": "image",
     "versions": {
@@ -114,6 +150,18 @@
       "*": {
         "location": {
           "url": "${file_server}/assets/images/mrt_basement.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/oc_transpo.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/oc_transpo.jpg"
         },
         "version": 1
       }
@@ -192,12 +240,60 @@
     }
   },
   {
+    "name": "/sfuo.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/sfuo.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/shuttle.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/shuttle.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/site_lower.jpg",
     "type": "image",
     "versions": {
       "*": {
         "location": {
           "url": "${file_server}/assets/images/site_lower.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/sports.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/sports.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/study_spots.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/study_spots.jpg"
         },
         "version": 1
       }
@@ -222,6 +318,30 @@
       "*": {
         "location": {
           "url": "${file_server}/assets/images/ucu_lounge.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/university.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/university.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/uo_info.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/uo_info.jpg"
         },
         "version": 1
       }
