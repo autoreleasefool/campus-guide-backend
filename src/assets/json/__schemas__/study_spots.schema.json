@@ -3,28 +3,39 @@
   "title": "Study Spots",
   "description": "Information on study spots on campus",
   "type": "object",
-  "required": [ "filters", "spots", "reservations" ],
+  "required": [ "filters", "filterDescriptions", "spots", "reservations" ],
   "additionalProperties": false,
   "properties": {
     "filters": {
       "type": "array",
       "description": "A list of available filters for study spots",
+      "uniqueItems": true,
       "items": {
-        "type": "object",
-        "description": "A property by which study spots can be filtered",
-        "required": [ "icon" ],
-        "additionalProperties": false,
-        "properties": {
-          "icon": { "$ref": "/icon" }
-        },
-        "patternProperties": {
-          "^name(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Name of the filter. Add the locale modifier for names in different languages"
+        "type": "string",
+        "description": "ID of a single filter"
+      }
+    },
+    "filterDescriptions": {
+      "type": "object",
+      "description": "Filter IDs mapped to their descriptions",
+      "patternProperties": {
+        ".+": {
+          "type": "object",
+          "description": "Description of a single filter",
+          "required": [ "icon" ],
+          "additionalProperties": false,
+          "properties": {
+            "icon": { "$ref": "/icon" }
           },
-          "^description(_[a-z]+)?$": {
-            "type": "string",
-            "description": "Description of the filter. Add the locale modifier for descriptions in different languages"
+          "patternProperties": {
+            "^name(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Name of the filter. Add the locale modifier for names in different languages"
+            },
+            "^description(_[a-z]+)?$": {
+              "type": "string",
+              "description": "Description of the filter. Add the locale modifier for descriptions in different languages"
+            }
           }
         }
       }
@@ -42,25 +53,25 @@
             "description": "Code of the building which the study spot can be found in"
           },
           "room": {
-            "type": "string",
+            "type": [ "string", "null" ],
             "description": "Room number in the building"
           },
           "opens": {
             "type": "string",
             "description": "24 hour time. Times past 24 hours represent times after midnight",
-            "pattern": "^([012][0-9]):([0-5][0-9])$"
+            "pattern": "^(([012][0-9]):([0-5][0-9])|[Nn]\/[Aa])$"
           },
           "closes": {
             "type": "string",
             "description": "24 hour time. Times past 24 hours represent times after midnight",
-            "pattern": "^([012][0-9]):([0-5][0-9])$"
+            "pattern": "^(([012][0-9]):([0-5][0-9])|[Nn]\/[Aa])$"
           },
           "filters": {
             "type": "array",
             "description": "A list of properties of the study spot, to filter by",
             "items": {
-              "type": "number",
-              "description": "Index of the filter, from the `filters` array"
+              "type": "string",
+              "description": "ID of the filter, from the `filters` array"
             }
           }
         },
@@ -76,10 +87,6 @@
         }
       }
     },
-    "reservations": {
-      "type": "array",
-      "description": "A list of links for reserving study spots at the university",
-      "items": { "$ref": "/link" }
-    }
+    "reservations": { "$ref": "/linkCategory" }
   }
 }

@@ -1,5 +1,125 @@
 [
   {
+    "name": "/bsc_upper.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/bsc_upper.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/cby_basement.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/cby_basement.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/cby_first.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/cby_first.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/cby_upper.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/cby_upper.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/fss_lower.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/fss_lower.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/ftx_lib.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/ftx_lib.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/ftx_third.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/ftx_third.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/lee_foyer.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/lee_foyer.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/mrn_basement.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/mrn_basement.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/mrt_basement.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/mrt_basement.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/outer_placeholder.jpg",
     "type": "image",
     "versions": {
@@ -54,6 +174,54 @@
       "*": {
         "location": {
           "url": "${file_server}/assets/images/outer_placeholder_5.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/rgn_lounge.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/rgn_lounge.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/site_lower.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/site_lower.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/tbt_lounge.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/tbt_lounge.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/ucu_lounge.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/ucu_lounge.jpg"
         },
         "version": 1
       }
