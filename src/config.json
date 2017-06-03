@@ -168,6 +168,54 @@
     }
   },
   {
+    "name": "/octranspo_lees.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/octranspo_lees.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/octranspo_main.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/octranspo_main.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/octranspo_mba.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/octranspo_mba.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
+    "name": "/octranspo_rgn.jpg",
+    "type": "image",
+    "versions": {
+      "*": {
+        "location": {
+          "url": "${file_server}/assets/images/octranspo_rgn.jpg"
+        },
+        "version": 1
+      }
+    }
+  },
+  {
     "name": "/outer_placeholder.jpg",
     "type": "image",
     "versions": {
