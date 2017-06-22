@@ -70,13 +70,13 @@
             "type": "object",
             "description": "Location of the residence",
             "additionalProperties": false,
-            "required": [ "lat", "long" ],
+            "required": [ "latitude", "longitude" ],
             "properties": {
-              "lat": {
+              "latitude": {
                 "type": "number",
                 "description": "Latitude of the location"
               },
-              "long": {
+              "longitude": {
                 "type": "number",
                 "description": "Longitude of the location"
               }

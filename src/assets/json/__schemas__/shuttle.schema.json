@@ -10,18 +10,18 @@
       "description": "A list of stops",
       "items": {
         "description": "A stop which the shuttle makes",
-        "required": [ "id", "lat", "long" ],
+        "required": [ "id", "latitude", "longitude" ],
         "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
             "description": "Unique identifier for the stop"
           },
-          "lat": {
+          "latitude": {
             "type": "number",
             "description": "Latitude of the location of the stop"
           },
-          "long": {
+          "longitude": {
             "type": "number",
             "description": "Longitude of the location of the stop"
           }
