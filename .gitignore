@@ -41,6 +41,7 @@ jspm_packages
 /assets/**
 !/assets/**/
 !/assets/json/__schemas__/**
+!/assets/__schemas__/**
 
 # Environment variables
 /src/env.js
