@@ -1,7 +1,9 @@
 #!/bin/bash
 
-for filename in ./src/assets/json/*.json; do
+mkdir -p ./artifacts/assets/json
+
+for filename in ./assets/json/*.json; do
   name=${filename##*/}
-  echo "Uglify ./src/assets/json/$name -> ./build/assets/json/$name"
-  uglifyjs "./src/assets/json/$name" --output "./build/assets/json/$name" --expr -b beautify=false -b keep_quoted_props=true -b quote-keys=true
+  echo "Uglify ./assets/json/$name -> ./artifacts/assets/json/$name"
+  uglifyjs "./assets/json/$name" --output "./artifacts/assets/json/$name" --expr -b beautify=false -b keep_quoted_props=true -b quote-keys=true
 done
