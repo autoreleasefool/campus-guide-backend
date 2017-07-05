@@ -44,3 +44,7 @@ jspm_packages
 
 # Environment variables
 /src/env.js
+/src/env.ts
+
+# TypeScript output
+/artifacts/

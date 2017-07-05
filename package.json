@@ -5,7 +5,7 @@
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
   "main": "src/server.js",
   "scripts": {
-    "build": "yarn run clean && yarn run tsc -- && ./scripts/uglify",
+    "build": "yarn run clean && yarn run tsc && cp -r ./assets/ ./artifacts/assets/ &&  ./scripts/uglify",
     "clean": "rimraf artifacts",
     "lint": "tslint src/**/*.ts",
     "start": "yarn run build && node ./artifacts/server.js",
@@ -24,17 +24,19 @@
   },
   "homepage": "https://github.com/joseph-roque/campus-guide-server#readme",
   "devDependencies": {
+    "@types/express": "^4.0.36",
+    "@types/node": "^8.0.7",
     "rimraf": "^2.6.1",
     "tslint": "^5.4.3",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.4.1"
   },
   "dependencies": {
-    "cron": "^1.1.1",
     "express": "^4.15.2",
     "http-status-codes": "^1.0.6",
     "jsonschema": "^1.1.0",
-    "promise": "^7.1.1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
     "uglify-js": "^2.8.22"
   }
 }
