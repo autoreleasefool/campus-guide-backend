@@ -1,7 +1,6 @@
 /**
- *
  * @license
- * Copyright (C) 2016 Joseph Roque
+ * Copyright (C) 2016-2017 Joseph Roque
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,40 +15,39 @@
  * limitations under the License.
  *
  * @author Joseph Roque
- * @file server.js
+ * @file server.ts
  * @description Provides main server functionality and routing.
- *
- * @flow
  */
-'use strict';
+
+declare var process: any;
 
 // Imports
-const env = require('./env.js');
-const express = require('express');
-const logging = require('./utils/logging.js');
-const validate = require('./tests/validate.js');
+import * as env from './env';
+import * as express from 'express';
+import * as fileServer from './fileServer';
+import * as configRoutes from './getConfig';
+import * as logging from './util/logging';
+import * as validator from './util/validator';
 
 // Ensures validation passes, or exits
 logging.printDefaultStatusMessage('Starting validation.');
-if (!validate()) {
-  console.error('Some files failed to pass validation. Exiting.');
+if (!validator.validate()) {
+  logging.printErrorStatusMessage('Some files failed to pass validation. Exiting.');
   logging.printDefaultStatusMessage('Validation was unsuccessful. Check error logs.');
   process.exit(1);
 }
+
 logging.printDefaultStatusMessage('Validation successful.');
 
 // Print out startup time to default logs
 logging.printDefaultStatusMessage('Starting new instance of server.');
 logging.printErrorStatusMessage('Starting new instance of server.');
 
-// Port that server will run on
-const PORT: number = 8080;
-
 // Create server
 const app = express();
 
 // Log each request made to the server
-app.use((req, res, next) => {
+app.use((req: express.Request, _: express.Response, next: any) => {
   const date = new Date();
   console.log(`(${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl}`);
   next();
@@ -57,16 +55,17 @@ app.use((req, res, next) => {
 
 // Enable file server (for development)
 if (env.enableFileServer) {
-  require('./fileServer.js')(app, env);
+  fileServer.start(app);
 }
 
 // Enable config checks
-require('./getConfig.js')(app, env);
+configRoutes.setup(app, env);
+
+// Port that server will run on
+const PORT = 8080;
 
 const server = app.listen(PORT, '127.0.0.1', () => {
-
   const host = server.address().address;
   const port = server.address().port;
-
   console.log('Campus Guide server listening at http://%s:%s', host, port);
 });

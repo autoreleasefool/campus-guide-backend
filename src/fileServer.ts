@@ -1,8 +1,7 @@
 
 /**
- *
  * @license
- * Copyright (C) 2016 Joseph Roque
+ * Copyright (C) 2016-2017 Joseph Roque
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +16,17 @@
  * limitations under the License.
  *
  * @author Joseph Roque
- * @file fileServer.js
+ * @file fileServer.ts
  * @description Enables a static file server (for development purposes)
- *
- * @flow
  */
-'use strict';
 
-const express = require('express');
-const path = require('path');
+import * as express from 'express';
+import * as path from 'path';
 
-module.exports = (app: any) => {
-
+export function start(app: express.Application): void {
   // Add charset=utf-8 to headers
   const options = {
-    setHeaders: (res, file) => {
+    setHeaders: (res: express.Response, file: string): void => {
       if (file.endsWith('.json')) {
         res.set('Content-Type', 'application/json; charset=utf-8');
       }
@@ -39,6 +34,5 @@ module.exports = (app: any) => {
   };
 
   // Serve assets
-  app.use('/assets', express.static(path.join(__dirname, 'assets'), options));
-
-};
+  app.use('/assets', express.static(path.join(__dirname, '../', 'assets'), options));
+}

@@ -38,9 +38,14 @@ jspm_packages
 .node_repl_history
 
 # Assets
-/src/assets/**
-!/src/assets/**/
-!/src/assets/json/__schemas__/**
+/assets/**
+!/assets/**/
+!/assets/json/__schemas__/**
+!/assets/__schemas__/**
 
 # Environment variables
 /src/env.js
+/src/env.ts
+
+# TypeScript output
+/artifacts/
