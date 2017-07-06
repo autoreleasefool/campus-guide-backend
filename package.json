@@ -5,13 +5,14 @@
   "description": "A Node.js backend that directs the Campus Guide application to various configuration files.",
   "main": "src/server.js",
   "scripts": {
-    "build": "yarn run clean && yarn run tsc && cp -r ./assets/ ./artifacts/assets/ &&  ./scripts/uglify",
+    "build": "yarn run clean && yarn run tsc && cp -r ./assets/ ./artifacts/assets/",
     "clean": "rimraf artifacts",
     "lint": "tslint src/**/*.ts",
-    "start": "yarn run build && node ./artifacts/server.js",
+    "start": "yarn run build && yarn run uglify && node ./artifacts/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "tscp": "tsc --pretty"
+    "tscp": "tsc --pretty",
+    "uglify": "./scripts/uglify"
   },
   "repository": {
     "type": "git",
