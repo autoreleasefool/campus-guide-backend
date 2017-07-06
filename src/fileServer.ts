@@ -34,5 +34,5 @@ export function start(app: express.Application): void {
   };
 
   // Serve assets
-  app.use('/assets', express.static(path.join(__dirname, '../', 'assets'), options));
+  app.use('/assets', express.static(path.join(__dirname, '../', 'artifacts', 'assets'), options));
 }
