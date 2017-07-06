@@ -27,12 +27,13 @@ export interface Environment {
 }
 
 // Imports
+import * as configRoutes from './getConfig';
 import * as envDefaults from './defaults';
 import * as express from 'express';
 import * as fileServer from './fileServer';
 import * as HttpStatus from 'http-status-codes';
-import * as configRoutes from './getConfig';
 import * as logging from './util/logging';
+import * as request from 'request-promise-native';
 import * as validator from './util/validator';
 
 const env: Environment = {
@@ -42,8 +43,6 @@ const env: Environment = {
   fileServer: process.env.NODE_ENV === 'production' && process.env.FILE_SERVER
       ? process.env.FILE_SERVER : envDefaults.fileServer,
 };
-
-console.log(env);
 
 // Ensures validation passes, or exits
 logging.printDefaultStatusMessage('Starting validation.');
@@ -99,3 +98,27 @@ const server = app.listen(PORT, '127.0.0.1', () => {
   const port = server.address().port;
   console.log('Campus Guide server listening at http://%s:%s', host, port);
 });
+
+/**
+ * Refreshes the config for the first setup.
+ */
+async function initialConfigRefresh(): Promise<void> {
+  const options = {
+    headers: { Authorization: env.authKey },
+    method: 'GET',
+    uri: `${env.fileServer}/config/refresh/`,
+  };
+
+  try {
+    const response = await request(options);
+    if (response !== 'OK') {
+      throw new Error(response);
+    }
+  } catch (err) {
+    // Exit with error code 2
+    console.error('Failed to load initial configuration.', err);
+    process.exit(2);
+  }
+}
+
+initialConfigRefresh();
