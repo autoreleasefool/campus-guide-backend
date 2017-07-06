@@ -5,5 +5,5 @@ mkdir -p ./artifacts/assets/json
 for filename in ./assets/json/*.json; do
   name=${filename##*/}
   echo "Uglify ./assets/json/$name -> ./artifacts/assets/json/$name"
-  uglifyjs "./assets/json/$name" --output "./artifacts/assets/json/$name" --expr -b beautify=false -b keep_quoted_props=true -b quote-keys=true
+  uglifyjs "./assets/json/$name" --output "./artifacts/assets/json/$name" -p expression -b beautify=false -b quote_style=2 -b quote_keys=true
 done

@@ -38,6 +38,6 @@
     "jsonschema": "^1.1.0",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
-    "uglify-js": "^2.8.22"
+    "uglify-js": "^3.0.23"
   }
 }
