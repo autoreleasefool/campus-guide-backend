@@ -19,15 +19,31 @@
  * @description Provides main server functionality and routing.
  */
 
-declare var process: any;
+// Defines the required defined environment variables
+export interface Environment {
+  authKey: string;
+  enableFileServer: boolean;
+  fileServer: string;
+}
 
 // Imports
-import * as env from './env';
+import * as envDefaults from './defaults';
 import * as express from 'express';
 import * as fileServer from './fileServer';
+import * as HttpStatus from 'http-status-codes';
 import * as configRoutes from './getConfig';
 import * as logging from './util/logging';
 import * as validator from './util/validator';
+
+const env: Environment = {
+  authKey: process.env.NODE_ENV === 'production' && process.env.AUTH_KEY
+      ? process.env.AUTH_KEY : envDefaults.authKey,
+  enableFileServer: process.env.ENABLE_FILE_SERVER === 'true' || envDefaults.enableFileServer,
+  fileServer: process.env.NODE_ENV === 'production' && process.env.FILE_SERVER
+      ? process.env.FILE_SERVER : envDefaults.fileServer,
+};
+
+console.log(env);
 
 // Ensures validation passes, or exits
 logging.printDefaultStatusMessage('Starting validation.');
@@ -43,14 +59,28 @@ logging.printDefaultStatusMessage('Validation successful.');
 logging.printDefaultStatusMessage('Starting new instance of server.');
 logging.printErrorStatusMessage('Starting new instance of server.');
 
+if (process.env.NODE_ENV !== 'production') {
+  console.log('WARNING! You haven\'t enabled a production environment for this instance!');
+} else if (env.authKey === envDefaults.authKey) {
+  console.error('ERROR! You haven\'t set a custom authorization key for this instance.');
+  throw new Error('Authorization key cannot be default in production. Ensure you provide AUTH_KEY env variable.');
+}
+
 // Create server
 const app = express();
 
-// Log each request made to the server
-app.use((req: express.Request, _: express.Response, next: any) => {
+// Log each request made to the server and confirm the auth key
+app.use((req: express.Request, res: express.Response, next: any) => {
   const date = new Date();
-  console.log(`(${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl}`);
-  next();
+
+  const auth = req.header('Authorization');
+  if (auth !== env.authKey) {
+    console.log(`Unauthorized access! (${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl} -- ${auth}`);
+    res.sendStatus(HttpStatus.UNAUTHORIZED);
+  } else {
+    console.log(`(${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl}`);
+    next();
+  }
 });
 
 // Enable file server (for development)

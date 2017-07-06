@@ -41,8 +41,8 @@ function printStatusMessage(message: string, log: (message: string) => void): vo
       currentLine += `${piece} `;
     } else {
       log(currentLine);
-      currentLineLength = 0;
-      currentLine = '';
+      currentLineLength = piece.length + 1;
+      currentLine = `${piece} `;
     }
   }
 

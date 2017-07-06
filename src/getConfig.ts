@@ -48,6 +48,7 @@ interface ServerConfig {
 import * as express from 'express';
 import * as HttpStatus from 'http-status-codes';
 import * as request from 'request-promise-native';
+import { Environment } from './server';
 
 // Contents of the serverConfig file
 let serverConfig: ServerConfig;
@@ -73,9 +74,9 @@ async function validateConfigNames(config: ServerConfig): Promise<void> {
 /**
  * Refreshes the server configuration file.
  *
- * @param {any} env environment variables
+ * @param {Environment} env environment variables
  */
-async function refreshConfig(env: any): Promise<void> {
+async function refreshConfig(env: Environment): Promise<void> {
 
   // Get a copy of the config just in case an error occurs
   const savedConfig = JSON.parse(JSON.stringify(serverConfig || {}));
@@ -85,6 +86,7 @@ async function refreshConfig(env: any): Promise<void> {
 
   const uri = `${env.fileServer}/assets/config.json`;
   const options = {
+    headers: { Authorization: env.authKey },
     json: true,
     method: 'GET',
     uri,
@@ -96,7 +98,7 @@ async function refreshConfig(env: any): Promise<void> {
       // Update config file and modified time
       replaceConfigUrls(env, freshConfig);
       await validateConfigNames(freshConfig);
-      await refreshConfigSizes(freshConfig);
+      await refreshConfigSizes(env, freshConfig);
       serverConfig = freshConfig;
       console.log(`Server configuration updated on ${(new Date()).toString()}`);
     }
@@ -110,12 +112,12 @@ async function refreshConfig(env: any): Promise<void> {
 /**
  * Replaces configuration substrings recursively in the object.
  *
- * @param {any}          env    private environment variables
+ * @param {Environment}  env    private environment variables
  * @param {ServerConfig} config the object to recursively update
  * @param {boolean}      clone  false to alter the original object, true to clone
  * @returns {ServerConfig} the updated config
  */
-function replaceConfigUrls(env: any, config: ServerConfig): ServerConfig {
+function replaceConfigUrls(env: Environment, config: ServerConfig): ServerConfig {
   for (const key in config) {
     if (config.hasOwnProperty(key)) {
       const value = config[key];
@@ -133,16 +135,18 @@ function replaceConfigUrls(env: any, config: ServerConfig): ServerConfig {
 /**
  * Iterates over config files and gets the file size of each
  *
+ * @param {Environment}  env    private environment variables
  * @param {ServerConfig} config the configuration for files
  * @returns {Promise<void>} promise that resolves when the size of config files are all updated
  */
-async function refreshConfigSizes(config: ServerConfig): Promise<void> {
+async function refreshConfigSizes(env: Environment, config: ServerConfig): Promise<void> {
   // Get the new size from headers of each version file
   for (const file of config.files) {
     for (const version in file.versions) {
       if (file.versions.hasOwnProperty(version)) {
         const fileVersion = file.versions[version];
         const options = {
+          headers: { Authorization: env.authKey },
           method: 'HEAD',
           uri: fileVersion.location.url,
         };
@@ -158,7 +162,13 @@ async function refreshConfigSizes(config: ServerConfig): Promise<void> {
   }
 }
 
-export function setup(app: express.Application, env: any): void {
+/**
+ * Sets up the routes to get the configuration for an app.
+ *
+ * @param {express.Application} app the express application
+ * @param {Environment}         env the current environment variables
+ */
+export function setup(app: express.Application, env: Environment): void {
 
   // Endpoint to force refresh config versions
   app.get('/config/refresh', async(_: express.Request, res: express.Response) => {
