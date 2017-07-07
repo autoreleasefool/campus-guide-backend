@@ -1,5 +1,3 @@
 # Assets
-/assets/**
-!/assets/**/
-!/assets/json/__schemas__/**
-!/assets/__schemas__/**
+assets/
+assets_min/

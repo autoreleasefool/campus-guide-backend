@@ -43,7 +43,7 @@ const options = {
 };
 
 // Serve assets
-app.use('/assets', express.static(path.join(__dirname, 'build', 'assets'), options));
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets_min'), options));
 
 // Port that server will run on
 const PORT = 8080;
