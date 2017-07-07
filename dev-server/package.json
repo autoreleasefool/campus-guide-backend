@@ -1,0 +1,20 @@
+{
+  "name": "campus-guide-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development server to serve config files for the Campus Guide mobile app",
+  "main": "server.js",
+  "scripts": {
+    "build": "yarn run clean && mkdir -p ./build/ && cp -r ../assets/ ./build/assets/",
+    "clean": "rimraf ./build/",
+    "start": "yarn run build && yarn run uglify && node ./server.js",
+    "uglify": "sh ./uglify.sh"
+  },
+  "author": "Joseph Roque",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.15.2",
+    "rimraf": "^2.6.1",
+    "uglify-js": "^3.0.23"
+  }
+}
