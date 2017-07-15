@@ -23,6 +23,7 @@ ASSET_TYPES = {
     'image': ['.png', '.gif', '.jpg'],
 }
 
+
 def pluralize_type(asset_type):
     """
     Pluralizes asset types.
@@ -36,10 +37,10 @@ def pluralize_type(asset_type):
     """
     if asset_type == 'json':
         return 'json'
-    else:
-        return '{}s'.format(asset_type)
+    return '{}s'.format(asset_type)
 
-def process_asset(should_remove, asset_name):  #pylint:disable=R0912
+
+def process_asset(should_remove, asset_name):
     """
     Add or remove an asset from the application config.
 
@@ -52,6 +53,7 @@ def process_asset(should_remove, asset_name):  #pylint:disable=R0912
     :type asset_name:
         `str`
     """
+    # pylint:disable=too-many-branches,too-many-statements
     asset_name_without_type = asset_name[:asset_name.rfind('.')]
     asset_name_type_only = asset_name[asset_name.rfind('.'):]
     asset_config_name = '/{}'.format(asset_name)
@@ -124,8 +126,8 @@ def process_asset(should_remove, asset_name):  #pylint:disable=R0912
             config_json['lastUpdatedAt'] = int(time.time())
 
     config_json['files'].sort(key=lambda x: (x['type'], x['name']))
-    with open(os.path.join('.', 'assets', 'config', configs[0]), 'w', encoding='utf8') as f:
-        json.dump(config_json, f, sort_keys=True, ensure_ascii=False, indent=2)
+    with open(os.path.join('.', 'assets', 'config', configs[0]), 'w', encoding='utf8') as file:
+        json.dump(config_json, file, sort_keys=True, ensure_ascii=False, indent=2)
 
     if should_remove:
         print('* Finished removing asset {}'.format(asset_name))
@@ -133,17 +135,17 @@ def process_asset(should_remove, asset_name):  #pylint:disable=R0912
         print('* Finished adding asset {}'.format(asset_name))
 
 # Process arguments
-adding_assets = False
-removing_assets = False
+ADDING_ASSETS = False
+REMOVING_ASSETS = False
 for arg in sys.argv:
     if arg in ['--add', '-a']:
-        adding_assets = True
-        removing_assets = False
+        ADDING_ASSETS = True
+        REMOVING_ASSETS = False
     elif arg in ['--remove', '-r']:
-        adding_assets = False
-        removing_assets = True
+        ADDING_ASSETS = False
+        REMOVING_ASSETS = True
     else:
-        if adding_assets:
+        if ADDING_ASSETS:
             process_asset(False, arg)
-        elif removing_assets:
+        elif REMOVING_ASSETS:
             process_asset(True, arg)
