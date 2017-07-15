@@ -3,5 +3,5 @@
   "title": "Transit Campuses",
   "description": "Sections within the app describing various transit campuses around the university",
   "type": "array",
-  "items": { "$ref": "/section" }
+  "items": { "$ref": "http://josephroque.ca/json-schema/section" }
 }

@@ -3,6 +3,7 @@
   "title": "Translations",
   "description": "Translations in English or French for all strings in the application",
   "type": "object",
+  "additionalProperties": false,
   "patternProperties": {
     ".+": {
       "type": "string",

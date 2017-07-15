@@ -1,5 +1,5 @@
 {
-  "id": "/link",
+  "id": "http://josephroque.ca/json-schema/link",
   "type": "object",
   "description": "A link display name and URL",
   "additionalProperties": false,

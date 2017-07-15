@@ -1,5 +1,5 @@
 {
-  "id": "/details",
+  "id": "http://josephroque.ca/json-schema/details",
   "type": "object",
   "description": "Details about a particular subject and how to present it",
   "properties": {
@@ -7,7 +7,7 @@
       "type": "string",
       "description": "An image representing the details being provided"
     },
-    "icon": { "$ref": "/icon" }
+    "icon": { "$ref": "http://josephroque.ca/json-schema/icon" }
   },
   "patternProperties": {
     "^name(_[a-z]+)?$": {

@@ -1,11 +1,11 @@
 {
-  "id": "/section",
+  "id": "http://josephroque.ca/json-schema/section",
   "type": "object",
   "description": "A menu section",
   "required": [ "id", "image" ],
   "additionalProperties": false,
   "properties": {
-    "icon": { "$ref": "/icon" },
+    "icon": { "$ref": "http://josephroque.ca/json-schema/icon" },
     "id": {
       "type": "string",
       "description": "Unique identifier for the section"

@@ -3,5 +3,5 @@
   "title": "Useful Links",
   "description": "Links that users may find useful and relevant to their studies in Ottawa",
   "type": "array",
-  "items": { "$ref": "/linkCategory" }
+  "items": { "$ref": "http://josephroque.ca/json-schema/linkCategory" }
 }

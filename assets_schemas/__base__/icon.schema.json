@@ -1,5 +1,5 @@
 {
-  "id": "/icon",
+  "id": "http://josephroque.ca/json-schema/icon",
   "type": "object",
   "additionalProperties": false,
   "properties": {

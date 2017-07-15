@@ -25,7 +25,7 @@
           "required": [ "icon" ],
           "additionalProperties": false,
           "properties": {
-            "icon": { "$ref": "/icon" }
+            "icon": { "$ref": "http://josephroque.ca/json-schema/icon" }
           },
           "patternProperties": {
             "^name(_[a-z]+)?$": {
@@ -87,6 +87,6 @@
         }
       }
     },
-    "reservations": { "$ref": "/linkCategory" }
+    "reservations": { "$ref": "http://josephroque.ca/json-schema/linkCategory" }
   }
 }

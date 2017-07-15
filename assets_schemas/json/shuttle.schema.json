@@ -110,7 +110,7 @@
     "additional_info": {
       "description": "List of pages of additional details regarding the shuttle",
       "type": "array",
-      "items": { "$ref": "/details" }
+      "items": { "$ref": "http://josephroque.ca/json-schema/details" }
     }
   }
 }

@@ -53,7 +53,7 @@
         }
       }
     },
-    "offCampusHousing": { "$ref": "/link" },
+    "offCampusHousing": { "$ref": "http://josephroque.ca/json-schema/link" },
     "residences": {
       "type": "array",
       "description": "List of residences at the university",
@@ -109,11 +109,11 @@
         }
       }
     },
-    "resources": { "$ref": "/linkCategory" },
+    "resources": { "$ref": "http://josephroque.ca/json-schema/linkCategory" },
     "sections": {
       "type": "array",
       "description": "Sections of housing information describing living at the university",
-      "items": { "$ref": "/section" }
+      "items": { "$ref": "http://josephroque.ca/json-schema/section" }
     }
   }
 }

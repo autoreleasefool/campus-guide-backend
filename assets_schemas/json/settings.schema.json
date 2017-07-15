@@ -32,7 +32,7 @@
               "description": "The type of setting",
               "pattern": "^boolean|multi|text|link$"
             },
-            "icon": { "$ref": "/icon" }
+            "icon": { "$ref": "http://josephroque.ca/json-schema/icon" }
           },
           "patternProperties": {
             "^name(_[a-z]+)?$": {

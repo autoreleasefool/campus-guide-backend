@@ -3,5 +3,5 @@
   "title": "Discovery",
   "description": "Sections within the app describing various services and locations around Ottawa",
   "type": "array",
-  "items": { "$ref": "/section" }
+  "items": { "$ref": "http://josephroque.ca/json-schema/section" }
 }

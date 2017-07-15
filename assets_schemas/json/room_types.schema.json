@@ -22,7 +22,7 @@
           "additionalProperties": false,
           "required": [ "icon" ],
           "properties": {
-            "icon": { "$ref": "/icon" }
+            "icon": { "$ref": "http://josephroque.ca/json-schema/icon" }
           },
           "patternProperties": {
             "^name(_[a-z]+)?$": {
