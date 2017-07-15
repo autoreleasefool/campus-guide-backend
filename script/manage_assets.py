@@ -115,9 +115,7 @@ def process_asset(should_remove, asset_name):
             config_json['files'].append({
                 'name': asset_config_name,
                 'type': asset_type,
-                'url': '{}file_server{}/assets/{}/{}'.format(
-                    '{',
-                    '}',
+                'url': 'http://localhost:8080/assets/{}/{}'.format(
                     pluralize_type(asset_type),
                     asset_name,
                 ),
