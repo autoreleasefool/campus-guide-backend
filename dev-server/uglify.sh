@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp -r ../assets/ ../assets_min/
+
 for filename in ../assets_min/config/*.json; do
   name=${filename##*/}
   echo "Uglify ../assets_min/config/$name -> ../assets_min/config/$name"
