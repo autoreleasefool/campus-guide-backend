@@ -11,9 +11,13 @@ re_comment = re.compile(r'^\s*[/]{2}.*$', flags=re.MULTILINE)
 
 success_code = 0
 
+if len(sys.argv) < 3:
+  print('Usage: ./schema_validate.py <asset_dir> <schema_dir>')
+  sys.exit(2)
+
 # Import base schemas
 store = {}
-base_schema_dir = os.path.join('.', 'assets_schemas', '__base__')
+base_schema_dir = os.path.join(sys.argv[2], '__base__')
 for base_schema_name in os.listdir(base_schema_dir):
   with open(os.path.join(base_schema_dir, base_schema_name)) as base_schema_raw:
     base_schema = json.load(base_schema_raw)
@@ -60,8 +64,8 @@ def validate_all(config_dir, schema_dir):
       schema_path = schema_name = None
 
       # Use specific schema for app config files
-      if file_path.startswith(os.path.join('.', 'assets', 'config')):
-        schema_path = os.path.join('.', 'assets_schemas', 'config')
+      if re.search(os.path.join(sys.argv[1], 'config'), file_path):
+        schema_path = os.path.join(sys.argv[2], 'config')
         schema_name = 'config.schema.json'
       else:
         # Strip filetype and language modifier
@@ -83,6 +87,6 @@ def validate_all(config_dir, schema_dir):
     # Recursively push assets in directories
     validate_all(d_path, sd_path)
 
-validate_all('./assets/', './assets_schemas/')
+validate_all(sys.argv[1], sys.argv[2])
 
 sys.exit(success_code)

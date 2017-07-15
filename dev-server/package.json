@@ -9,7 +9,7 @@
     "clean": "rimraf ../assets_min/",
     "start": "yarn run build && node ./server.js",
     "uglify": "sh ./uglify.sh",
-    "validate": "python3 ../script/schema_validate.py ../assets_min/"
+    "validate": "../script/schema_validate.py ../assets_min/ ../assets_schemas/"
   },
   "author": "Joseph Roque",
   "license": "Apache-2.0",
