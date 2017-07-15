@@ -3,10 +3,10 @@
   "title": "Server Configuration",
   "description": "Describes the current versions and locations of configuration files for the application",
   "type": "object",
-  "required": [ "last_updated_at", "files" ],
+  "required": [ "lastUpdatedAt", "files" ],
   "additionalProperties": false,
   "properties":{
-    "last_updated_at": { "type": "number" },
+    "lastUpdatedAt": { "type": "number" },
     "files": {
       "type": "array",
       "items": {
