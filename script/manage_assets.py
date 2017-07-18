@@ -17,7 +17,7 @@ if len(sys.argv) == 1:
     print('\t--add, -a\t\tRegister new assets')
     print('\t--remove, -r\t\tRemove assets')
     print('\t--update-sizes\t\tUpdate asset sizes')
-    print('\t--all or --newest\t\tDirect app to update all config files, or only the newest')
+    print('\t--all or --newest\tDirect script to update all config files, or only the newest')
     exit()
 
 ASSET_TYPES = {
@@ -91,7 +91,7 @@ def update_asset_sizes(all_configs):
         `bool`
     """
     if all_configs is None:
-        print('<Must specify --all or --newest for --update-sizes')
+        print('Must specify --all or --newest for --update-sizes')
         return
 
     assets = get_all_assets(os.path.join('.', 'assets'))
@@ -111,7 +111,9 @@ def update_asset_sizes(all_configs):
                 for config_file in config_json['files']:
                     if '/{}'.format(asset[1]) == config_file['name']:
                         size = os.path.getsize(os.path.join(asset[0], asset[1]))
+                        zsize = os.path.getsize(os.path.join(asset[0], '{}.gz'.format(asset[1])))
                         config_file['size'] = size
+                        config_file['zsize'] = zsize
 
             config_json['lastUpdatedAt'] = int(time.time())
             with open(os.path.join(config_dir, config), 'w', encoding='utf8') as file:
