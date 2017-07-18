@@ -11,10 +11,11 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [ "name", "type", "url", "version" ],
+        "required": [ "name", "size", "type", "url", "version", "zsize" ],
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string" },
+          "size": { "type": "number" },
           "type": {
             "type": "string",
             "description": "The type of config file"
@@ -26,6 +27,10 @@
           "version": {
             "type": "number",
             "description": "The version of the file which the configuration expects"
+          },
+          "zsize": {
+            "type": "number",
+            "description": "Size of the asset, zipped"
           }
         }
       }
