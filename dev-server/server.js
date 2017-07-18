@@ -36,8 +36,12 @@ app.use((req, res, next) => {
 // Add charset=utf-8 to headers
 const options = {
   setHeaders: (res, file) => {
-    if (file.endsWith('.json')) {
+    if (file.indexOf('.json')) {
       res.set('Content-Type', 'application/json; charset=utf-8');
+    }
+
+    if (file.endsWith('.gz')) {
+      res.set('Content-Encoding', 'gzip');
     }
   },
 };
