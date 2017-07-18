@@ -94,7 +94,7 @@ def update_asset_sizes(all_configs):
         print('Must specify --all or --newest for --update-sizes')
         return
 
-    assets = get_all_assets(os.path.join('.', 'assets'))
+    assets = get_all_assets(os.path.join('.', 'assets_min'))
     config_dir, configs = get_all_configs()
 
     assets.sort(key=lambda s: s[1])
