@@ -5,10 +5,11 @@
   "description": "Development server to serve config files for the Campus Guide mobile app",
   "main": "server.js",
   "scripts": {
-    "build": "yarn run clean && yarn run uglify && yarn run validate",
+    "build": "yarn run clean && yarn run uglify",
     "clean": "rimraf ../assets_min/",
-    "start": "yarn run build && node ./server.js",
-    "uglify": "sh ./uglify.sh",
+    "start": "yarn run build && yarn run validate && node ./server.js",
+    "start:nobuild": "yarn run validate && node ./server.js",
+    "uglify": "sh ../script/uglify.sh ..",
     "validate": "../script/schema_validate.py ../assets_min/ ../assets_schemas/"
   },
   "author": "Joseph Roque",
