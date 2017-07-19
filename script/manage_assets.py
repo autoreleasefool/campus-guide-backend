@@ -18,6 +18,7 @@ if len(sys.argv) == 1:
     print('\t--remove, -r\t\tRemove assets')
     print('\t--update-sizes\t\tUpdate asset sizes')
     print('\t--all or --newest\tDirect script to update all config files, or only the newest')
+    print('\t-b <dir>\t\tBase directory to assets/ and assets_min/. Default `.`')
     exit()
 
 ASSET_TYPES = {
@@ -68,19 +69,24 @@ def get_all_assets(asset_dir):
     return assets
 
 
-def get_all_configs():
+def get_all_configs(base_dir):
     """
-    Get the base config directory, and a list of the names of all existing config files.
+    Get the base config directories, and a list of the names of all existing config files.
 
+    :param base_dir:
+        Base directory for configs
+    :type base_dir:
+        `str`
     :rtype:
-        `str`, `list` of `str`
+        `list` of `str`, `list` of `str`
     """
-    config_dir = os.path.join('.', 'assets', 'config')
+    config_dir = os.path.join(base_dir, 'assets', 'config')
+    config_dir_min = os.path.join(base_dir, 'assets_min', 'config')
     configs = os.listdir(config_dir)
-    return config_dir, configs
+    return [config_dir, config_dir_min], configs
 
 
-def update_asset_sizes(all_configs):
+def update_asset_sizes(all_configs, base_dir):
     """
     Update size of assets in the relative configuration files.
 
@@ -89,13 +95,17 @@ def update_asset_sizes(all_configs):
         False to only update in the most recent config file.
     :type all_configs:
         `bool`
+    :param base_dir:
+        Base directory for assets
+    :type base_dir:
+        `str`
     """
     if all_configs is None:
         print('Must specify --all or --newest for --update-sizes')
         return
 
-    assets = get_all_assets(os.path.join('.', 'assets_min'))
-    config_dir, configs = get_all_configs()
+    assets = get_all_assets(os.path.join(base_dir, 'assets_min'))
+    config_dirs, configs = get_all_configs(base_dir)
 
     assets.sort(key=lambda s: s[1])
     configs.sort(key=lambda s: list(map(int, s.split('.')[:3])))
@@ -103,24 +113,30 @@ def update_asset_sizes(all_configs):
         configs = configs[:1]
 
     for config in configs:
-        print('Updating {}'.format(os.path.join(config_dir, config)))
-        with open(os.path.join(config_dir, config)) as config_file:
+        print('Updating {}'.format(os.path.join(config_dirs[0], config)))
+        with open(os.path.join(config_dirs[0], config)) as config_file:
             config_json = json.loads(config_file.read(), object_pairs_hook=OrderedDict)
 
             for asset in assets:
                 for config_file in config_json['files']:
                     if '/{}'.format(asset[1]) == config_file['name']:
                         size = os.path.getsize(os.path.join(asset[0], asset[1]))
-                        zsize = os.path.getsize(os.path.join(asset[0], '{}.gz'.format(asset[1])))
                         config_file['size'] = size
-                        config_file['zsize'] = zsize
+
+                        zipped_path = os.path.join(asset[0], '{}.gz'.format(asset[1]))
+                        if os.path.exists(zipped_path):
+                            zsize = os.path.getsize(zipped_path)
+                            config_file['zsize'] = zsize
+                            config_file['zurl'] = True
 
             config_json['lastUpdatedAt'] = int(time.time())
-            with open(os.path.join(config_dir, config), 'w', encoding='utf8') as file:
+            with open(os.path.join(config_dirs[0], config), 'w', encoding='utf8') as file:
                 json.dump(config_json, file, sort_keys=True, ensure_ascii=False, indent=2)
+            with open(os.path.join(config_dirs[1], config), 'w', encoding='utf8') as file:
+                json.dump(config_json, file, sort_keys=True, ensure_ascii=False)
 
 
-def process_asset_modification(should_remove, asset_name):
+def process_asset_modification(should_remove, asset_name, base_dir):
     """
     Add or remove an asset from the application config.
 
@@ -131,6 +147,10 @@ def process_asset_modification(should_remove, asset_name):
     :param asset_name:
         Name of the asset
     :type asset_name:
+        `str`
+    :param base_dir:
+        Base directory for assets
+    :type base_dir:
         `str`
     """
     # pylint:disable=too-many-branches,too-many-statements
@@ -155,12 +175,12 @@ def process_asset_modification(should_remove, asset_name):
     elif asset_type == 'json':
         if should_remove:
             try:
-                os.remove(os.path.join('.', 'assets', 'json', asset_name))
+                os.remove(os.path.join(base_dir, 'assets', 'json', asset_name))
             except OSError:
                 pass
 
             try:
-                os.remove(os.path.join('.', 'assets_schemas', 'json', '{}.schema{}'.format(
+                os.remove(os.path.join(base_dir, 'assets_schemas', 'json', '{}.schema{}'.format(
                     asset_name_without_type,
                     asset_name_type_only,
                 )))
@@ -175,16 +195,16 @@ def process_asset_modification(should_remove, asset_name):
     elif asset_type == 'image':
         if should_remove:
             try:
-                os.remove(os.path.join('.', 'assets', 'images', asset_name))
+                os.remove(os.path.join(base_dir, 'assets', 'images', asset_name))
             except OSError:
                 pass
         else:
             print('Place image in ./assets/images/{0}'.format(asset_name))
 
-    config_dir, configs = get_all_configs()
+    config_dirs, configs = get_all_configs(base_dir)
     configs.sort(key=lambda s: list(map(int, s.split('.')[:3])))
     config_json = None
-    with open(os.path.join(config_dir, configs[0])) as config:
+    with open(os.path.join(config_dirs[0], configs[0])) as config:
         config_json = json.loads(config.read(), object_pairs_hook=OrderedDict)
         if should_remove:
             for (index, config) in enumerate(config_json):
@@ -204,8 +224,10 @@ def process_asset_modification(should_remove, asset_name):
             config_json['lastUpdatedAt'] = int(time.time())
 
     config_json['files'].sort(key=lambda x: (x['type'], x['name']))
-    with open(os.path.join(config_dir, configs[0]), 'w', encoding='utf8') as file:
+    with open(os.path.join(config_dirs[0], configs[0]), 'w', encoding='utf8') as file:
         json.dump(config_json, file, sort_keys=True, ensure_ascii=False, indent=2)
+    with open(os.path.join(config_dirs[1], configs[0]), 'w', encoding='utf8') as file:
+        json.dump(config_json, file, sort_keys=True, ensure_ascii=False)
 
     if should_remove:
         print('* Finished removing asset {}'.format(asset_name))
@@ -217,10 +239,16 @@ REMOVE = 'remove'
 ADD = 'add'
 UPDATE_SIZES = 'update'
 ALL = None
+BASE_DIRECTORY = '.'
 
 ARGUMENT_STATE = None
 
-for arg in sys.argv:
+SKIP_NEXT = False
+for (index, arg) in enumerate(sys.argv):
+    if SKIP_NEXT:
+        SKIP_NEXT = False
+        continue
+
     if arg in ['--add', '-a']:
         ARGUMENT_STATE = ADD
     elif arg in ['--remove', '-r']:
@@ -229,10 +257,13 @@ for arg in sys.argv:
         ARGUMENT_STATE = UPDATE_SIZES
     elif arg in ['--all', '--newest']:
         ALL = arg == '-all'
+    elif arg == '-b':
+        BASE_DIRECTORY = sys.argv[index + 1]
+        SKIP_NEXT = True
     elif ARGUMENT_STATE == ADD:
-        process_asset_modification(False, arg)
+        process_asset_modification(False, arg, BASE_DIRECTORY)
     elif ARGUMENT_STATE == REMOVE:
-        process_asset_modification(True, arg)
+        process_asset_modification(True, arg, BASE_DIRECTORY)
 
 if ARGUMENT_STATE == UPDATE_SIZES:
-    update_asset_sizes(ALL)
+    update_asset_sizes(ALL, BASE_DIRECTORY)
