@@ -11,7 +11,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [ "name", "size", "type", "url", "version", "zsize" ],
+        "required": [ "name", "size", "type", "url", "version" ],
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string" },
@@ -31,6 +31,10 @@
           "zsize": {
             "type": "number",
             "description": "Size of the asset, zipped"
+          },
+          "zurl": {
+            "type": "boolean",
+            "description": "True if a zipped version of the file has been made available, false otherwise"
           }
         }
       }
