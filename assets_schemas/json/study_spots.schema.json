@@ -48,6 +48,7 @@
         "description": "Details of a single study location on campus at the university",
         "required": [ "building", "room", "filters", "opens", "closes" ],
         "properties":  {
+          "id": { "type": "string" },
           "building": {
             "type": "string",
             "description": "Code of the building which the study spot can be found in"

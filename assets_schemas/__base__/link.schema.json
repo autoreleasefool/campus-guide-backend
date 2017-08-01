@@ -4,6 +4,7 @@
   "description": "A link display name and URL",
   "additionalProperties": false,
   "properties": {
+    "id": { "type": "string" },
     "invalid": {
       "type": "boolean",
       "description": "Indicates a link which is no longer valid and should be updated before being displayed"

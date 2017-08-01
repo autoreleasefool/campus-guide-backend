@@ -62,6 +62,7 @@
         "additionalProperties": false,
         "required": [ "image", "location" , "props" ],
         "properties": {
+          "id": { "type": "string" },
           "image": {
             "type": "string",
             "description": "An image of the residence"
