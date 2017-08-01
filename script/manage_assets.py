@@ -24,6 +24,7 @@ if len(sys.argv) == 1:
 ASSET_TYPES = {
     'json': ['.json'],
     'image': ['.png', '.gif', '.jpg'],
+    'text': ['.txt'],
 }
 
 
@@ -38,8 +39,8 @@ def pluralize_type(asset_type):
     :rtype:
         `str`
     """
-    if asset_type == 'json':
-        return 'json'
+    if asset_type in ['json', 'text']:
+        return asset_type
     return '{}s'.format(asset_type)
 
 
@@ -192,6 +193,14 @@ def process_asset_modification(should_remove, asset_name, base_dir):
                 asset_name_without_type,
                 asset_name_type_only,
             ))
+    elif asset_type == 'text':
+        if should_remove:
+            try:
+                os.remove(os.path.join(base_dir, 'assets', 'text', asset_name))
+            except OSError:
+                pass
+        else:
+            print('Place text in ./assets/text/{0}'.format(asset_name))
     elif asset_type == 'image':
         if should_remove:
             try:
