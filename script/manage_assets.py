@@ -224,7 +224,7 @@ def process_asset_modification(should_remove, asset_name, base_dir):
             config_json['files'].append({
                 'name': asset_config_name,
                 'type': asset_type,
-                'url': 'http://localhost:8080/assets/{}/{}'.format(
+                'url': 'http://localhost:8080/{}/{}'.format(
                     pluralize_type(asset_type),
                     asset_name,
                 ),
