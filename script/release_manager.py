@@ -61,7 +61,6 @@ def get_all_assets(asset_dir):
     for directory in directories:
         assets += get_all_assets(directory)
     assets.sort(key=lambda s: s[1])
-    print('Retrieved {0} assets'.format(len(assets)))
     return assets
 
 
@@ -101,6 +100,7 @@ def build_dev_config(asset_dir, output_dir, filename):
         `str`
     """
     assets = get_all_assets(asset_dir)
+    print('Retrieved {0} assets'.format(len(assets)))
 
     print('Creating output directory `{0}`'.format(output_dir))
     os.makedirs(output_dir)
@@ -189,6 +189,7 @@ def get_release_config_version(bucket, version):
     else:
         raise ValueError('`version` must be one of "major", "minor", "patch", or match "X.Y.Z"')
 
+    last_version = [str(x) for x in last_version]
     return '.'.join(last_version)
 
 
@@ -243,6 +244,10 @@ def update_asset(
         List of existing configs to check and update
     :type:
         `list` of `json`
+    :param upload_file:
+        True to upload the file, false to skip
+    :type upload_file:
+        `bool`
     :rtype:
         `str`
     """
@@ -269,7 +274,7 @@ def update_asset(
     }
 
     if upload_file:
-        print('Uploading file `{0}`'.format('assets{0}'.format(name)))
+        print('Uploading asset `{0}`'.format('assets{0}'.format(name)))
         bucket.put_object(Key='assets{0}'.format(name), Body=content, **object_kwargs)
 
     base_object = S3.Object(bucket.name, 'assets{0}'.format(name)).get()
@@ -289,13 +294,14 @@ def update_asset(
     }
 
     if zcontent:
-        print('Uploading file `{0}`'.format('assets{0}.gz'.format(name)))
-        bucket.put_object(
-            Key='assets{0}.gz'.format(name),
-            Body=zcontent,
-            ContentEncoding='gzip',
-            **object_kwargs
-        )
+        if upload_file:
+            print('Uploading asset `{0}`'.format('assets{0}.gz'.format(name)))
+            bucket.put_object(
+                Key='assets{0}.gz'.format(name),
+                Body=zcontent,
+                ContentEncoding='gzip',
+                **object_kwargs
+            )
         zipped_object = S3.Object(bucket.name, 'assets{0}.gz'.format(name)).get()
         asset['zsize'] = zipped_object['ContentLength']
         asset['zurl'] = 'https://s3.{0}.amazonaws.com/{1}/assets{2}.gz?versionId={3}'.format(
@@ -308,8 +314,8 @@ def update_asset(
     if compatible:
         for config in configs:
             updated = False
-            for file in configs['config']['content']['files']:
-                if file['name'] != asset['name'] or file['version'] != version - 1:
+            for file in configs[config]['content']['files']:
+                if file['name'] != name or file['version'] != version - 1:
                     continue
                 file['size'] = asset['size']
                 file['url'] = asset['url']
@@ -323,8 +329,8 @@ def update_asset(
                         file.pop('zurl', None)
                 updated = True
             if updated:
-                configs['config']['updated'] = True
-                configs['config']['content']['lastUpdatedAt'] = int(time.time())
+                configs[config]['updated'] = True
+                configs[config]['content']['lastUpdatedAt'] = int(time.time())
 
     return asset
 
@@ -348,6 +354,7 @@ def parse_existing_config(item, existing_configs):
         'key': item_key,
         'updated': False,
     }
+    print('Parsed existing config `{0}`'.format(item_key))
 
 
 def parse_existing_asset(item, existing_assets):
@@ -371,11 +378,12 @@ def parse_existing_asset(item, existing_assets):
 
     existing_asset = item.get()
     existing_assets[item_key] = {
-        'content': existing_asset['Body'],
+        'content': existing_asset['Body'].read(),
         'version': existing_asset['Metadata']['version'],
         'versionId': existing_asset['VersionId'],
         'zipped': False,
     }
+    print('Parsed existing asset `{0}`'.format(item_key))
 
 
 def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False):
@@ -426,6 +434,7 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     # Get local assets and filter for only those specified to be updated
     assets = get_all_assets(output_dir)
     assets = [x for x in assets if only is None or '/{}'.format(x[1]) in only]
+    print('Retrieved {0} assets'.format(len(assets)))
 
     updated_assets = {}
     for asset in assets:
