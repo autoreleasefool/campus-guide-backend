@@ -5,7 +5,7 @@
   "description": "Development server to serve config files for the Campus Guide mobile app",
   "main": "server.js",
   "scripts": {
-    "config-gen": "../script/release_manager.py --dev ../assets_dev/ ../assets_dev/config/ *.json",
+    "config-gen": "../script/release_manager.py --dev ../assets_dev/ ../assets_dev/config/ public.json",
     "build": "yarn run clean && yarn run uglify && yarn run validate && yarn run config-gen",
     "clean": "rimraf ../assets_dev/",
     "start": "yarn run build && node ./server.js",

@@ -109,6 +109,7 @@ def build_dev_config(asset_dir, output_dir, filename):
     for asset in assets:
         asset_folder = asset[0]
         asset_name = asset[1]
+        if asset_name[-3:] == '.gz': continue
         asset_type = get_asset_type(asset[1])
         asset_zurl_exists = os.path.exists(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
         file = {
@@ -128,9 +129,9 @@ def build_dev_config(asset_dir, output_dir, filename):
 
         config['files'].append(file)
 
-    print('Dumping config to `{0}/{1}`'.format(output_dir, filename))
+    print('Dumping config to `{0}{1}`'.format(output_dir, filename))
     with open(os.path.join(output_dir, filename), 'w') as config_file:
-        json.dump(config_json, file, sort_keys=True, ensure_ascii=False, indent=2)
+        json.dump(config, config_file, sort_keys=True, ensure_ascii=False, indent=2)
 
 
 def get_most_recent_config(bucket):
@@ -417,7 +418,7 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     """
     # Minify and uglify assets
     print('Cleaning output directory `{0}'.format(output_dir))
-    if (os.path.exists(output_dir)):
+    if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     print('Beginning uglifyjs subprocess, from `{0}` to `{1}`'.format(asset_dir, output_dir))
     subprocess.run(['./script/uglify.sh', asset_dir, output_dir])
@@ -548,9 +549,10 @@ def update_changed_configs(bucket, configs):
 
 # Input validation
 if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
+    print(sys.argv)
     DEV_ASSET_DIR = '../assets_dev/' if len(sys.argv) < 3 else sys.argv[2]
     DEV_OUTPUT_DIR = '../assets_dev/config' if len(sys.argv) < 4 else sys.argv[3]
-    DEV_FILENAME = '*.json' if len(sys.argv) < 5 else sys.argv[4]
+    DEV_FILENAME = 'public.json' if len(sys.argv) < 5 else sys.argv[4]
     build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_FILENAME)
     exit()
 elif len(sys.argv) < 5:
