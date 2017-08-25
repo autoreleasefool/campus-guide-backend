@@ -33,8 +33,8 @@
             "description": "Size of the asset, zipped"
           },
           "zurl": {
-            "type": "boolean",
-            "description": "True if a zipped version of the file has been made available, false otherwise"
+            "type": "string",
+            "description": "URL to download the gzipped file"
           }
         }
       }

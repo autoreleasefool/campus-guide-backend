@@ -21,6 +21,7 @@
 
 // Imports
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 
 // Create server
@@ -31,6 +32,20 @@ app.use((req, res, next) => {
   const date = new Date();
   console.log(`(${date.toString()} -- ${req.ip}) ${req.method}: ${req.originalUrl}`);
   next();
+});
+
+// Send generic config file for all versions of the app
+app.get('/config/:version', (req, res) => {
+  const configPath = path.join(__dirname, '..', 'assets_dev', 'config', '*.json');
+  fs.readFile(configPath, 'utf8', (readErr, data) => {
+    if (readErr) {
+      console.error(`Error opening config file: ${configPath}`);
+      res.status(400).send();
+      return;
+    }
+
+    res.json(data);
+  });
 });
 
 // Add charset=utf-8 to headers
@@ -47,7 +62,7 @@ const options = {
 };
 
 // Serve assets
-app.use('/', express.static(path.join(__dirname, '..', 'assets_min'), options));
+app.use('/', express.static(path.join(__dirname, '..', 'assets_dev'), options));
 
 // Port that server will run on
 const PORT = 8080;

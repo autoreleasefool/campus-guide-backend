@@ -1,6 +1,8 @@
 # Assets
 assets/
 assets_min/
+assets_dev/
+assets_release/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

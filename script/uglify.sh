@@ -1,22 +1,25 @@
 #!/bin/bash
 
-cp -r "$1/assets/" "$1/assets_min/"
+# Given a directory of assets ($1), copy the assets to a new directory ($2) and minify the
+# copied assets in place
 
-for filename in $1/assets_min/json/*.json; do
+cp -r "$1" "$2"
+
+for filename in $2json/*.json; do
   name=${filename##*/}
-  echo "Uglify $1/assets_min/json/$name"
-  uglifyjs "$1/assets_min/json/$name" --output "$1/assets_min/json/$name" -p expression -b beautify=false -b quote_style=2 -b quote_keys=true
-  gzip -9 --keep "$1/assets_min/json/$name"
+  echo "Uglify $2json/$name"
+  uglifyjs "$2json/$name" --output "$2json/$name" -p expression -b beautify=false -b quote_style=2 -b quote_keys=true
+  gzip -9 --keep "$2json/$name"
 done
 
-for filename in $1/assets_min/images/*; do
+for filename in $2images/*; do
   name=${filename##*/}
-  echo "Zip $1/assets_min/images/$name"
-  gzip -9 --keep "$1/assets_min/images/$name"
+  echo "Zip $2images/$name"
+  gzip -9 --keep "$2images/$name"
 done
 
-for filename in $1/assets_min/text/*; do
+for filename in $2text/*; do
   name=${filename##*/}
-  echo "Zip $1/assets_min/text/$name"
-  gzip -9 --keep "$1/assets_min/text/$name"
+  echo "Zip $2text/$name"
+  gzip -9 --keep "$2text/$name"
 done

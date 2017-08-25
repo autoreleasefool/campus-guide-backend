@@ -5,13 +5,12 @@
   "description": "Development server to serve config files for the Campus Guide mobile app",
   "main": "server.js",
   "scripts": {
-    "build": "yarn run clean && yarn run uglify && yarn run update-sizes",
-    "clean": "rimraf ../assets_min/",
-    "start": "yarn run build && yarn run validate && node ./server.js",
-    "start:nobuild": "yarn run validate && node ./server.js",
-    "uglify": "sh ../script/uglify.sh ..",
-    "update-sizes": "../script/manage_assets.py --update-sizes --newest -b ..",
-    "validate": "../script/schema_validate.py ../assets_min/ ../assets_schemas/"
+    "config-gen": "../script/release_manager.py --dev ../assets_dev/ ../assets_dev/config/ *.json",
+    "build": "yarn run clean && yarn run uglify && yarn run validate && yarn run config-gen",
+    "clean": "rimraf ../assets_dev/",
+    "start": "yarn run build && node ./server.js",
+    "uglify": "sh ../script/uglify.sh ../assets/ ../assets_dev/",
+    "validate": "../script/schema_validate.py ../assets_dev/ ../assets_schemas/"
   },
   "author": "Joseph Roque",
   "license": "Apache-2.0",
