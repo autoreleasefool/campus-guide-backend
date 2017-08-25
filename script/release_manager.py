@@ -417,7 +417,8 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     """
     # Minify and uglify assets
     print('Cleaning output directory `{0}'.format(output_dir))
-    shutil.rmtree(output_dir)
+    if (os.path.exists(output_dir)):
+        shutil.rmtree(output_dir)
     print('Beginning uglifyjs subprocess, from `{0}` to `{1}`'.format(asset_dir, output_dir))
     subprocess.run(['./script/uglify.sh', asset_dir, output_dir])
 
@@ -561,11 +562,11 @@ elif len(sys.argv) < 5:
     print('\tExample: release_manager.py', end='')
     print(' <bucket_name> assets/ assets_release/ patch [options]')
     print('\tOptions:')
-    print('\t--dev\t\t\t\tBuild a config file for dev based on the given directory')
-    print('\t--no-new-config\t\t\tPush changed assets and only update configs which exist')
+    print('\t--dev\t\t\tBuild a config file for dev based on the given directory')
+    print('\t--no-new-config\t\tPush changed assets and only update configs which exist')
     print('\t--only <name1,...>\tUpdate only assets with the given names. Otherwise, update all')
-    print('\t--region <region>\t\tAWS region')
-    print('\t--compatible\t\t\tSpecify that assets changed are compatible with existing configs')
+    print('\t--region <region>\tAWS region')
+    print('\t--compatible\t\tSpecify that assets changed are compatible with existing configs')
     print()
     exit()
 
