@@ -331,8 +331,8 @@ def update_asset(
             if updated:
                 configs[config]['updated'] = True
                 configs[config]['content']['lastUpdatedAt'] = int(time.time())
-
     return asset
+
 
 def parse_existing_config(item, existing_configs):
     """
@@ -553,17 +553,19 @@ if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
     build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_FILENAME)
     exit()
 elif len(sys.argv) < 5:
-    #pylint:disable=C0301
     print('\n\tCampus Guide - Release Manager')
-    print('\tUsage:   release_manager.py <bucket_name> <asset_dir> <output_dir> <#.#.#|major|minor|patch> [options]')
-    print('\tAlt:     release_manager.py --dev <asset_dir>')
-    print('\tExample: release_manager.py <bucket_name> assets/ assets_release/ patch [options]')
+    print('\tUsage:   release_manager.py', end='')
+    print(' <bucket_name> <asset_dir> <output_dir> <#.#.#|major|minor|patch> [options]')
+    print('\tAlt:     release_manager.py', end='')
+    print(' --dev <asset_dir>')
+    print('\tExample: release_manager.py', end='')
+    print(' <bucket_name> assets/ assets_release/ patch [options]')
     print('\tOptions:')
     print('\t--dev\t\t\t\tBuild a config file for dev based on the given directory')
-    print('\t--no-new-config\t\t\tPush assets which have been changed and only update config files which already exist')
-    print('\t--only <name1,name2,...>\tUpdate only certain assets with the given name. Otherwise, update all assets')
+    print('\t--no-new-config\t\t\tPush changed assets and only update configs which exist')
+    print('\t--only <name1,...>\tUpdate only assets with the given names. Otherwise, update all')
     print('\t--region <region>\t\tAWS region')
-    print('\t--compatible\t\t\tSpecify that assets changed are compatible with existing config files')
+    print('\t--compatible\t\t\tSpecify that assets changed are compatible with existing configs')
     print()
     exit()
 
