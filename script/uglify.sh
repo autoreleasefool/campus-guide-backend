@@ -12,10 +12,10 @@ for filename in $2json/*.json; do
   gzip -9 --keep "$2json/$name"
 done
 
-for filename in $2images/*; do
+for filename in $2image/*; do
   name=${filename##*/}
-  echo "Zip $2images/$name"
-  gzip -9 --keep "$2images/$name"
+  echo "Zip $2image/$name"
+  gzip -9 --keep "$2image/$name"
 done
 
 for filename in $2text/*; do
