@@ -36,6 +36,25 @@ def build_empty_config():
     }
 
 
+def get_total_config_size(config):
+    """
+    Given a config file, determine the total size of assets, zipped assets, and the total of both.
+
+    :param config:
+        The config file to parse
+    :type config:
+        `dict`
+    :rtype:
+        `int`, `int`, `int`
+    """
+    total_base_size = total_zipped_size = 0
+    for asset_details in config['files']:
+        total_base_size += asset_details['size']
+        if 'zsize' in asset_details:
+            total_zipped_size += asset_details['zsize']
+    return total_base_size, total_zipped_size, total_base_size + total_zipped_size
+
+
 def get_all_assets(asset_dir):
     """
     Get all available asset names in the base directory and the subdirectory they are in.
@@ -128,6 +147,13 @@ def build_dev_config(asset_dir, output_dir, filename):
             file['zsize'] = os.path.getsize(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
 
         config['files'].append(file)
+
+    total_base_size, total_zipped_size, total_size = get_total_config_size(config)
+    print('Config total download size: {0}/{1} ({2})'.format(
+        total_base_size / 1000,
+        total_zipped_size / 1000,
+        total_size / 1000
+    ))
 
     print('Dumping config to `{0}{1}`'.format(output_dir, filename))
     with open(os.path.join(output_dir, filename), 'w') as config_file:
@@ -520,6 +546,12 @@ def build_release_config(bucket, assets, version):
         'updated': True,
     }
     print('Built config file `{0}`'.format(config_key))
+    total_base_size, total_zipped_size, total_size = get_total_config_size(config)
+    print('Config total download size: {0}/{1} ({2})'.format(
+        total_base_size / 1000,
+        total_zipped_size / 1000,
+        total_size / 1000
+    ))
     return config_key, config_details
 
 
@@ -549,7 +581,6 @@ def update_changed_configs(bucket, configs):
 
 # Input validation
 if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
-    print(sys.argv)
     DEV_ASSET_DIR = '../assets_dev/' if len(sys.argv) < 3 else sys.argv[2]
     DEV_OUTPUT_DIR = '../assets_dev/config' if len(sys.argv) < 4 else sys.argv[3]
     DEV_FILENAME = 'public.json' if len(sys.argv) < 5 else sys.argv[4]
