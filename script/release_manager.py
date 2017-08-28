@@ -442,12 +442,12 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     :rtype:
         `dict`, `dict`
     """
-    # Minify and uglify assets
+    # Minify assets
     print('Cleaning output directory `{0}'.format(output_dir))
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
-    print('Beginning uglifyjs subprocess, from `{0}` to `{1}`'.format(asset_dir, output_dir))
-    subprocess.run(['./script/uglify.sh', asset_dir, output_dir])
+    print('Beginning minify subprocess, from `{0}` to `{1}`'.format(asset_dir, output_dir))
+    subprocess.run(['./script/minify.sh', asset_dir, output_dir])
 
     # Get existing assets from bucket
     bucket_objects = bucket.objects.all()

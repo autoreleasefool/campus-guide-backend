@@ -6,10 +6,10 @@
   "main": "server.js",
   "scripts": {
     "config-gen": "../script/release_manager.py --dev ../assets_dev/ ../assets_dev/config/ public.json",
-    "build": "yarn run clean && yarn run uglify && yarn run validate && yarn run config-gen",
+    "build": "yarn run clean && yarn run minify && yarn run validate && yarn run config-gen",
     "clean": "rimraf ../assets_dev/",
     "start": "yarn run build && node ./server.js",
-    "uglify": "sh ../script/uglify.sh ../assets/ ../assets_dev/",
+    "minify": "sh ../script/minify.sh ../assets/ ../assets_dev/",
     "validate": "../script/schema_validate.py ../assets_dev/ ../assets_schemas/"
   },
   "author": "Joseph Roque",
