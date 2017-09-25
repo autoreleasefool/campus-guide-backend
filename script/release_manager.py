@@ -123,7 +123,8 @@ def build_dev_config(asset_dir, output_dir, filename):
 
     print('Creating output directory `{0}`'.format(output_dir))
     os.makedirs(output_dir)
-    config = build_empty_config()
+    config_ios = build_empty_config()
+    config_android = build_empty_config()
 
     for asset in assets:
         asset_folder = asset[0]
@@ -131,33 +132,49 @@ def build_dev_config(asset_dir, output_dir, filename):
         if asset_name[-3:] == '.gz': continue
         asset_type = get_asset_type(asset[1])
         asset_zurl_exists = os.path.exists(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
-        file = {
+        file_ios = {
             'name': '/{}'.format(asset_name),
             'size': os.path.getsize(os.path.join(asset_folder, asset_name)),
             'type': asset_type,
             'url': 'http://localhost:8080/{0}/{1}'.format(asset_type, asset_name),
             'version': 1,
         }
+        file_android = {
+            'name': '/{}'.format(asset_name),
+            'size': os.path.getsize(os.path.join(asset_folder, asset_name)),
+            'type': asset_type,
+            'url': 'http://10.0.2.2:8080/{0}/{1}'.format(asset_type, asset_name),
+            'version': 1,
+        }
 
         if asset_zurl_exists:
-            file['zurl'] = 'http://localhost:8080/{0}/{1}'.format(
+            file_ios['zurl'] = 'http://localhost:8080/{0}/{1}'.format(
                 asset_type,
                 '{}.gz'.format(asset_name)
             )
-            file['zsize'] = os.path.getsize(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
+            file_ios['zsize'] = os.path.getsize(os.path.join(asset_folder,
+                                                             '{}.gz'.format(asset_name)))
 
-        config['files'].append(file)
+        config_ios['files'].append(file_ios)
+        config_android['files'].append(file_android)
 
-    total_base_size, total_zipped_size, total_size = get_total_config_size(config)
+    total_base_size, total_zipped_size, total_size = get_total_config_size(config_ios)
     print('Config total download size: {0}/{1} ({2})'.format(
         total_base_size / 1000,
         total_zipped_size / 1000,
         total_size / 1000
     ))
 
-    print('Dumping config to `{0}{1}`'.format(output_dir, filename))
-    with open(os.path.join(output_dir, filename), 'w') as config_file:
-        json.dump(config, config_file, sort_keys=True, ensure_ascii=False, indent=2)
+    filename_ios = '{0}.ios.{1}'.format(filename[:filename.rindex('.')],
+                                        filename[filename.rindex('.') + 1:])
+    filename_android = '{0}.android.{1}'.format(filename[:filename.rindex('.')],
+                                                filename[filename.rindex('.') + 1:])
+    print('Dumping iOS config to `{0}{1}`'.format(output_dir, filename_ios))
+    with open(os.path.join(output_dir, filename_ios), 'w') as config_file:
+        json.dump(config_ios, config_file, sort_keys=True, ensure_ascii=False, indent=2)
+    print('Dumping Android config to `{0}{1}`'.format(output_dir, filename_android))
+    with open(os.path.join(output_dir, filename_android), 'w') as config_file:
+        json.dump(config_android, config_file, sort_keys=True, ensure_ascii=False, indent=2)
 
 
 def get_most_recent_config(bucket):

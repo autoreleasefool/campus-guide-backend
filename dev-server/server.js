@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 
 // Send generic config file for all versions of the app
 app.get('/config/:version', (req, res) => {
-  const configPath = path.join(__dirname, '..', 'assets_dev', 'config', 'public.json');
+  const configPath = path.join(__dirname, '..', 'assets_dev', 'config', `public.${req.header('platform')}.json`);
   fs.readFile(configPath, 'utf8', (readErr, data) => {
     if (readErr) {
       console.error(`Error opening config file: ${configPath}`);
