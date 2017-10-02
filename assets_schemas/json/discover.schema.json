@@ -3,5 +3,18 @@
   "title": "Discovery",
   "description": "Sections within the app describing various services and locations around Ottawa",
   "type": "array",
-  "items": { "$ref": "http://josephroque.ca/json-schema/section" }
+  "items": {
+    "oneOf": [
+      { "$ref": "http://josephroque.ca/json-schema/section" },
+      {
+        "type": "object",
+        "required": [ "left", "right" ],
+        "additionalProperties": false,
+        "properties": {
+          "left": { "$ref": "http://josephroque.ca/json-schema/section" },
+          "right": { "$ref": "http://josephroque.ca/json-schema/section" }
+        }
+      }
+    ]
+  }
 }
