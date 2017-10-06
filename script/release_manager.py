@@ -113,6 +113,7 @@ def build_dev_config(asset_dir, output_dir, filename):
     :type filename:
         `str`
     """
+    # pylint:disable=R0914
     assets = get_all_assets(asset_dir)
     print('Retrieved {0} assets'.format(len(assets)))
 
@@ -121,11 +122,12 @@ def build_dev_config(asset_dir, output_dir, filename):
     config_ios = build_empty_config()
     config_android = build_empty_config()
 
-    for asset in assets:
-        asset_folder = asset[0]
-        asset_name = asset[1]
-        if asset_name[-3:] == '.gz': continue
-        asset_type = get_asset_type(asset[1])
+    for dev_asset in assets:
+        asset_folder = dev_asset[0]
+        asset_name = dev_asset[1]
+        if asset_name[-3:] == '.gz':
+            continue
+        asset_type = get_asset_type(dev_asset[1])
         asset_zurl_exists = os.path.exists(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
         file_ios = {
             'name': '/{}'.format(asset_name),
@@ -190,8 +192,8 @@ def get_most_recent_config(bucket):
         if item.key[:7] != 'config/' or len(item.key) <= 7:
             continue
         item_version = list(map(int, item.key.split('/')[1].split('.')[:3]))
-        for element in range(len(item_version)):
-            if item_version[element] > max_version[element]:
+        for i, _ in enumerate(item_version):
+            if item_version[i] > max_version[i]:
                 max_version = item_version
                 break
     print('Found most recent config version: {0}'.format(max_version))
@@ -290,8 +292,9 @@ def update_asset(
     :rtype:
         `str`
     """
-    global S3
-    global REGION
+    # pylint:disable=W0102,R0912,R0913,R0914
+    global S3 # pylint:disable=W0603
+    global REGION # pylint:disable=W0603
 
     content_type = 'application/json; charset=utf-8'
     if asset_type == 'image':
@@ -326,7 +329,7 @@ def update_asset(
         base_object['VersionId']
     )
 
-    asset = {
+    updated_asset = {
         'size': size,
         'url': url,
         'version': version,
@@ -342,8 +345,8 @@ def update_asset(
                 **object_kwargs
             )
         zipped_object = S3.Object(bucket.name, 'assets{0}.gz'.format(name)).get()
-        asset['zsize'] = zipped_object['ContentLength']
-        asset['zurl'] = 'https://s3.{0}.amazonaws.com/{1}/assets{2}.gz?versionId={3}'.format(
+        updated_asset['zsize'] = zipped_object['ContentLength']
+        updated_asset['zurl'] = 'https://s3.{}.amazonaws.com/{}/assets{}.gz?versionId={}'.format(
             REGION,
             bucket.name,
             name,
@@ -356,13 +359,13 @@ def update_asset(
             for file in configs[config]['content']['files']:
                 if file['name'] != name or file['version'] != version - 1:
                     continue
-                file['size'] = asset['size']
-                file['url'] = asset['url']
+                file['size'] = updated_asset['size']
+                file['url'] = updated_asset['url']
                 file['version'] = version
                 if 'zsize' in file:
-                    if 'zsize' in asset:
-                        file['zsize'] = asset['zsize']
-                        file['zurl'] = asset['zurl']
+                    if 'zsize' in updated_asset:
+                        file['zsize'] = updated_asset['zsize']
+                        file['zurl'] = updated_asset['zurl']
                     else:
                         file.pop('zsize', None)
                         file.pop('zurl', None)
@@ -370,7 +373,7 @@ def update_asset(
             if updated:
                 configs[config]['updated'] = True
                 configs[config]['content']['lastUpdatedAt'] = int(time.time())
-    return asset
+    return updated_asset
 
 
 def parse_existing_config(item, existing_configs):
@@ -454,6 +457,7 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     :rtype:
         `dict`, `dict`
     """
+    # pylint:disable=R0914
     # Minify assets
     print('Cleaning output directory `{0}'.format(output_dir))
     if os.path.exists(output_dir):
@@ -476,12 +480,12 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     assets = [x for x in assets if only is None or '/{}'.format(x[1]) in only]
     print('Retrieved {0} assets'.format(len(assets)))
 
-    updated_assets = {}
-    for asset in assets:
-        asset_folder = asset[0]
-        asset_name = asset[1]
+    changed_assets = {}
+    for existing_asset in assets:
+        asset_folder = existing_asset[0]
+        asset_name = existing_asset[1]
         slash_asset_name = '/{}'.format(asset_name)
-        asset_type = get_asset_type(asset[1])
+        asset_type = get_asset_type(existing_asset[1])
 
         if asset_name[-3:] == '.gz':
             continue
@@ -524,12 +528,12 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
             built_asset['zsize'] = asset_details['zsize']
             built_asset['zurl'] = asset_details['zurl']
 
-        updated_assets[slash_asset_name] = built_asset
+        changed_assets[slash_asset_name] = built_asset
 
-    return updated_assets, existing_configs
+    return changed_assets, existing_configs
 
 
-def build_release_config(bucket, assets, version):
+def build_release_config(assets, version):
     """
     Build a config for release.
 
@@ -549,8 +553,8 @@ def build_release_config(bucket, assets, version):
         `str`, `dict`
     """
     config = build_empty_config()
-    for asset in assets:
-        config['files'].append(assets[asset])
+    for release_asset in assets:
+        config['files'].append(assets[release_asset])
     config_key = 'config/{0}.json'.format(version)
     config_details = {
         'content': config,
@@ -647,12 +651,12 @@ if len(sys.argv) > 5:
 S3 = boto3.resource('s3')
 BUCKET = S3.Bucket(BUCKET_NAME)
 
-updated_assets, updated_configs = update_changed_assets(
+UPDATED_ASSETS, UPDATED_CONFIGS = update_changed_assets(
     BUCKET, ASSET_DIR, OUTPUT_DIR, ONLY_UPGRADE, compatible=COMPATIBLE)
 
 if COMPATIBLE:
-    update_changed_configs(BUCKET, updated_configs)
+    update_changed_configs(BUCKET, UPDATED_CONFIGS)
 if BUILD_CONFIG:
     CONFIG_VERSION = get_release_config_version(BUCKET, NEW_VERSION)
-    config_key, config_details = build_release_config(BUCKET, updated_assets, CONFIG_VERSION)
-    update_changed_configs(BUCKET, {config_key: config_details})
+    CONFIG_KEY, CONFIG_DETAILS = build_release_config(UPDATED_ASSETS, CONFIG_VERSION)
+    update_changed_configs(BUCKET, {CONFIG_KEY: CONFIG_DETAILS})
