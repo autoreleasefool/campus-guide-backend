@@ -4,6 +4,7 @@
 Update the S3 bucket with new config files and assets.
 """
 
+import glob
 import json
 import os
 import re
@@ -68,17 +69,11 @@ def get_all_assets(asset_dir):
         `list` of (`str`, `str`)
     """
     assets = []
-    directories = []
-
-    for file in os.listdir(asset_dir):
-        file_path = os.path.join(asset_dir, file)
-        if os.path.isfile(file_path):
-            if not file.startswith('.') and 'config' not in file_path:
-                assets.append((asset_dir, file))
-        else:
-            directories.append(file_path)
-    for directory in directories:
-        assets += get_all_assets(directory)
+    for file_path in glob.iglob(os.path.join(asset_dir, '**', '*'), recursive=True):
+        directory, filename = file_path[:file_path.rfind(os.path.sep) + 1], \
+                              file_path[file_path.rfind(os.path.sep) + 1:]
+        if not filename.startswith('.') and 'config' not in filename:
+            assets.append((directory, filename))
     assets.sort(key=lambda s: s[1])
     return assets
 
@@ -594,7 +589,6 @@ def update_changed_configs(bucket, configs):
             Body=json.dumps(configs[config]['content']),
             ACL='public-read'
         )
-
 
 # Input validation
 if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
