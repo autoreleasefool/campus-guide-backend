@@ -293,8 +293,8 @@ def update_asset(
         `str`
     """
     # pylint:disable=W0102,R0912,R0913,R0914
-    global S3 # pylint:disable=W0603
-    global REGION # pylint:disable=W0603
+    global S3      # pylint:disable=W0603
+    global REGION  # pylint:disable=W0603
 
     content_type = 'application/json; charset=utf-8'
     if asset_type == 'image':
