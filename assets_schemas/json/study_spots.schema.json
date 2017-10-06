@@ -74,6 +74,10 @@
               "type": "string",
               "description": "ID of the filter, from the `filters` array"
             }
+          },
+          "alwaysOpen": {
+            "type": "boolean",
+            "description": "If true, indicates that a study room is open 24 hours a day, 7 days a week"
           }
         },
         "patternProperties": {
