@@ -15,8 +15,8 @@
   "author": "Joseph Roque",
   "license": "Apache-2.0",
   "dependencies": {
-    "express": "^4.15.2",
-    "rimraf": "^2.6.1",
-    "uglify-js": "^3.0.23"
+    "express": "^4.16.1",
+    "rimraf": "^2.6.2",
+    "uglify-js": "^3.1.3"
   }
 }
