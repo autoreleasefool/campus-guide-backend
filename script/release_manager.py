@@ -72,7 +72,7 @@ def get_all_assets(asset_dir):
     for file_path in glob.iglob(os.path.join(asset_dir, '**', '*'), recursive=True):
         directory, filename = file_path[:file_path.rfind(os.path.sep) + 1], \
                               file_path[file_path.rfind(os.path.sep) + 1:]
-        if not filename.startswith('.') and 'config' not in filename:
+        if filename.find('.') > 0 and 'config' not in filename:
             assets.append((directory, filename))
     assets.sort(key=lambda s: s[1])
     return assets
