@@ -96,7 +96,7 @@ def get_asset_type(asset_name):
     return None
 
 
-def build_dev_config(asset_dir, output_dir, filename):
+def build_dev_config(asset_dir, output_dir, app_config_dir, filename):
     """
     Builds a config for a dev environment.
 
@@ -108,6 +108,10 @@ def build_dev_config(asset_dir, output_dir, filename):
         Output location for config file
     :type output_dir:
         `str`
+    :param app_config_dir:
+        Output location for assets for application bundling
+    :type app_config_dir:
+        `dict`
     :param filename:
         Output filename for config file
     :type filename:
@@ -119,6 +123,11 @@ def build_dev_config(asset_dir, output_dir, filename):
 
     print('Creating output directory `{0}`'.format(output_dir))
     os.makedirs(output_dir)
+    for platform in app_config_dir:
+        print('Creating app asset directory `{0}`'.format(app_config_dir[platform]))
+        if os.path.exists(app_config_dir[platform]):
+            shutil.rmtree(app_config_dir[platform])
+        os.makedirs(app_config_dir[platform])
     config_ios = build_empty_config()
     config_android = build_empty_config()
 
@@ -127,8 +136,18 @@ def build_dev_config(asset_dir, output_dir, filename):
         asset_name = dev_asset[1]
         if asset_name[-3:] == '.gz':
             continue
+
         asset_type = get_asset_type(dev_asset[1])
         asset_zurl_exists = os.path.exists(os.path.join(asset_folder, '{}.gz'.format(asset_name)))
+
+        for platform in app_config_dir:
+            if not os.path.exists(os.path.join(app_config_dir[platform], asset_type)):
+                os.makedirs(os.path.join(app_config_dir[platform], asset_type))
+            shutil.copy(
+                os.path.join(asset_folder, asset_name),
+                os.path.join(app_config_dir[platform], asset_type, asset_name)
+            )
+
         file_ios = {
             'name': '/{}'.format(asset_name),
             'size': os.path.getsize(os.path.join(asset_folder, asset_name)),
@@ -169,9 +188,19 @@ def build_dev_config(asset_dir, output_dir, filename):
     print('Dumping iOS config to `{0}{1}`'.format(output_dir, filename_ios))
     with open(os.path.join(output_dir, filename_ios), 'w') as config_file:
         json.dump(config_ios, config_file, sort_keys=True, ensure_ascii=False, indent=2)
+    if 'ios' in app_config_dir:
+        print('Dumping iOS config to `{0}/{1}`'.format(app_config_dir['ios'], 'base_config.json'))
+        with open(os.path.join(app_config_dir['ios'], 'base_config.json'), 'w') as config_file:
+            json.dump(config_ios, config_file, sort_keys=True, ensure_ascii=False, indent=2)
     print('Dumping Android config to `{0}{1}`'.format(output_dir, filename_android))
     with open(os.path.join(output_dir, filename_android), 'w') as config_file:
         json.dump(config_android, config_file, sort_keys=True, ensure_ascii=False, indent=2)
+    if 'android' in app_config_dir:
+        print('Dumping Android config to `{0}/{1}`'.format(app_config_dir['android'], 'base_config.json'))
+        with open(os.path.join(app_config_dir['android'], 'base_config.json'), 'w') as config_file:
+            json.dump(config_android, config_file, sort_keys=True, ensure_ascii=False, indent=2)
+
+
 
 
 def get_most_recent_config(bucket):
@@ -599,14 +628,21 @@ if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
     DEV_ASSET_DIR = '../assets_dev/' if len(sys.argv) < 3 else sys.argv[2]
     DEV_OUTPUT_DIR = '../assets_dev/config' if len(sys.argv) < 4 else sys.argv[3]
     DEV_FILENAME = 'public.json' if len(sys.argv) < 5 else sys.argv[4]
-    build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_FILENAME)
+    DEV_APP_DIR = {}
+    if '--ios' in sys.argv:
+        DEV_APP_DIR['ios'] = sys.argv[sys.argv.index('--ios') + 1]
+    if '--android' in sys.argv:
+        DEV_APP_DIR['android'] = sys.argv[sys.argv.index('--android') + 1]
+    build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_APP_DIR, DEV_FILENAME)
     exit()
 elif len(sys.argv) < 5:
     print('\n\tCampus Guide - Release Manager')
     print('\tUsage:   release_manager.py', end='')
     print(' <bucket_name> <asset_dir> <output_dir> <#.#.#|major|minor|patch> [options]')
     print('\tAlt:     release_manager.py', end='')
-    print(' --dev <asset_dir>')
+    print(' --dev <asset_dir> <config_dir> <config_name>' , end='')
+    print(' [--ios <config_dir>]', end='')
+    print(' [--android <config_dir>]')
     print('\tExample: release_manager.py', end='')
     print(' <bucket_name> assets/ assets_release/ patch [options]')
     print('\tOptions:')
