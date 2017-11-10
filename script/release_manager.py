@@ -196,11 +196,11 @@ def build_dev_config(asset_dir, output_dir, app_config_dir, filename):
     with open(os.path.join(output_dir, filename_android), 'w') as config_file:
         json.dump(config_android, config_file, sort_keys=True, ensure_ascii=False, indent=2)
     if 'android' in app_config_dir:
-        print('Dumping Android config to `{0}/{1}`'.format(app_config_dir['android'], 'base_config.json'))
+        print('Dumping Android config to `{0}/{1}`'.format(
+            app_config_dir['android'],
+            'base_config.json'))
         with open(os.path.join(app_config_dir['android'], 'base_config.json'), 'w') as config_file:
             json.dump(config_android, config_file, sort_keys=True, ensure_ascii=False, indent=2)
-
-
 
 
 def get_most_recent_config(bucket):
@@ -640,7 +640,7 @@ elif len(sys.argv) < 5:
     print('\tUsage:   release_manager.py', end='')
     print(' <bucket_name> <asset_dir> <output_dir> <#.#.#|major|minor|patch> [options]')
     print('\tAlt:     release_manager.py', end='')
-    print(' --dev <asset_dir> <config_dir> <config_name>' , end='')
+    print(' --dev <asset_dir> <config_dir> <config_name>', end='')
     print(' [--ios <config_dir>]', end='')
     print(' [--android <config_dir>]')
     print('\tExample: release_manager.py', end='')
