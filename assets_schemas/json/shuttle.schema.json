@@ -63,6 +63,7 @@
               "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$"
             }
           },
+          "icon": { "$ref": "http://josephroque.ca/json-schema/icon" },
           "directions": {
             "type": "array",
             "description": "Directions in which the shuttle travels and its travel times",
