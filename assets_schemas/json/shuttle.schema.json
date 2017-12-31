@@ -10,20 +10,44 @@
       "description": "A list of stops",
       "items": {
         "description": "A stop which the shuttle makes",
-        "required": [ "id", "latitude", "longitude" ],
+        "required": [ "id", "incoming", "outgoing" ],
         "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
             "description": "Unique identifier for the stop"
           },
-          "latitude": {
-            "type": "number",
-            "description": "Latitude of the location of the stop"
+          "incoming": {
+            "type": "object",
+            "description": "Location of the stop on the incoming route",
+            "additionalProperties": false,
+            "required": [ "latitude", "longitude" ],
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "Latitude of the location of the stop"
+              },
+              "longitude": {
+                "type": "number",
+                "description": "Longitude of the location of the stop"
+              }
+            }
           },
-          "longitude": {
-            "type": "number",
-            "description": "Longitude of the location of the stop"
+          "outgoing": {
+            "type": "object",
+            "description": "Location of the stop on the outgoing route",
+            "additionalProperties": false,
+            "required": [ "latitude", "longitude" ],
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "description": "Latitude of the location of the stop"
+              },
+              "longitude": {
+                "type": "number",
+                "description": "Longitude of the location of the stop"
+              }
+            }
           }
         },
         "patternProperties": {
@@ -70,9 +94,15 @@
             "maxItems": 2,
             "items": {
               "type": "object",
-              "required": [ "day_times" ],
+              "required": [ "id", "day_times" ],
               "additionalProperties": false,
               "properties": {
+                "id": {
+                  "enum": [
+                    "incoming",
+                    "outgoing"
+                  ]
+                },
                 "day_times": {
                   "additionalProperties": false,
                   "patternProperties": {
