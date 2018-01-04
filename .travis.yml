@@ -2,7 +2,7 @@ language: python
 python: 3.6
 install:
   - pip install -r requirements.txt
-  - pip install pylint pep8
+  - pip install pylint pycodestyle
 script:
   - pylint script/
-  - pep8 --max-line-length=100 script/
+  - pycodestyle --max-line-length=100 script/
