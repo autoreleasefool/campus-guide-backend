@@ -3,10 +3,20 @@
   "title": "Server Configuration",
   "description": "Describes the current versions and locations of configuration files for the application",
   "type": "object",
-  "required": [ "lastUpdatedAt", "files" ],
+  "required": [ "lastUpdatedAt", "files", "whatsNew" ],
   "additionalProperties": false,
   "properties":{
     "lastUpdatedAt": { "type": "number" },
+    "whatsNew": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^description(_[a-z]+)?$": {
+          "type": "string",
+          "description": "Description of what's new in the config. Add the locale modifier for names in different languages"
+        }
+      }
+    },
     "files": {
       "type": "array",
       "items": {

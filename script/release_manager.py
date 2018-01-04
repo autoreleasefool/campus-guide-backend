@@ -24,7 +24,7 @@ ASSET_TYPES = {
 }
 
 
-def build_empty_config():
+def build_empty_config(desc_en='', desc_fr=''):
     """
     Get a basic empty config. For consistency.
 
@@ -33,7 +33,11 @@ def build_empty_config():
     """
     return {
         'files': [],
-        'lastUpdatedAt': int(time.time())
+        'lastUpdatedAt': int(time.time()),
+        'whatsNew': {
+            'description_en': desc_en,
+            'description_fr': desc_fr,
+        },
     }
 
 
@@ -96,7 +100,7 @@ def get_asset_type(asset_name):
     return None
 
 
-def build_dev_config(asset_dir, output_dir, app_config_dir, filename):
+def build_dev_config(asset_dir, output_dir, app_config_dir, filename, description):
     """
     Builds a config for a dev environment.
 
@@ -116,6 +120,10 @@ def build_dev_config(asset_dir, output_dir, app_config_dir, filename):
         Output filename for config file
     :type filename:
         `str`
+    :param description:
+        Description of the update
+    :type description:
+        `dict`
     """
     # pylint:disable=R0914
     assets = get_all_assets(asset_dir)
@@ -128,8 +136,8 @@ def build_dev_config(asset_dir, output_dir, app_config_dir, filename):
         if os.path.exists(app_config_dir[platform]):
             shutil.rmtree(app_config_dir[platform])
         os.makedirs(app_config_dir[platform])
-    config_ios = build_empty_config()
-    config_android = build_empty_config()
+    config_ios = build_empty_config(desc_en=description['en'], desc_fr=description['fr'])
+    config_android = build_empty_config(desc_en=description['en'], desc_fr=description['fr'])
 
     for dev_asset in assets:
         asset_folder = dev_asset[0]
@@ -562,7 +570,7 @@ def update_changed_assets(bucket, asset_dir, output_dir, only, compatible=False)
     return changed_assets, existing_configs
 
 
-def build_release_config(assets, version):
+def build_release_config(assets, version, description):
     """
     Build a config for release.
 
@@ -578,10 +586,14 @@ def build_release_config(assets, version):
         Version for config
     :type version:
         `int`
+    :param description:
+        Description of the update
+    :type description:
+        `dict`
     :rtype:
         `str`, `dict`
     """
-    config = build_empty_config()
+    config = build_empty_config(desc_en=description['en'], desc_fr=description['fr'])
     for release_asset in assets:
         config['files'].append(assets[release_asset])
     config_key = 'config/{0}.json'.format(version)
@@ -623,6 +635,8 @@ def update_changed_configs(bucket, configs):
             ACL='public-read'
         )
 
+DESCRIPTION = {'en': '', 'fr': ''}
+
 # Input validation
 if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
     DEV_ASSET_DIR = '../assets_dev/' if len(sys.argv) < 3 else sys.argv[2]
@@ -633,7 +647,13 @@ if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
         DEV_APP_DIR['ios'] = sys.argv[sys.argv.index('--ios') + 1]
     if '--android' in sys.argv:
         DEV_APP_DIR['android'] = sys.argv[sys.argv.index('--android') + 1]
-    build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_APP_DIR, DEV_FILENAME)
+    if '--desc' in sys.argv:
+        desc_idx = sys.argv.index('--desc')
+        DESCRIPTION = {'en': sys.argv[desc_idx + 1], 'fr': sys.argv[desc_idx + 2]}
+    else:
+        DESCRIPTION = {'en': 'Test update.', 'fr': 'Mise à jour test.'}
+
+    build_dev_config(DEV_ASSET_DIR, DEV_OUTPUT_DIR, DEV_APP_DIR, DEV_FILENAME, DESCRIPTION)
     exit()
 elif len(sys.argv) < 5:
     print('\n\tCampus Guide - Release Manager')
@@ -651,6 +671,7 @@ elif len(sys.argv) < 5:
     print('\t--only <name1,...>\tUpdate only assets with the given names. Otherwise, update all')
     print('\t--region <region>\tAWS region')
     print('\t--compatible\t\tSpecify that assets changed are compatible with existing configs')
+    print('\t--desc <en> <fr>\tEnglish and French descriptions of the config changes')
     print()
     exit()
 
@@ -664,25 +685,31 @@ REGION = 'ca-central-1'
 ONLY_UPGRADE = None
 COMPATIBLE = False
 
-SKIP_NEXT = False
+SKIP_ARGS = 0
 if len(sys.argv) > 5:
     for (index, arg) in enumerate(sys.argv[5:]):
-        if SKIP_NEXT:
-            SKIP_NEXT = False
+        if SKIP_ARGS > 0:
+            SKIP_ARGS -= 1
             continue
 
         if arg == '--only':
-            SKIP_NEXT = True
+            SKIP_ARGS = 1
             ONLY_UPGRADE = set()
             for asset in sys.argv[index + 1].split(','):
                 ONLY_UPGRADE.add(asset)
         elif arg == '--region':
-            SKIP_NEXT = True
+            SKIP_ARGS = 1
             REGION = sys.argv[index + 1]
         elif arg == '--no-new-config':
             BUILD_CONFIG = False
         elif arg == '--compatible':
             COMPATIBLE = True
+        elif arg == '--desc':
+            DESCRIPTION = {
+                'en': sys.argv[index + 1],
+                'fr': sys.argv[index + 2],
+            }
+            SKIP_ARGS = 2
 
 S3 = boto3.resource('s3')
 BUCKET = S3.Bucket(BUCKET_NAME)
@@ -694,5 +721,5 @@ if COMPATIBLE:
     update_changed_configs(BUCKET, UPDATED_CONFIGS)
 if BUILD_CONFIG:
     CONFIG_VERSION = get_release_config_version(BUCKET, NEW_VERSION)
-    CONFIG_KEY, CONFIG_DETAILS = build_release_config(UPDATED_ASSETS, CONFIG_VERSION)
+    CONFIG_KEY, CONFIG_DETAILS = build_release_config(UPDATED_ASSETS, CONFIG_VERSION, DESCRIPTION)
     update_changed_configs(BUCKET, {CONFIG_KEY: CONFIG_DETAILS})
