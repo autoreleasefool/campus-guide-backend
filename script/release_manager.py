@@ -635,7 +635,9 @@ def update_changed_configs(bucket, configs):
             ACL='public-read'
         )
 
+
 DESCRIPTION = {'en': '', 'fr': ''}
+
 
 # Input validation
 if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
@@ -648,8 +650,8 @@ if len(sys.argv) >= 2 and sys.argv[1] == '--dev':
     if '--android' in sys.argv:
         DEV_APP_DIR['android'] = sys.argv[sys.argv.index('--android') + 1]
     if '--desc' in sys.argv:
-        desc_idx = sys.argv.index('--desc')
-        DESCRIPTION = {'en': sys.argv[desc_idx + 1], 'fr': sys.argv[desc_idx + 2]}
+        DESC_IDX = sys.argv.index('--desc')
+        DESCRIPTION = {'en': sys.argv[DESC_IDX + 1], 'fr': sys.argv[DESC_IDX + 2]}
     else:
         DESCRIPTION = {'en': 'Test update.', 'fr': 'Mise à jour test.'}
 

@@ -149,6 +149,7 @@ def validate_all(config_dir, schema_dir):
         # Recursively push assets in directories
         validate_all(d_path, sd_path)
 
+
 validate_all(sys.argv[1], sys.argv[2])
 
 sys.exit(SUCCESS_CODE)
