@@ -1,6 +1,6 @@
 # Campus Guide - Backend
 
-[![Build status](https://travis-ci.org/josephroque/campus-guide-backend.svg?branch=master)](https://travis-ci.org/josephroque/campus-guide-backend)
+[![Build status](https://travis-ci.org/josephroqueca/campus-guide-backend.svg?branch=master)](https://travis-ci.org/josephroqueca/campus-guide-backend)
 
 Backend configuration management for the Campus Guide mobile app.
 
