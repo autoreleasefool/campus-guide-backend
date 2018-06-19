@@ -13,7 +13,16 @@ import jsonschema
 RE_LANGUAGE = re.compile(r'[.][a-z]+$')
 RE_COMMENT = re.compile(r'^\s*[/]{2}.*$', flags=re.MULTILINE)
 
+VERBOSE = False
 SUCCESS_CODE = 0
+
+if '-v' in sys.argv:
+    VERBOSE = True
+    sys.argv.remove('-v')
+
+if '--verbose' in sys.argv:
+    VERBOSE = True
+    sys.argv.remove('--verbose')
 
 if len(sys.argv) < 3:
     print('Usage: ./schema_validate.py <asset_dir> <schema_dir>')
@@ -92,7 +101,8 @@ def validate(config, schema_path, schema_name):
 
     try:
         jsonschema.Draft4Validator(schema_json, resolver=resolver).validate(config_json)
-        print('  Success: {0}'.format(config))
+        if VERBOSE:
+            print('  Success: {0}'.format(config))
     except jsonschema.ValidationError as error:
         set_success_code(1)
         print('  Failed: `{0}`'.format(config))
@@ -119,7 +129,8 @@ def validate_all(config_dir, schema_dir):
         file_path = os.path.join(config_dir, file)
         if os.path.isfile(file_path):
             if not file_path.endswith('.json'):
-                print('  Skipping `{0}`'.format(file_path))
+                if VERBOSE:
+                    print('  Skipping `{0}`'.format(file_path))
                 continue
 
             schema_path = schema_name = None
