@@ -5,14 +5,27 @@
   "type": "object",
   "required": [ "filters", "filterDescriptions", "spots", "reservations" ],
   "additionalProperties": false,
+  "definitions": {
+    "studyFilter": {
+      "enum": [
+        "individual",
+        "group",
+        "silent",
+        "food",
+        "outlets",
+        "computers",
+        "open",
+        "lighting"
+      ]
+    }
+  },
   "properties": {
     "filters": {
       "type": "array",
       "description": "A list of available filters for study spots",
       "uniqueItems": true,
       "items": {
-        "type": "string",
-        "description": "ID of a single filter"
+        "$ref": "#/definitions/studyFilter"
       }
     },
     "filterDescriptions": {
@@ -71,8 +84,7 @@
             "type": "array",
             "description": "A list of properties of the study spot, to filter by",
             "items": {
-              "type": "string",
-              "description": "ID of the filter, from the `filters` array"
+              "$ref": "#/definitions/studyFilter"
             }
           },
           "alwaysOpen": {
