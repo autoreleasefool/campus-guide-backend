@@ -36,6 +36,10 @@
                 "^name(_[a-z]+)?$": {
                   "type": "string",
                   "description": "Name of the property. Add the locale modifier for names in different languages"
+                },
+                "^description(_[a-z]+)?$": {
+                  "type": "string",
+                  "description": "Description of the property. Add the locale modifier for descriptions in different languages"
                 }
               }
             }
